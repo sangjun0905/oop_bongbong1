@@ -6,8 +6,3 @@ public:
         std::cout << "Main menu" << std::endl;
     }
 };
-
-int main() {
-    MainMenuView mainmenuview;
-    mainmenuview.display();
-}
