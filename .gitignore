@@ -1,0 +1,23 @@
+# Build artifacts
+/build/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# Compiled object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
