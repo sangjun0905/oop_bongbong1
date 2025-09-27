@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MainMenuView.cpp"
+#include "view/MainMenuView.cpp"
 
 int main() {
     MainMenuView mainmenuview;
