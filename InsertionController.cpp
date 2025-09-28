@@ -1,19 +1,27 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <string.h>
 
 class InsertionController
 {
 private:
-    /* data */
-    //StudentInfoModel studim;
+    //StudentInfoModel* studim;
+    //InsetionView* insView;
+    char name_in[16];
+    char studID_in[10];
+    char birthYear_in[4];
+    char dept_in[64];
+    char tel_in[24];
+
 public:
     InsertionController(/* args */);
     ~InsertionController();
     void insert();
 };
 
-InsertionController::InsertionController(/* *StudentInfomodel studimp */)
+InsertionController::InsertionController(/* InsetionView* insetionViewp, StudentInfomodel* studentInfomodelp */)
 {
+    // studim = studentInfomodelp;
+    // insView = insertionViewp;
 }
 
 InsertionController::~InsertionController()
@@ -22,9 +30,12 @@ InsertionController::~InsertionController()
 
 void InsertionController::insert()
 {
-    // Insertion View 출력
-    // 이름 입력받고 적절한지 확인
-    // 학번 입력받고 적절한지 확인
-    // 학과 입력받고 적절한지 확인
-    // 전화번호 입력받고 적절한지 확인
+    // strcpy(name_in, insView.getName());
+    // strcpy(studID_in, insView.getStudentID());
+    // strcpy(birthYear_in, insView.getBirthYear());
+    // strcpy(dept_in, insView.getDepartment());
+    // strcpy(tel_in, insView.getTel());
+    // Student* newStudent = new Student(
+    // name_in, studID_in, birthYear_in, dept_in, tel_in);
+    // studim->vector.push_back(newStudent);
 }
