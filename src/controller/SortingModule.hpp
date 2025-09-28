@@ -10,7 +10,7 @@ private:
     Student* model;
 
 public:
-    SortingController(Student* m);
+    SortingController(Display* display, Student* m);
     std::vector<Student> run(char option);
 };
 
