@@ -18,9 +18,9 @@ public:
     void insert();
 };
 
-InsertionController::InsertionController(/* InsetionView* insetionViewp, StudentInfomodel* studentInfomodelp */)
+InsertionController::InsertionController(/* InsetionView* insetionViewp, Student_model* studentModelp */)
 {
-    // studim = studentInfomodelp;
+    // studim = studentModelp;
     // insView = insertionViewp;
 }
 
@@ -37,5 +37,5 @@ void InsertionController::insert()
     // strcpy(tel_in, insView.getTel());
     // Student* newStudent = new Student(
     // name_in, studID_in, birthYear_in, dept_in, tel_in);
-    // studim->vector.push_back(newStudent);
+    // studim->add_student(newStudent);
 }
