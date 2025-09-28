@@ -1,7 +1,12 @@
 #include <iostream>
+#include <cstdlib>
 
 class InsertionView {
 public:
+    void display() {
+        std::cout << "Insert Student Information" << std::endl;
+    }
+    
     char* getName() {
         char inputName[16];
         do {
@@ -10,21 +15,21 @@ public:
         } while (checkName(inputName));
         return inputName;
     }
-    char* getStudentID() {
+    int getStudentID() {
         char inputStudentID[16];
         do {
             std::cout << "StudentID: ";
             std::cin >> inputStudentID;
         } while (checkName(inputStudentID));
-        return inputStudentID;
+        return std::atoi(inputStudentID);
     }
-    char* getBirthYear() {
+    int getBirthYear() {
         char inputBirthYear[16];
         do {
             std::cout << "BirthYear: ";
             std::cin >> inputBirthYear;
         } while (checkBirthYear(inputBirthYear));
-        return inputBirthYear;
+        return std::atoi(inputBirthYear);
     }
     char* getDepartment() {
         char inputDepartment[64];
