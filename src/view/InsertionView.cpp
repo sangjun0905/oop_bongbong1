@@ -58,4 +58,12 @@ public:
     int checkTel(char* inputTel) {
         return 0;
     }
+
+    void display() {
+        getName();
+        getStudentID();
+        getBirthYear();
+        getDepartment();
+        getTel();
+    }
 };

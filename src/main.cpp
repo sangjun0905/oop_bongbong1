@@ -1,7 +1,8 @@
 #include <iostream>
-#include "view/MainMenuView.cpp"
+#include "MainController.cpp"
 
 int main() {
-    MainMenuView mainmenuview;
-    mainmenuview.display();
+    MainController mainController;
+    mainController.run();
+    return 0;
 }

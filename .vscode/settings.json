@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "iostream": "cpp"
+        "*.dbclient-js": "javascript",
+        "iostream": "cpp",
+        "system_error": "cpp",
+        "xlocale": "cpp"
     }
 }
