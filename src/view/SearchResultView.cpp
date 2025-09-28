@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iomanip> // setw()을 사용하여 출력 형식을 맞추기 위해 포함
 
-void SortingResultView::displaySearchResults(const std::vector<Student>& results) {
+void SearchResultView::displaySearchResults(const std::vector<Student>& results) {
 
     // setw : 너비를 고정해서 출력
     std::cout << std::left << std::setw(16) << "Name"

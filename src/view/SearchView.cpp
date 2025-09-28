@@ -1,6 +1,6 @@
 #include <iostream>
 
-class SortingView {
+class SearchView {
 public :
     char display() {
         char input[10];

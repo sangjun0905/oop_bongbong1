@@ -6,10 +6,11 @@
 
 class SortingController {
 private:
+    Display* display;
     Student* model;
 
 public:
-    SortingController(Views* v, Student_Model* m);
+    SortingController(Display* d, Student* m);
     std::vector<Student> run(char option);
 };
 
@@ -18,7 +19,7 @@ public:
     void displaySearchResults(const std::vector<Student>& results); 
 };
 
-class display{
+class Display{
 public: 
     void displayMessage(const std::string& message);
 };

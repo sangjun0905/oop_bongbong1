@@ -1,24 +1,25 @@
-#ifndef SORTINGMODULE_HPP
-#define SORTINGMODULE_HPP
+#ifndef SEARCHMODULE_HPP
+#define SEARCHMODULE_HPP
 
 #include "Student.hpp"
 #include <vector> // run()의 반환형
 
-class SortingController {
+class SearchController {
 private:
+    Display* display;
     Student* model;
 
 public:
-    SortingController(Views* v, Student_Model* m);
+    SearchController(Display* d, Student* m);
     std::vector<Student> run(char option);
 };
 
-class SortingResultView {
+class SearchResultView {
 public:
     void displaySearchResults(const std::vector<Student>& results); 
 };
 
-class display{
+class Display{
 public: 
     void displayMessage(const std::string& message);
 };
