@@ -13,11 +13,7 @@ void SortingResultView::displaySearchResults(const std::vector<Student>& results
               << "\n";
     td::cout << "================================================================================\n";
 
-    if (results.empty()) {
-        std::cout << "No student records to display.\n";
-    } 
-    else {
-        for (const auto& student : results) {
+    for (const auto& student : results) {
             std::cout << std::left << std::setw(16) << student.getName()
                       << std::setw(12) << student.getStudentID()
                       << std::setw(25) << student.getDepartment()
@@ -25,7 +21,6 @@ void SortingResultView::displaySearchResults(const std::vector<Student>& results
                       << std::setw(15) << student.getTel()
                       << "\n";
         }
-    }
     
     std::cout << "================================================================================\n\n";
 }
