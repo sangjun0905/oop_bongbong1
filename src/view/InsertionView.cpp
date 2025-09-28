@@ -3,6 +3,10 @@
 
 class InsertionView {
 public:
+    void display() {
+        std::cout << "Insert Student Information" << std::endl;
+    }
+    
     char* getName() {
         char inputName[16];
         do {
