@@ -2,12 +2,10 @@
 #include <iostream>
 #include <algorithm> // std::sort 사용
 
-SortingController::SortingController(Views* v, Student_Model* m)
-    : views(v), model(m) {}
+SortingController::SortingController(Student* m)
+    : model(m) {}
 
-// SortingController의 메인 실행 함수
 std::vector<Student> SortingController::run(char option) {
-    // Student Model에서 모든 학생 리스트를 복사
     std::vector<Student> sorted_list = model->getAllStudents();
     
     switch (option) {
@@ -18,7 +16,7 @@ std::vector<Student> SortingController::run(char option) {
             [](const Student& a, const Student& b) {
                 return a.getName() < b.getName();
             });
-        views->displayMessage("Sorting option set to Name.");
+        view->display("Sorting option set to Name.");
         break;
 
     case '2': // Sort by s-id
@@ -26,7 +24,7 @@ std::vector<Student> SortingController::run(char option) {
             [](const Student& a, const Student& b) {
                 return a.getStudentID() < b.getStudentID();
             });
-        views->displayMessage("Sorting option set to Student ID.");
+        view->display("Sorting option set to Student ID.");
         break;
 
     case '3': // Sort by birth
@@ -34,7 +32,7 @@ std::vector<Student> SortingController::run(char option) {
             [](const Student& a, const Student& b) {
                 return a.getBirthYear() < b.getBirthYear();
             });
-        views->displayMessage("Sorting option set to Birth Year.");
+        view->display("Sorting option set to Birth Year.");
         break;
 
     case '4': // Sort by dept
@@ -42,11 +40,15 @@ std::vector<Student> SortingController::run(char option) {
             [](const Student& a, const Student& b) {
                 return a.getDepartment() < b.getDepartment();
             });
-        views->displayMessage("Sorting option set to Department.");
+        view->display("Sorting option set to Department.");
+        break;
+
+    case '5': // Go back to main menu
+        view->display("Returning to main menu.");
         break;
 
     default:
-        views->displayMessage("Error: Invalid option passed to controller.");
+        view->display("Error: Invalid option.");
         return {};
     }
     return sorted_list; // 정렬된 리스트 반환

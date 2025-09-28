@@ -1,4 +1,4 @@
-#include "../controller/SortingModule.hpp"
+#include "SortingModule.hpp"
 #include <iostream>
 #include <iomanip> // setw()을 사용하여 출력 형식을 맞추기 위해 포함
 
@@ -11,11 +11,12 @@ void SortingResultView::displaySearchResults(const std::vector<Student>& results
               << std::setw(12) << "Birth Year"
               << std::setw(15) << "Tel"
               << "\n";
-    std::cout << "--------------------------------------------------------------------------------\n";
+    td::cout << "================================================================================\n";
 
     if (results.empty()) {
-        std::cout << "No student records found to display.\n";
-    } else {
+        std::cout << "No student records to display.\n";
+    } 
+    else {
         for (const auto& student : results) {
             std::cout << std::left << std::setw(16) << student.getName()
                       << std::setw(12) << student.getStudentID()
