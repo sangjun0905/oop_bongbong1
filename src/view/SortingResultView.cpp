@@ -11,7 +11,7 @@ void SortingResultView::displaySearchResults(const std::vector<Student>& results
               << std::setw(12) << "Birth Year"
               << std::setw(15) << "Tel"
               << "\n";
-    td::cout << "================================================================================\n";
+    std::cout << "================================================================================\n";
 
     for (const auto& student : results) {
             std::cout << std::left << std::setw(16) << student.getName()

@@ -9,7 +9,7 @@ private:
     Student* model;
 
 public:
-    SortingController(Views* v, Student_Model* m);
+    SortingController(Student_Model* m);
     std::vector<Student> run(char option);
 };
 
