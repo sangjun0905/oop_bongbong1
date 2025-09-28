@@ -1,41 +1,49 @@
 #include <iostream>
 
 class InsertionView {
+private:
+    char inputName[16];
+    char inputStudentID[16];
+    char inputBirthYear[16];
+    char inputDepartment[64];
+    char inputTel[24];
+
 public:
-    char* getName() {
-        char inputName[16];
+    char* getName() { return inputName; }
+    char* getStudentID() { return inputStudentID; }
+    char* getBirthYear() { return inputBirthYear; }
+    char* getDepartment() { return inputDepartment; }
+    char* getTel() { return inputTel; }
+
+    char* setName() {
         do {
             std::cout << "Name: ";
             std::cin >> inputName;
         } while (checkName(inputName));
         return inputName;
     }
-    char* getStudentID() {
-        char inputStudentID[16];
+    char* setStudentID() {    
         do {
             std::cout << "StudentID: ";
             std::cin >> inputStudentID;
         } while (checkName(inputStudentID));
         return inputStudentID;
     }
-    char* getBirthYear() {
-        char inputBirthYear[16];
+    char* setBirthYear() {    
         do {
             std::cout << "BirthYear: ";
             std::cin >> inputBirthYear;
         } while (checkBirthYear(inputBirthYear));
         return inputBirthYear;
     }
-    char* getDepartment() {
-        char inputDepartment[64];
+    char* setDepartment() {
         do {
             std::cout << "Department: ";
             std::cin >> inputDepartment;
         } while (checkDepartment(inputDepartment));
         return inputDepartment;
     }
-    char* getTel() {
-        char inputTel[24];
+    char* setTel() {
         do {
             std::cout << "Tel: ";
             std::cin >> inputTel;
@@ -60,10 +68,10 @@ public:
     }
 
     void display() {
-        getName();
-        getStudentID();
-        getBirthYear();
-        getDepartment();
-        getTel();
+        setName();
+        setStudentID();
+        setBirthYear();
+        setDepartment();
+        setTel();
     }
 };

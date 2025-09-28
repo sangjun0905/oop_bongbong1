@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../src/view/MainMenuView.cpp"
-#include "../src/view/InsertionView.cpp"
+#include "../view/MainMenuView.cpp"
+#include "../view/InsertionView.cpp"
 
 // 앞으로 SearchController, SortingController도 이런 식으로 include
 // #include "SearchController.cpp"
@@ -19,9 +19,9 @@ public:
             switch (userSelect) {
                 case '1': {
                     insertionView.display();
-                    // InsertionController insertionController(insertionView.getName, insertionView.getStudentID,
-                                                            // insertionView.getBirthYear, insertionView.getDepartment, 
-                                                            // insertionView.getTel)
+                    // InsertionController insertionController(insertionView.getName(), insertionView.getStudentID(),
+                                                            // insertionView.getBirthYear(), insertionView.getDepartment(), 
+                                                            // insertionView.getTel())
                     break;
                 }
                 case '2':
