@@ -1,7 +1,6 @@
-#include "SortingController.hpp"
+#include "SortingModule.hpp"
 #include <iostream>
 #include <algorithm> // std::sort 사용
-#include "Student.hpp" 
 
 SortingController::SortingController(Views* v, Student_Model* m)
     : views(v), model(m) {}

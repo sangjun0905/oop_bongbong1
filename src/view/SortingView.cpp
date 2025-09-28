@@ -23,7 +23,7 @@ public :
         if (input[0] == '3') return 0;
         if (input[0] == '4') return 0;
 
-        std::cout << "Try again!" << std::endl;
+        std::cout << "Please enter a number between 1 and 4." << std::endl;
         return 1;
     }
 };
