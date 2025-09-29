@@ -2,15 +2,17 @@
 #include "../view/MainMenuView.cpp"
 #include "../view/InsertionView.cpp"
 
-// 앞으로 SearchController, SortingController도 이런 식으로 include
-// #include "SearchController.cpp"
-// #include "SortingController.cpp"
+#include "SearchController.cpp"
+#include "InsertionController.cpp"
+#include "SortingController.cpp"
+#include "FileController.hpp"
 
 class MainController {
 public:
     void run() {
         MainMenuView menuView;
         InsertionView insertionView;
+        FileController fileController("text");
 
         bool start = true;
         while (start) {
@@ -19,23 +21,22 @@ public:
             switch (userSelect) {
                 case '1': {
                     insertionView.display();
-                    // InsertionController insertionController(insertionView.getName(), insertionView.getStudentID(),
-                                                            // insertionView.getBirthYear(), insertionView.getDepartment(), 
-                                                            // insertionView.getTel())
+                    InsertionController insertionController(insertionView.getName(), insertionView.getStudentID(),
+                                                            insertionView.getBirthYear(), insertionView.getDepartment(), 
+                                                            nsertionView.getTel());
                     break;
                 }
                 case '2':
-                    // SearchController searchController()
-                    // SearchResultView searchResultView(stdObject)
+                    SearchController searchController();
+                    SearchResultView searchResultView(stdObject);
                     break;
                 case '3':
-                    // SortingController sortingController()
-                    // SortResultView sortResultView(stdVector[])
+                    SortingController sortingController();
+                    SortResultView sortResultView(stdVector[]);
                     break;
                 case '4':
                     std::cout << "프로그램 종료\n";
-                    // FileController fileController
-                    // fileController.save(stdVector[])
+                    fileController.save(stdVector[]);
                     start = false;
                     break;
                 default:

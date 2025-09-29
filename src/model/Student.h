@@ -7,7 +7,6 @@
 
 class Student {
 private:
-   
     char name[16];
     int s_id;
     char tel[24];
@@ -33,41 +32,31 @@ public:
     }
 
     // Getter
+    const char* getName() const { return name; } 
+    int getS_id() const { return s_id; } 
+    const char* getTel() const { return tel; }
+    int getBirth() const { return birth; } 
+    const char* getDepartment() const { return department; }
 
-    
-    const char* get_name() const { return name; } 
-   
-    int get_s_id() const { return s_id; } 
-    
-    const char* get_tel() const { return tel; } 
-
-    int get_birth() const { return birth; } 
-
-    const char* get_department() const { return department; }
-
-    void set_name(const char* n) {
+    void setName(const char* n) {
         std::strncpy(name, n, 15);
         name[15] = '\0';
     }
-
     // s_id Setter
-    void set_s_id(int id) {
+    void setS_id(int id) {
         s_id = id;
     }
-
     // tel Setter: 문자열 복사 (최대 23자 + '\0')
-    void set_tel(const char* t) {
+    void setTel(const char* t) {
         std::strncpy(tel, t, 23);
         tel[23] = '\0';
     }
-
     // birth Setter
-    void set_birth(int b) {
+    void setBirth(int b) {
         birth = b;
     }
-
     // department Setter: 문자열 복사 (최대 63자 + '\0')
-    void set_department(const char* d) {
+    void setDepartment(const char* d) {
         std::strncpy(department, d, 63);
         department[63] = '\0';
     }
