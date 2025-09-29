@@ -1,11 +1,16 @@
 #include <iostream>
 #include <string.h>
 
+#include "../model/StudentModel.cpp"
+
+#include "../view/InsertionView.cpp"
+
 class InsertionController
 {
 private:
-    //StudentInfoModel* studim;
-    //InsetionView* insView;
+    StudentModel* studentModel;
+    InsertionView* insertionView;
+
     char name_in[16];
     char studID_in[10];
     char birthYear_in[4];
@@ -13,15 +18,16 @@ private:
     char tel_in[24];
 
 public:
-    InsertionController(/* args */);
+    InsertionController(InsertionView* insertionView, StudentModel* studentModel);
     ~InsertionController();
+
     void insert();
 };
 
-InsertionController::InsertionController(/* InsetionView* insetionViewp, StudentInfomodel* studentInfomodelp */)
+InsertionController::InsertionController(InsertionView* insertionView, StudentModel* studentModel)
 {
-    // studim = studentInfomodelp;
-    // insView = insertionViewp;
+    this->studentModel = studentModel;
+    this->insertionView = insertionView;
 }
 
 InsertionController::~InsertionController()
@@ -30,12 +36,12 @@ InsertionController::~InsertionController()
 
 void InsertionController::insert()
 {
-    // strcpy(name_in, insView.getName());
-    // strcpy(studID_in, insView.getStudentID());
-    // strcpy(birthYear_in, insView.getBirthYear());
-    // strcpy(dept_in, insView.getDepartment());
-    // strcpy(tel_in, insView.getTel());
-    // Student* newStudent = new Student(
-    // name_in, studID_in, birthYear_in, dept_in, tel_in);
-    // studim->vector.push_back(newStudent);
+    insertionView->display();
+    studentModel->addStudent(
+        insertionView->getName(),
+        insertionView->getStudentID(),
+        insertionView->getBirthYear(),
+        insertionView->getDepartment(),
+        insertionView->getTel()
+    );
 }
