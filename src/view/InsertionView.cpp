@@ -21,33 +21,35 @@ public:
             std::cin >> inputName;
         } while (checkName(inputName));
     }
-    int getStudentID() {
+    char* getStudentID() {
         char inputStudentID[16];
         do {
             std::cout << "StudentID: ";
             std::cin >> inputStudentID;
         } while (checkName(inputStudentID));
-        return std::atoi(inputStudentID);
+        return inputStudentID;
     }
-    int getBirthYear() {
+    char* getBirthYear() {
         char inputBirthYear[16];
         do {
             std::cout << "BirthYear: ";
             std::cin >> inputBirthYear;
         } while (checkBirthYear(inputBirthYear));
-        return std::atoi(inputBirthYear);
+        return inputBirthYear;
     }
-    void setDepartment() {
+    char* getDepartment() {
         do {
             std::cout << "Department: ";
             std::cin >> inputDepartment;
         } while (checkDepartment(inputDepartment));
+        return inputDepartment;
     }
-    void setTel() {
+    char* getTel() {
         do {
             std::cout << "Tel: ";
             std::cin >> inputTel;
         } while (checkTel(inputTel));
+        return inputTel;
     }
     
     int checkName(char* inputName) {
@@ -66,11 +68,13 @@ public:
         return 0;
     }
 
+    /*
     void display() {
-        setName();
-        setStudentID();
-        setBirthYear();
-        setDepartment();
-        setTel();
+        getName();
+        getStudentID();
+        getBirthYear();
+        getDepartment();
+        getTel();
     }
+        */
 };
