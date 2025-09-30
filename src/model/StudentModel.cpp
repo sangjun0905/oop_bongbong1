@@ -1,30 +1,23 @@
+#include "StudentModel.hpp"
+#include <string>
 #include <vector>
-#include <stdlib.h>
 
-#include "Student.h"
+void StudentModel::addStudent(const Student& new_student){
+    studentList.push_back(new_student);
+}
 
-class StudentModel{
-private:
-    std::vector<Student> studentList;
+void StudentModel::addStudent(const std::string& name, const std::string& studentID, const std::string& birthYear, const std::string& department, const std::string& tel)
+{
+    Student new_student(
+        name.c_str(),
+        std::stoi(studentID),
+        tel.c_str(),
+        std::stoi(birthYear),
+        department.c_str()
+    );
+    studentList.push_back(new_student);
+}
 
-public:
-    void addStudent(const Student& new_student){
-        studentList.push_back(new_student);
-    } //학생 추가
-
-    void addStudent(char* name, char* studentID, char* birthYear, char* department, char* tel) 
-    {
-        Student new_student(
-            name,
-            atoi(studentID),
-            tel,
-            atoi(birthYear),
-            department
-        ); 
-        studentList.push_back(new_student);
-    }
-
-    const std::vector<Student>& getAllStudents(){
-        return studentList;
-    } //전체 리스트 반환
-};
+const std::vector<Student>& StudentModel::getAllStudents(){
+    return studentList;
+}
