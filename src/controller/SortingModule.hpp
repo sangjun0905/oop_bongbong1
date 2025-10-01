@@ -21,15 +21,13 @@ public:
 };
 
 class SortingView {
-    public : 
+public : 
     char display();
-    SortingView();
 };
 
 class SortingResultView {
 public:
     void displaySearchResults(const std::vector<Student>& results); 
-    SortingResultView();
 };
 
 #endif

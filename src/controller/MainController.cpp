@@ -3,7 +3,7 @@
 #include "../model/StudentModel.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
-// #include "SearchModule.hpp"
+#include "SearchModule.hpp"
 #include "InsertionController.hpp"
 #include "SortingModule.hpp"
 #include "FileController.hpp"
@@ -18,6 +18,9 @@ public:
         InsertionView insertionView;
         InsertionController insertionController(insertionView, studentModel);        
 
+        SearchView searchView;
+        SearchController searchController(new Display(), &studentModel);
+        SearchResultView searchResultView;
 
         SortingView sortingView;
         SortingController sortingController(new Display(), &studentModel);
@@ -30,8 +33,6 @@ public:
             studentModel.addStudent(student);
         }
 
-        char SortingOption = '1'; // Search에서 초기 정렬 값은 Name
-
         bool start = true;
         while (start) {
             char userSelect = menuView.display();
@@ -42,12 +43,17 @@ public:
                     break;
                 }
                 case '2': {
+                    char SearchOption = searchView.display();
+                    if (SearchOption == '7') break;  // 7번은 메인메뉴
+                    std::vector<Student> Search_List = searchController.run(SearchOption);
+                    searchResultView.displaySearchResults(Search_List);
+                    
                     //SearchController searchController();
                     //SearchResultView searchResultView();
                     break;
                 }
                 case '3': {
-                    SortingOption = sortingView.display();
+                    char SortingOption = sortingView.display();
                     if (SortingOption == '5') break;  // 5번은 메인메뉴
                     std::vector<Student> Sorted_List = sortingController.run(SortingOption);
                     sortingResultView.displaySearchResults(Sorted_List);

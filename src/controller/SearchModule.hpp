@@ -15,14 +15,20 @@ public:
     std::vector<Student> run(char option);
 };
 
+class Display{
+public: 
+    void displayMessage(const std::string& message);
+};
+
+class SearchView {
+public :
+    char display();
+};
+
 class SearchResultView {
 public:
     void displaySearchResults(const std::vector<Student>& results); 
 };
 
-class Display{
-public: 
-    void displayMessage(const std::string& message);
-};
 
 #endif
