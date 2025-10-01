@@ -5,18 +5,16 @@
 #include <vector>
 #include <cctype>
 #include <cstring>
-#include "Filecontroller.hpp"
 
+#include "FileController.hpp"
 
-
-Filecontroller::Filecontroller(string file_name) //생성자로 파일 초기화
+FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
-}
+};
 
-vector<student> Filecontroller::readfile()
+StudentList FileController::readFile(StudentList students)
 {
-    vector<student> students;    //학생 정보 벡터
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -35,28 +33,29 @@ vector<student> Filecontroller::readfile()
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
-        return students;  // 기존 파일이 없으므로 빈 vector 반환
+        return students;    // 기존 파일이 없으므로 기존 vector 전달
     }
 
     //파일이 열림(기존 파일이 존재함)
     string line;
-    student studsplit;
+    vector<string> split;
     while (getline(readinfo, line))
     {
-        studsplit = linesplit(line);
-        if (studsplit.studentID == 0) {     //잘못된 학생 정보일때 
-            cout << "wrong information" <<endl;
+        split = lineSplit(line);
+        if (split.empty()) {     //잘못된 학생 정보일때 
+            //cout << "wrong information" <<endl;
             continue;
         }
-        students.push_back(studsplit);
+        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), std::stoi(split[3]), split[4].c_str());
+        students.addStudent(one);
     }
     readinfo.close();
     return students;
-}
+};
 
-student Filecontroller::linesplit(string line)
+vector<string> FileController::lineSplit(string line)
 {
-    student info;
+    Student info("", 0, "", 0, "");
     string delimiter = "::";    //구분자(임의로 정함)
 
     vector<string> studvector;
@@ -73,25 +72,15 @@ student Filecontroller::linesplit(string line)
 
     studvector.push_back(line.substr(start)); //마지막 남은 문장 추가
 
-    if (wronginfo(studvector) == 1) // 학생 정보 잘못됨
+    if (wrongInfo(studvector) == 1) // 학생 정보 잘못됨
     {
-        info.studentID = 0;         //int형이면서 반드시 10자리여야 하는 studentid를 0으로 해서 잘못된 학생 정보라는 것을 알림
-        return info;
+        studvector.clear();
     }
 
-    else                        //5개의 정보가 제대로 입력됨
-    {
-        strcpy(info.name, studvector[0].c_str());
-        info.studentID = stoi(studvector[1]);
-        info.birthyear = stoi(studvector[2]);
-        strcpy_s(info.department, studvector[3].c_str());
-        strcpy_s(info.tel, studvector[4].c_str());
-    }
-
-    return info;
+    return studvector;
 }
 
-int Filecontroller::wronginfo(vector<string> studvector)
+int FileController::wrongInfo(vector<string> studvector)
 {
     if (studvector.size() != 5) //문장을 쪼갠 결과 정보가 5개가 아님
         return 1;
@@ -112,9 +101,6 @@ int Filecontroller::wronginfo(vector<string> studvector)
         for (int i = 0; i < studvector[1].length(); i++)    //숫자 판별
             if (!isdigit(studvector[1][i]))
                 return 1;
-
-        if (studvector[1] > "2146999999")   //student overflow 방지
-            return 1;
     }
 
     if (studvector[2].length() != 4) //birthyear가 4글자가 아님
@@ -139,29 +125,31 @@ int Filecontroller::wronginfo(vector<string> studvector)
     }
 
     return 0;
-}
+};
 
-void Filecontroller::writefile(vector<student> studvector)
+void FileController::save(StudentList students)
 {
     ofstream writeinfo;
     writeinfo.open(file);
     string delimiter = "::";    //구분자 (임의지정)
 
+
+    vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
-        cout << "failed to open file" << endl; 
+        //cout << "failed to open file" << endl; 
         return;
     }
     for (int i = 0; i < studvector.size(); i++)
     {
-        writeinfo << studvector[i].name << delimiter;
-        writeinfo << studvector[i].studentID << delimiter;
-        writeinfo << studvector[i].birthyear << delimiter;
-        writeinfo << studvector[i].department << delimiter;
-        writeinfo << studvector[i].tel << endl;
+        writeinfo << studvector[i].getName() << delimiter;
+        writeinfo << studvector[i].getStudentId() << delimiter;
+        writeinfo << studvector[i].getBirthYear() << delimiter;
+        writeinfo << studvector[i].getDepartment() << delimiter;
+        writeinfo << studvector[i].getTel() << endl;
     }
 
     writeinfo.close();
 
     cout << "file write success" << endl;
-}
+};

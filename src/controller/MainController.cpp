@@ -1,16 +1,27 @@
 #include <iostream>
-#include "../view/MainMenuView.cpp"
-#include "../view/InsertionView.cpp"
 
-// 앞으로 SearchController, SortingController도 이런 식으로 include
-// #include "SearchController.cpp"
-// #include "SortingController.cpp"
+#include "../model/StudentList.hpp"
+#include "../view/MainMenuView.hpp"
+#include "../view/InsertionView.hpp"
+// #include "SearchModule.hpp"
+#include "InsertionController.hpp"
+// #include "SortingModule.hpp"
+#include "FileController.hpp"
 
 class MainController {
+private:
+    std::string filename;
 public:
+    MainController(const std::string& fname) : filename(fname){}
+    StudentList studentList;
+    MainMenuView menuView;
+    
     void run() {
-        MainMenuView menuView;
         InsertionView insertionView;
+        InsertionController insertionController(insertionView);        
+        
+        FileController fileController("text.txt");
+        StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
         while (start) {
@@ -18,26 +29,23 @@ public:
 
             switch (userSelect) {
                 case '1': {
-                    insertionView.display();
-                    // InsertionController insertionController(insertionView.getName(), insertionView.getStudentID(),
-                                                            // insertionView.getBirthYear(), insertionView.getDepartment(), 
-                                                            // insertionView.getTel())
+                    studentList = insertionController.insert(studentList);
                     break;
                 }
                 case '2':
-                    // SearchController searchController()
-                    // SearchResultView searchResultView(stdObject)
+                    //SearchController searchController();
+                    //SearchResultView searchResultView();
                     break;
                 case '3':
-                    // SortingController sortingController()
-                    // SortResultView sortResultView(stdVector[])
+                    //SortingController sortingController();
+                    //SortResultView sortResultView();
                     break;
-                case '4':
-                    std::cout << "프로그램 종료\n";
-                    // FileController fileController
-                    // fileController.save(stdVector[])
+                case '4':{
+                    std::cout << "exit program\n";
+                    fileController.save(studentList);
                     start = false;
                     break;
+                }
                 default:
                     std::cout << "input error\n";
             }
