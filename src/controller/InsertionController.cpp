@@ -1,41 +1,27 @@
 #include <iostream>
 #include <string>
 
+#include "InsertionController.hpp"
 #include "../model/StudentList.hpp"
 #include "../view/InsertionView.hpp"
 
-class InsertionController
+InsertionController::InsertionController(InsertionView& insertion) : insertionView(insertion)
 {
-private:
-    StudentList studentList;
-    InsertionView insertionView;
-
-public:
-    InsertionController(InsertionView& insertionView, StudentList& studentList);
-    ~InsertionController();
-
-    void insert();
-};
-
-InsertionController::InsertionController(InsertionView& insertionView, StudentList& studentList)
-{
-    this->studentList = studentList;
-    this->insertionView = insertionView;
 }
 
 InsertionController::~InsertionController()
 {
 }
 
-void InsertionController::insert()
+StudentList& InsertionController::insert(StudentList& studentList)
 {
     insertionView.display();
-    std::string name = insertionView.getName();
-    std::string id = insertionView.getStudentID();
-    std::string birth = insertionView.getBirthYear();
-    std::string dept = insertionView.getDepartment();
-    std::string tel = insertionView.getTel();
     studentList.addStudent(
-        name, id, tel, birth, dept
+        insertionView.getName().c_str(),
+        insertionView.getStudentID().c_str(),
+        insertionView.getBirthYear().c_str(),
+        insertionView.getDepartment().c_str(),
+        insertionView.getTel().c_str()
     );
+    return studentList;
 }
