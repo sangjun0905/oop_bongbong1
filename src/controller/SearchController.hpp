@@ -12,8 +12,9 @@ private:
     SearchResultView &searchResultView;
 
 public:
-    SearchController(SearchView &searchView, SearchResultView* searchResultView);
+    SearchController(SearchView &searchView, SearchResultView &searchResultView);
     void run(StudentList &studentList);
+    StudentList searching(char, StudentList);
 };
 
 #endif

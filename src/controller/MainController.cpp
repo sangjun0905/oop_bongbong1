@@ -5,7 +5,7 @@
 #include "../view/InsertionView.hpp"
 #include "../controller/SearchController.hpp"
 #include "InsertionController.hpp"
-#include "../controller/SortingController.hpp"
+//#include "../controller/SortingController.hpp"
 #include "FileController.hpp"
 
 class MainController {
@@ -18,12 +18,12 @@ public:
         InsertionController insertionController(insertionView, studentList);        
 
         SearchView searchView;
-        SearchController searchController(new Display(), &studentList);
         SearchResultView searchResultView;
-
-        SortingView sortingView;
-        SortingController sortingController(new Display(), &studentList);
-        SortingResultView sortingResultView;
+        SearchController searchController(searchView, searchResultView);
+        
+        //SortingView sortingView;
+        //SortingController sortingController(new Display(), &studentList);
+        //SortingResultView sortingResultView;
 
         FileController fileController("text.txt");
         StudentList readfileStudent = fileController.readFile(studentList);
