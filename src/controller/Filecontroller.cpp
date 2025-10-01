@@ -9,12 +9,13 @@
 
 
 
+
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
 }
 
-vector<Student> FileController::readFile(vector<Student> students)
+Student_model FileController::readFile(Student_model students)
 {
 
     ifstream readinfo;          //읽기 모드 파일
@@ -34,7 +35,6 @@ vector<Student> FileController::readFile(vector<Student> students)
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
-        students.clear();
         return students;    // 기존 파일이 없으므로 기존 vector 전달
     }
 
@@ -48,8 +48,8 @@ vector<Student> FileController::readFile(vector<Student> students)
             //cout << "wrong information" <<endl;
             continue;
         }
-        Student one (split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
-        students.push_back(one);
+        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
+        students.addStudent(one);
     }
     readinfo.close();
     return students;
@@ -77,7 +77,7 @@ vector<string> FileController::lineSplit(string line)
     {
         studvector.clear();  //학생 정보 vector를 비움
     }
-    
+
     return studvector;
 }
 
@@ -128,12 +128,14 @@ int FileController::wrongInfo(vector<string> studvector)
     return 0;
 }
 
-void FileController::save(vector<Student> studvector)
+void FileController::save(Student_model students)
 {
     ofstream writeinfo;
     writeinfo.open(file);
     string delimiter = "::";    //구분자 (임의지정)
 
+
+    vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
         //cout << "failed to open file" << endl; 
@@ -141,11 +143,11 @@ void FileController::save(vector<Student> studvector)
     }
     for (int i = 0; i < studvector.size(); i++)
     {
-        writeinfo << studvector[i].get_name() << delimiter;
-        writeinfo << studvector[i].get_s_id() << delimiter;
-        writeinfo << studvector[i].get_birth() << delimiter;
-        writeinfo << studvector[i].get_dept() << delimiter;
-        writeinfo << studvector[i].get_tel() << endl;
+        writeinfo << studvector[i].getName() << delimiter;
+        writeinfo << studvector[i].getStudentID() << delimiter;
+        writeinfo << studvector[i].getBirthYear() << delimiter;
+        writeinfo << studvector[i].getDepartment() << delimiter;
+        writeinfo << studvector[i].getTel() << endl;
     }
 
     writeinfo.close();
