@@ -18,14 +18,13 @@ public:
     
     void run() {
         InsertionView insertionView;
-        InsertionController insertionController(insertionView);        
+      
         
         FileController fileController(filename);
         StudentList readfileStudent = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
+    
         
-        FileController fileController("text.txt");
-        StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
         while (start) {
