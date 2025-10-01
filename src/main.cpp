@@ -2,7 +2,7 @@
 #include "controller/MainController.cpp"
 
 int main() {
-    MainController mainController;
+    MainController mainController("student.txt");
     mainController.run();
     return 0;
 }
