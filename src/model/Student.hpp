@@ -17,22 +17,21 @@ private:
 public:
     // 생성자
     Student(const char* n, const char* id, const char* t, int b, const char* d);
-   
 
     // Getter
 
     
-    const char* getName();
+    const char* getName() const;
    
-    const char* getStudentID() ;
+    const char* getStudentId() const;
     
-    const char* getTel();
+    const char* getTel() const;
 
-    int getBirthYear();
+    int getBirthYear() const;
 
-    const char* getAdmissionYear();
+    const char* getAdmissionYear() const;
 
-    const char* getDepartment();
+    const char* getDepartment() const;
 
     void setName(const char* n) ;
 

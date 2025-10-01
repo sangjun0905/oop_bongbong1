@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../model/StudentModel.hpp"
+#include "../model/StudentList.hpp"
 #include "../view/InsertionView.hpp"
 
 class InsertionController
 {
 private:
-    StudentModel& studentModel;
+    StudentList& studentModel;
     InsertionView& insertionView;
 
 public:
-    InsertionController(InsertionView& insertionView, StudentModel& studentModel);
+    InsertionController(InsertionView& insertionView, StudentList& studentModel);
     ~InsertionController();
 
     void insert();
