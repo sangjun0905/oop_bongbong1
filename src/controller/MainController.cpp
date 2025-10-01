@@ -44,7 +44,7 @@ public:
                     std::vector<Student> Search_List = searchController.run(SearchOption);
                     searchResultView.displaySearchResults(Search_List);
                     */
-                    searchController.run();
+                    searchController.run(studentList);
                     //SearchResultView searchResultView();
                     break;
                 }
