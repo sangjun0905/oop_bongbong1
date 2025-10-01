@@ -9,25 +9,13 @@
 #include "FileController.hpp"
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/filecontroller_modify
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
 };
 
-<<<<<<< HEAD
-vector<Student> FileController::readfile()
+StudentList FileController::readFile(StudentList students)
 {
-    vector<Student> students;    //학생 정보 벡터
-    vector<Student> students;    //학생 정보 벡터
-=======
-Student_model FileController::readFile(Student_model students)
-{
->>>>>>> origin/filecontroller_modify
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -51,18 +39,12 @@ Student_model FileController::readFile(Student_model students)
 
     //파일이 열림(기존 파일이 존재함)
     string line;
-    Student studsplit("", 0, "", 0, "");
+    vector<string> split;
     while (getline(readinfo, line))
     {
-<<<<<<< HEAD
-        studsplit = linesplit(line);
-        if (studsplit.getStudentID() == 0) {     //잘못된 학생 정보일때 
-            cout << "wrong information" <<endl;
-=======
         split = lineSplit(line);
         if (split.empty()) {     //잘못된 학생 정보일때 
             //cout << "wrong information" <<endl;
->>>>>>> origin/filecontroller_modify
             continue;
         }
         Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
@@ -72,11 +54,7 @@ Student_model FileController::readFile(Student_model students)
     return students;
 };
 
-<<<<<<< HEAD
-Student FileController::linesplit(string line)
-=======
 vector<string> FileController::lineSplit(string line)
->>>>>>> origin/filecontroller_modify
 {
     Student info("", 0, "", 0, "");
     string delimiter = "::";    //구분자(임의로 정함)
@@ -97,30 +75,13 @@ vector<string> FileController::lineSplit(string line)
 
     if (wrongInfo(studvector) == 1) // 학생 정보 잘못됨
     {
-        info.setStudentID(0);         //int형이면서 반드시 10자리여야 하는 studentid를 0으로 해서 잘못된 학생 정보라는 것을 알림
-        return info;
+        studvector.clear();
     }
-    else                        //5개의 정보가 제대로 입력됨
-    {
-        info.setName(studvector[0].c_str());
-        info.setStudentID(stoi(studvector[1]));
-        info.setBirthYear(stoi(studvector[2]));
-        info.setDepartment(studvector[3].c_str());
-        info.setTel(studvector[4].c_str());
-    }
-<<<<<<< HEAD
-
-    return info;
-};
-
-int FileController::wronginfo(vector<string> studvector)
-=======
 
     return studvector;
 }
 
 int FileController::wrongInfo(vector<string> studvector)
->>>>>>> origin/filecontroller_modify
 {
     if (studvector.size() != 5) //문장을 쪼갠 결과 정보가 5개가 아님
         return 1;
@@ -167,11 +128,7 @@ int FileController::wrongInfo(vector<string> studvector)
     return 0;
 };
 
-<<<<<<< HEAD
-void FileController::writefile(vector<Student> studvector)
-=======
-void FileController::save(Student_model students)
->>>>>>> origin/filecontroller_modify
+void FileController::save(StudentList students)
 {
     ofstream writeinfo;
     writeinfo.open(file);

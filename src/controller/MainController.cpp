@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../model/StudentModel.hpp"
+#include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
 // #include "SearchModule.hpp"
@@ -10,19 +10,15 @@
 
 class MainController {
 public:
-    StudentModel studentModel;
+    StudentList studentList;
     MainMenuView menuView;
     
     void run() {
         InsertionView insertionView;
-        InsertionController insertionController(insertionView, studentModel);        
+        InsertionController insertionController(insertionView, studentList);        
         
         FileController fileController("text.txt");
-        vector<Student> readfileStudent = fileController.readfile();
-
-        for (const Student& student : readfileStudent) {
-            studentModel.addStudent(student);
-        }
+        StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
         while (start) {
@@ -43,7 +39,7 @@ public:
                     break;
                 case '4':
                     std::cout << "프로그램 종료\n";
-                    fileController.writefile(studentModel.getAllStudents());
+                    fileController.save(studentList);
                     start = false;
                     break;
                 default:

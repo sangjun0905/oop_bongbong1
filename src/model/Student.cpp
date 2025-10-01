@@ -35,6 +35,29 @@ public:
         
     }
 
+    Student(const char* n, const char* id, const char* t, const char* b, const char* d)
+   
+        : birth(atoi(b)) 
+    {
+        // char 배열은 생성자 본문에서 strncpy로 처리
+        std::strncpy(name, n, 16);
+        name[16] = '\0'; // 널 종료 보장
+
+        std::strncpy(department, d, 64);
+        department[64] = '\0';
+
+        std::strncpy(studnetId, id, 8);
+        studnetId[8] = '\0';   
+
+        std::strncpy(admissionYear, id, 4);
+        admissionYear[4] = '\0';
+
+        std::strncpy(tel, t, 24);
+        tel[24] = '\0';
+        
+    }
+
+
     // Getter
 
     
