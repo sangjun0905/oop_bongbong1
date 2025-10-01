@@ -1,14 +1,55 @@
-#pragma once
-#include <string>
+#ifndef STUDENT_HPP
+#define STUDENT_HPP
 
-using namespace std;
+#include<cstring>
+#include<string>
 
-//임의로 설정함(나중에 없애야함)
-struct student {
-    char name[16];
-    int studentID;
-    int birthyear;
-    char department[64];
-    char tel[24];
+class Student {
+private:
+   
+    char name[17];
+    char studnetId[9];
+    char admissionYear[5];
+    char tel[25];
+    int birth;
+    char department[65];
+
+public:
+    // 생성자
+    Student(const char* n, const char* id, const char* t, int b, const char* d);
+   
+
+    // Getter
+
+    
+    const char* getName();
+   
+    const char* getStudentID() ;
+    
+    const char* getTel();
+
+    int getBirthYear();
+
+    const char* getAdmissionYear();
+
+    const char* getDepartment();
+
+    void setName(const char* n) ;
+
+    // s_id Setter
+    
+    void setStudentId(const char* id);
+
+   
+    void setTel(const char* t) ;
+
+
+    void setBirthYear(int b);
+
+    
+    void setDepartment(const char* d);
+
+
 };
 
+#endif
