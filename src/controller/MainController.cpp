@@ -9,9 +9,10 @@
 #include "FileController.hpp"
 
 class MainController {
+private:
+    std::string filename;
 public:
     MainController(const std::string& fname) : filename(fname){}
-    std::string filename;
     StudentList studentList;
     MainMenuView menuView;
     
