@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm> // std::sort 사용
 
-SortingController::SortingController(Display* d, Student* m)
+SortingController::SortingController(Display* d, StudentModel* m)
     : display(d), model(m) {}
 
 std::vector<Student> SortingController::run(char option) {

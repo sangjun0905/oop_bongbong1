@@ -2,6 +2,7 @@
 #define SORTINGMODULE_HPP
 
 #include "Student.hpp"
+#include "StudentModel.hpp"
 #include <vector> // run()의 반환형
 
 class SortingController {
@@ -10,7 +11,7 @@ private:
     Student* model;
 
 public:
-    SortingController(Display* display, Student* m);
+    SortingController(Display* display, StudentModel* m);
     std::vector<Student> run(char option);
 };
 
