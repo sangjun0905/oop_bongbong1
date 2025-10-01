@@ -7,7 +7,12 @@
 #include <vector>
 #include <cctype>
 #include <cstring>
+<<<<<<< HEAD
 #include "../model/Student.hpp"
+=======
+#include "Student.hpp"
+#include "StudentList.hpp"
+>>>>>>> origin/filecontroller_modify
 
 
 using namespace std;
@@ -18,10 +23,15 @@ class FileController
 
 public:
     FileController(string file_name);   //생성자(파일명 초기화) argv값 전달 받음
+<<<<<<< HEAD
     vector<Student> readfile();         //파일을 읽어서 student vector 전달
     void writefile(vector<Student> newinfo);    //파일 쓰기
+=======
+    Student_model readFile(Student_model students);         //파일을 읽어서 student vector 전달
+    void save(Student_model students);   //파일 쓰기
+>>>>>>> origin/filecontroller_modify
 
 private:
-    vector<string> linesplit(string line);     //파일에서 문자열을 읽어 student 형태로 만들어 반환 (파일읽기에서 사용)
-    int wronginfo(vector<string> studvector);
+    vector<string> lineSplit(string line);     //파일에서 문자열을 읽어 student 형태로 만들어 반환 (파일읽기에서 사용)
+    int wrongInfo(vector<string> studvector);
 };

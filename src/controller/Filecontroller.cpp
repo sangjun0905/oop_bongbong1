@@ -9,15 +9,25 @@
 #include "FileController.hpp"
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/filecontroller_modify
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
 };
 
+<<<<<<< HEAD
 vector<Student> FileController::readfile()
 {
     vector<Student> students;    //학생 정보 벡터
     vector<Student> students;    //학생 정보 벡터
+=======
+Student_model FileController::readFile(Student_model students)
+{
+>>>>>>> origin/filecontroller_modify
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -36,8 +46,7 @@ vector<Student> FileController::readfile()
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
-        students.clear();
-        return students;    // 기존 파일이 없으므로 비어있는 vector 전달
+        return students;    // 기존 파일이 없으므로 기존 vector 전달
     }
 
     //파일이 열림(기존 파일이 존재함)
@@ -45,19 +54,29 @@ vector<Student> FileController::readfile()
     Student studsplit("", 0, "", 0, "");
     while (getline(readinfo, line))
     {
+<<<<<<< HEAD
         studsplit = linesplit(line);
         if (studsplit.getStudentID() == 0) {     //잘못된 학생 정보일때 
             cout << "wrong information" <<endl;
+=======
+        split = lineSplit(line);
+        if (split.empty()) {     //잘못된 학생 정보일때 
+            //cout << "wrong information" <<endl;
+>>>>>>> origin/filecontroller_modify
             continue;
         }
-        Student one (split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
-        students.push_back(one);
+        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
+        students.addStudent(one);
     }
     readinfo.close();
     return students;
 };
 
+<<<<<<< HEAD
 Student FileController::linesplit(string line)
+=======
+vector<string> FileController::lineSplit(string line)
+>>>>>>> origin/filecontroller_modify
 {
     Student info("", 0, "", 0, "");
     string delimiter = "::";    //구분자(임의로 정함)
@@ -76,7 +95,7 @@ Student FileController::linesplit(string line)
 
     studvector.push_back(line.substr(start)); //마지막 남은 문장 추가
 
-    if (wronginfo(studvector) == 1) // 학생 정보 잘못됨
+    if (wrongInfo(studvector) == 1) // 학생 정보 잘못됨
     {
         info.setStudentID(0);         //int형이면서 반드시 10자리여야 하는 studentid를 0으로 해서 잘못된 학생 정보라는 것을 알림
         return info;
@@ -89,11 +108,19 @@ Student FileController::linesplit(string line)
         info.setDepartment(studvector[3].c_str());
         info.setTel(studvector[4].c_str());
     }
+<<<<<<< HEAD
 
     return info;
 };
 
 int FileController::wronginfo(vector<string> studvector)
+=======
+
+    return studvector;
+}
+
+int FileController::wrongInfo(vector<string> studvector)
+>>>>>>> origin/filecontroller_modify
 {
     if (studvector.size() != 5) //문장을 쪼갠 결과 정보가 5개가 아님
         return 1;
@@ -140,12 +167,18 @@ int FileController::wronginfo(vector<string> studvector)
     return 0;
 };
 
+<<<<<<< HEAD
 void FileController::writefile(vector<Student> studvector)
+=======
+void FileController::save(Student_model students)
+>>>>>>> origin/filecontroller_modify
 {
     ofstream writeinfo;
     writeinfo.open(file);
     string delimiter = "::";    //구분자 (임의지정)
 
+
+    vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
         //cout << "failed to open file" << endl; 
