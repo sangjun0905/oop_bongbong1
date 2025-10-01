@@ -5,7 +5,7 @@ class Student {
 private:
    
     char name[17];
-    char studnetId[9];
+    char studnetId[11];
     char admissionYear[5];
     char tel[25];
     int birth;
@@ -24,8 +24,8 @@ public:
         std::strncpy(department, d, 64);
         department[64] = '\0';
 
-        std::strncpy(studnetId, id, 8);
-        studnetId[8] = '\0';   
+        std::strncpy(studnetId, id, 10);
+        studnetId[10] = '\0';   
 
         std::strncpy(admissionYear, id, 4);
         admissionYear[4] = '\0';
@@ -58,8 +58,8 @@ public:
     // s_id Setter
     
     void setStudentId(const char* id){
-        std::strncpy(studnetId, id, 8);
-        studnetId[8] = '\0';  
+        std::strncpy(studnetId, id, 10);
+        studnetId[10] = '\0';  
     }
 
    
