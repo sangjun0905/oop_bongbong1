@@ -5,18 +5,18 @@
 #include <vector>
 #include <cctype>
 #include <cstring>
-#include "Filecontroller.hpp"
+
+#include "FileController.hpp"
 
 
-
-Filecontroller::Filecontroller(string file_name) //생성자로 파일 초기화
+FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
-}
+};
 
-vector<student> Filecontroller::readfile()
+vector<Student> FileController::readfile()
 {
-    vector<student> students;    //학생 정보 벡터
+    vector<Student> students;    //학생 정보 벡터
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -40,11 +40,11 @@ vector<student> Filecontroller::readfile()
 
     //파일이 열림(기존 파일이 존재함)
     string line;
-    student studsplit;
+    Student studsplit("", 0, "", 0, "");
     while (getline(readinfo, line))
     {
         studsplit = linesplit(line);
-        if (studsplit.studentID == 0) {     //잘못된 학생 정보일때 
+        if (studsplit.getStudentID() == 0) {     //잘못된 학생 정보일때 
             cout << "wrong information" <<endl;
             continue;
         }
@@ -52,11 +52,11 @@ vector<student> Filecontroller::readfile()
     }
     readinfo.close();
     return students;
-}
+};
 
-student Filecontroller::linesplit(string line)
+Student FileController::linesplit(string line)
 {
-    student info;
+    Student info("", 0, "", 0, "");
     string delimiter = "::";    //구분자(임의로 정함)
 
     vector<string> studvector;
@@ -75,23 +75,22 @@ student Filecontroller::linesplit(string line)
 
     if (wronginfo(studvector) == 1) // 학생 정보 잘못됨
     {
-        info.studentID = 0;         //int형이면서 반드시 10자리여야 하는 studentid를 0으로 해서 잘못된 학생 정보라는 것을 알림
+        info.setStudentID(0);         //int형이면서 반드시 10자리여야 하는 studentid를 0으로 해서 잘못된 학생 정보라는 것을 알림
         return info;
     }
-
     else                        //5개의 정보가 제대로 입력됨
     {
-        strcpy(info.name, studvector[0].c_str());
-        info.studentID = stoi(studvector[1]);
-        info.birthyear = stoi(studvector[2]);
-        strcpy_s(info.department, studvector[3].c_str());
-        strcpy_s(info.tel, studvector[4].c_str());
+        info.setName(studvector[0].c_str());
+        info.setStudentID(stoi(studvector[1]));
+        info.setBirthYear(stoi(studvector[2]));
+        info.setDepartment(studvector[3].c_str());
+        info.setTel(studvector[4].c_str());
     }
 
     return info;
-}
+};
 
-int Filecontroller::wronginfo(vector<string> studvector)
+int FileController::wronginfo(vector<string> studvector)
 {
     if (studvector.size() != 5) //문장을 쪼갠 결과 정보가 5개가 아님
         return 1;
@@ -139,9 +138,9 @@ int Filecontroller::wronginfo(vector<string> studvector)
     }
 
     return 0;
-}
+};
 
-void Filecontroller::writefile(vector<student> studvector)
+void FileController::writefile(vector<Student> studvector)
 {
     ofstream writeinfo;
     writeinfo.open(file);
@@ -154,14 +153,14 @@ void Filecontroller::writefile(vector<student> studvector)
     }
     for (int i = 0; i < studvector.size(); i++)
     {
-        writeinfo << studvector[i].name << delimiter;
-        writeinfo << studvector[i].studentID << delimiter;
-        writeinfo << studvector[i].birthyear << delimiter;
-        writeinfo << studvector[i].department << delimiter;
-        writeinfo << studvector[i].tel << endl;
+        writeinfo << studvector[i].getName() << delimiter;
+        writeinfo << studvector[i].getStudentID() << delimiter;
+        writeinfo << studvector[i].getBirthYear() << delimiter;
+        writeinfo << studvector[i].getDepartment() << delimiter;
+        writeinfo << studvector[i].getTel() << endl;
     }
 
     writeinfo.close();
 
     cout << "file write success" << endl;
-}
+};

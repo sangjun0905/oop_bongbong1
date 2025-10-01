@@ -7,18 +7,30 @@
 
 class Student {
 private:
+<<<<<<< HEAD:Student.h
    
     char name[17];
     char s_id[9];
     char tel[25];
     int birth;
     char department[65];
+=======
+    char name[16];
+    int studentID;
+    char tel[24];
+    int birthYear;
+    char department[64];
+>>>>>>> main:src/model/Student.hpp
 
 public:
     // 생성자
     Student(const char* n, const char* id, const char* t, int b, const char* d)
         // int은 초기화 리스트에서 처리
+<<<<<<< HEAD:Student.h
         : birth(b) 
+=======
+        : studentID(id), birthYear(b) 
+>>>>>>> main:src/model/Student.hpp
     {
         
         std::strncpy(name, n, 16);
@@ -30,13 +42,24 @@ public:
         std::strncpy(s_id, id, 8);
         s_id[8] = '\0';   
 
+<<<<<<< HEAD:Student.h
         std::strncpy(tel, t, 24);
         tel[24] = '\0';
+=======
+        std::strncpy(tel, t, 23);
+        tel[23] = '\0';
+>>>>>>> main:src/model/Student.hpp
         
     }
 
     // Getter
+    const char* getName() const { return name; } 
+    int getStudentID() const { return studentID; } 
+    const char* getTel() const { return tel; }
+    int getBirthYear() const { return birthYear; } 
+    const char* getDepartment() const { return department; }
 
+<<<<<<< HEAD:Student.h
     
     const char* get_name() const { return name; } 
    
@@ -75,6 +98,29 @@ public:
     void set_department(const char* d) {
         std::strncpy(department, d, 64);
         department[64] = '\0';
+=======
+    void setName(const char* n) {
+        std::strncpy(name, n, 15);
+        name[15] = '\0';
+    }
+    // s_id Setter
+    void setStudentID(int id) {
+        studentID = id;
+    }
+    // tel Setter: 문자열 복사 (최대 23자 + '\0')
+    void setTel(const char* t) {
+        std::strncpy(tel, t, 23);
+        tel[23] = '\0';
+    }
+    // birth Setter
+    void setBirthYear(int b) {
+        birthYear = b;
+    }
+    // department Setter: 문자열 복사 (최대 63자 + '\0')
+    void setDepartment(const char* d) {
+        std::strncpy(department, d, 63);
+        department[63] = '\0';
+>>>>>>> main:src/model/Student.hpp
     }
 };
 
