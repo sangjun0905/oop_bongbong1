@@ -30,11 +30,12 @@ InsertionController::~InsertionController()
 void InsertionController::insert()
 {
     insertionView.display();
+    std::string name = insertionView.getName();
+    std::string id = insertionView.getStudentID();
+    std::string birth = insertionView.getBirthYear();
+    std::string dept = insertionView.getDepartment();
+    std::string tel = insertionView.getTel();
     studentList.addStudent(
-        insertionView.getName().c_str(),
-        insertionView.getStudentID().c_str(),
-        insertionView.getBirthYear().c_str(),
-        insertionView.getDepartment().c_str(),
-        insertionView.getTel().c_str()
+        name, id, tel, birth, dept
     );
 }
