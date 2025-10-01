@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../model/StudentModel.hpp"
+#include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
 #include "SearchModule.hpp"
@@ -10,28 +10,23 @@
 
 class MainController {
 public:
-    StudentModel studentModel;
-
+    StudentList studentList;
     MainMenuView menuView;
     
     void run() {
         InsertionView insertionView;
-        InsertionController insertionController(insertionView, studentModel);        
+        InsertionController insertionController(insertionView, studentList);        
 
         SearchView searchView;
-        SearchController searchController(new Display(), &studentModel);
+        SearchController searchController(new Display(), &studentList);
         SearchResultView searchResultView;
 
         SortingView sortingView;
-        SortingController sortingController(new Display(), &studentModel);
+        SortingController sortingController(new Display(), &studentList);
         SortingResultView sortingResultView;
 
         FileController fileController("text.txt");
-        vector<Student> readfileStudent = fileController.readfile();
-
-        for (const Student& student : readfileStudent) {
-            studentModel.addStudent(student);
-        }
+        StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
         while (start) {
@@ -43,12 +38,13 @@ public:
                     break;
                 }
                 case '2': {
+                    /*
                     char SearchOption = searchView.display();
                     if (SearchOption == '7') break;  // 7번은 메인메뉴
                     std::vector<Student> Search_List = searchController.run(SearchOption);
                     searchResultView.displaySearchResults(Search_List);
-                    
-                    //SearchController searchController();
+                    */
+                    searchController.run();
                     //SearchResultView searchResultView();
                     break;
                 }
@@ -64,7 +60,7 @@ public:
                 }
                 case '4':
                     std::cout << "프로그램 종료\n";
-                    fileController.writefile(studentModel.getAllStudents());
+                    fileController.save(studentList);
                     start = false;
                     break;
                 default:
