@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string.h>
+#include <string>
 
 #include "../model/StudentList.hpp"
 #include "../view/InsertionView.hpp"
@@ -9,12 +9,6 @@ class InsertionController
 private:
     StudentList studentList;
     InsertionView insertionView;
-
-    char name_in[16];
-    char studID_in[10];
-    char birthYear_in[4];
-    char dept_in[64];
-    char tel_in[24];
 
 public:
     InsertionController(InsertionView& insertionView, StudentList& studentList);
@@ -37,10 +31,10 @@ void InsertionController::insert()
 {
     insertionView.display();
     studentList.addStudent(
-        insertionView.getName(),
-        insertionView.getStudentID(),
-        insertionView.getBirthYear(),
-        insertionView.getDepartment(),
-        insertionView.getTel()
+        insertionView.getName().c_str(),
+        insertionView.getStudentID().c_str(),
+        insertionView.getBirthYear().c_str(),
+        insertionView.getDepartment().c_str(),
+        insertionView.getTel().c_str()
     );
 }

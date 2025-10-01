@@ -1,22 +1,16 @@
-#include<vector>
-#include "Student.hpp"
+#include "StudentList.hpp"
+#include <vector>
+#include <string>
 
-class StudentList{
-    private:
-        std::vector<Student> student_list;
+void StudentList::addStudent(const Student& new_student){
+    student_list.push_back(new_student);
+}
 
-    public:
+void StudentList::addStudent(const std::string& name, const std::string& studentId, const std::string& tel, const std::string& birth, const std::string& department) {
+    Student newStudent(name.c_str(), studentId.c_str(), tel.c_str(), std::stoi(birth), department.c_str());
+    student_list.push_back(newStudent);
+}
 
-        void addStudent(const Student& new_student){
-            student_list.push_back(new_student);
-        } //학생 추가
-        void addStudent(char* name, char* studentId, char* tel, char* birth, char* department) {
-            Student newStudent(char* name, char* studentId, char* tel, char* birth, char* department);
-            student_list.push_back(newStudent);
-        }
-
-        const std::vector<Student>& getAllStudents(){
-            return student_list;
-        }//전체 리스트 반환
-
-    };
+const std::vector<Student>& StudentList::getAllStudents() const {
+    return student_list;
+}
