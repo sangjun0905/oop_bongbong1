@@ -34,7 +34,9 @@ std::vector<Student> SearchController::run(char option) {
         std::cin >> query;
         std::copy_if(all_students.begin(), all_students.end(), std::back_inserter(search_results),
             [&query](const Student& s) {
-                return s.getAdmissionYear() == query;
+                std::string full_id = s.getStudentID();
+                std::string addmission_year = full_id.substr(0, 4); // 맨 앞의 4자리만 비교
+                return addmission_year == query;
             });
         break;
 
