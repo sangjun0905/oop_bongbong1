@@ -9,9 +9,10 @@
 #include "FileController.hpp"
 
 class MainController {
+private:
+    std::string filename;
 public:
     MainController(const std::string& fname) : filename(fname){}
-    std::string filename;
     StudentList studentList;
     MainMenuView menuView;
     
@@ -19,7 +20,7 @@ public:
         InsertionView insertionView;
         InsertionController insertionController(insertionView, studentList);        
         
-        FileController fileController("text.txt");
+        FileController fileController(filename);
         StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
