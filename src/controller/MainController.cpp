@@ -22,6 +22,10 @@ public:
         
         FileController fileController("text.txt");
         StudentList readfileStudent = fileController.readFile(studentList);
+        InsertionController insertionController(insertionView);        
+        
+        FileController fileController("text.txt");
+        StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
         while (start) {
@@ -29,7 +33,7 @@ public:
 
             switch (userSelect) {
                 case '1': {
-                    insertionController.insert();
+                    studentList = insertionController.insert(studentList);
                     break;
                 }
                 case '2':
@@ -42,8 +46,6 @@ public:
                     break;
                 case '4':{
                     std::cout << "exit program\n";
-                    Student a("lee", "2025132432", "010203004032", 2200, "computer science" );
-                    studentList.addStudent(a);
                     fileController.save(studentList);
                     start = false;
                     break;

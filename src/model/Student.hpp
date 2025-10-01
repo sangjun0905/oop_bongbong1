@@ -8,7 +8,7 @@ class Student {
 private:
    
     char name[17];
-    char studnetId[9];
+    char studnetId[11];
     char admissionYear[5];
     char tel[25];
     int birth;
