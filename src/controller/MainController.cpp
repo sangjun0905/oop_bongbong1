@@ -20,7 +20,7 @@ public:
         InsertionView insertionView;
         InsertionController insertionController(insertionView);        
         
-        FileController fileController("text.txt");
+        FileController fileController(filename);
         StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
