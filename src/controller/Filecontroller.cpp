@@ -9,14 +9,13 @@
 
 
 
-Filecontroller::Filecontroller(string file_name) //생성자로 파일 초기화
+FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
 }
 
-vector<Student> Filecontroller::readfile()
+vector<Student> FileController::readFile(vector<Student> students)
 {
-    vector<Student> students;    //학생 정보 벡터
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -36,7 +35,7 @@ vector<Student> Filecontroller::readfile()
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
         students.clear();
-        return students;    // 기존 파일이 없으므로 비어있는 vector 전달
+        return students;    // 기존 파일이 없으므로 기존 vector 전달
     }
 
     //파일이 열림(기존 파일이 존재함)
@@ -44,7 +43,7 @@ vector<Student> Filecontroller::readfile()
     vector<string> split;
     while (getline(readinfo, line))
     {
-        split = linesplit(line);
+        split = lineSplit(line);
         if (split.empty()) {     //잘못된 학생 정보일때 
             //cout << "wrong information" <<endl;
             continue;
@@ -56,7 +55,7 @@ vector<Student> Filecontroller::readfile()
     return students;
 }
 
-vector<string> Filecontroller::linesplit(string line)
+vector<string> FileController::lineSplit(string line)
 {
     string delimiter = "::";    //구분자(임의로 정함)
 
@@ -74,7 +73,7 @@ vector<string> Filecontroller::linesplit(string line)
 
     studvector.push_back(line.substr(start)); //마지막 남은 문장 추가
 
-    if (wronginfo(studvector) == 1) // 학생 정보 잘못됨
+    if (wrongInfo(studvector) == 1) // 학생 정보 잘못됨
     {
         studvector.clear();  //학생 정보 vector를 비움
     }
@@ -82,7 +81,7 @@ vector<string> Filecontroller::linesplit(string line)
     return studvector;
 }
 
-int Filecontroller::wronginfo(vector<string> studvector)
+int FileController::wrongInfo(vector<string> studvector)
 {
     if (studvector.size() != 5) //문장을 쪼갠 결과 정보가 5개가 아님
         return 1;
@@ -129,7 +128,7 @@ int Filecontroller::wronginfo(vector<string> studvector)
     return 0;
 }
 
-void Filecontroller::writefile(vector<Student> studvector)
+void FileController::save(vector<Student> studvector)
 {
     ofstream writeinfo;
     writeinfo.open(file);
