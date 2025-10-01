@@ -3,14 +3,12 @@
 #include <algorithm> // std::sort 사용
 #include <iterator> // std::back_inserter 사용
 
-SearchController::SearchController(Display* d, Student* m)
+SearchController::SearchController(Display* d, StudentModel* m)
     : display(d), model(m) {}
 
 std::vector<Student> SearchController::run(char option) {
     std::vector<Student> search_results;
     std::vector<Student> all_students = model->getAllStudents(); 
-    // Student에서 getAllStudents() 정의 필요
-    // 혹은 전체 학생 vector을 만들어서 유지
     std::string query; // 검색어
     switch (option) {
     case '1': // Search by Name
