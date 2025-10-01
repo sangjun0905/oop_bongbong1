@@ -8,7 +8,7 @@
 class SortingController {
 private:
     Display* display;
-    Student* model;
+    StudentModel* model;
 
 public:
     SortingController(Display* display, StudentModel* m);
