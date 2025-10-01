@@ -18,9 +18,9 @@ public:
     
     void run() {
         InsertionView insertionView;
-        InsertionController insertionController(insertionView, studentList);        
+        InsertionController insertionController(insertionView);        
         
-        FileController fileController("text.txt");
+        FileController fileController(filename);
         StudentList readfileStudent = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
         

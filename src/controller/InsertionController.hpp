@@ -6,14 +6,13 @@
 class InsertionController
 {
 private:
-    StudentList& studentModel;
     InsertionView& insertionView;
 
 public:
-    InsertionController(InsertionView& insertionView, StudentList& studentModel);
+    InsertionController(InsertionView& insertionView);
     ~InsertionController();
 
-    void insert();
+    StudentList& insert(StudentList& studentList);
 };
 
 #pragma once
