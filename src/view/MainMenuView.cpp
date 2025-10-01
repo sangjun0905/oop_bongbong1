@@ -1,30 +1,28 @@
+#include "MainMenuView.hpp"
 #include <iostream>
+#include <string>
 
-class MainMenuView {
-public:
-    char display() {
-        char input[10];
+char MainMenuView::display() {
+    std::string input;
+    
+    do {
+        std::cout << "1. Insertion" << std::endl;
+        std::cout << "2. Search" << std::endl;
+        std::cout << "3. Sorting Option" << std::endl;
+        std::cout << "4. Exit" << std::endl;
+        std::cout << "> ";
         
-        do {
-            std::cout << "1. Insertion" << std::endl;
-            std::cout << "2. Search" << std::endl;
-            std::cout << "3. Sorting Option" << std::endl;
-            std::cout << "4. Exit" << std::endl;
-            std::cout << "> ";
-            
-            std::cin >> input;
-        } while (check_input(input));
+        std::cin >> input;
+    } while (check_input(input));
 
-        return input[0];
+    return input[0];
+}
+
+int MainMenuView::check_input(const std::string& input) {
+    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '4')) {
+        return 0; // Valid input
     }
 
-    int check_input(char* input) {
-        if (input[0] == '1') return 0;
-        if (input[0] == '2') return 0;
-        if (input[0] == '3') return 0;
-        if (input[0] == '4') return 0;
-
-        std::cout << "Try again!" << std::endl;
-        return 1;
-    }
-};
+    std::cout << "Try again!" << std::endl;
+    return 1; // Invalid input
+}
