@@ -10,6 +10,7 @@ class SearchController {
 private:
     SearchView &searchView;
     SearchResultView &searchResultView;
+    StudentList searching(char, StudentList);
 
 public:
     SearchController(SearchView &searchView, SearchResultView* searchResultView);
