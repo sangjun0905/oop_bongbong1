@@ -3,9 +3,9 @@
 #include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
-#include "SearchModule.hpp"
+#include "../controller/SearchController.hpp"
 #include "InsertionController.hpp"
-#include "SortingModule.hpp"
+#include "../controller/SortingController.hpp"
 #include "FileController.hpp"
 
 class MainController {
@@ -49,10 +49,6 @@ public:
                     break;
                 }
                 case '3': {
-                    char SortingOption = sortingView.display();
-                    if (SortingOption == '5') break;  // 5번은 메인메뉴
-                    std::vector<Student> Sorted_List = sortingController.run(SortingOption);
-                    sortingResultView.displaySearchResults(Sorted_List);
                     
                     //SortingController sortingController();
                     //SortResultView sortResultView();
