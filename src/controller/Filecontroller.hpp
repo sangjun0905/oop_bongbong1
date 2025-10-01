@@ -22,6 +22,6 @@ public:
     void writefile(vector<Student> newinfo);    //파일 쓰기
 
 private:
-    Student linesplit(string line);     //파일에서 문자열을 읽어 student 형태로 만들어 반환 (파일읽기에서 사용)
+    vector<string> linesplit(string line);     //파일에서 문자열을 읽어 student 형태로 만들어 반환 (파일읽기에서 사용)
     int wronginfo(vector<string> studvector);
 };

@@ -17,6 +17,7 @@ FileController::FileController(string file_name) //생성자로 파일 초기화
 vector<Student> FileController::readfile()
 {
     vector<Student> students;    //학생 정보 벡터
+    vector<Student> students;    //학생 정보 벡터
 
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
@@ -35,7 +36,8 @@ vector<Student> FileController::readfile()
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
-        return students;  // 기존 파일이 없으므로 빈 vector 반환
+        students.clear();
+        return students;    // 기존 파일이 없으므로 비어있는 vector 전달
     }
 
     //파일이 열림(기존 파일이 존재함)
@@ -48,7 +50,8 @@ vector<Student> FileController::readfile()
             cout << "wrong information" <<endl;
             continue;
         }
-        students.push_back(studsplit);
+        Student one (split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
+        students.push_back(one);
     }
     readinfo.close();
     return students;
@@ -111,9 +114,6 @@ int FileController::wronginfo(vector<string> studvector)
         for (int i = 0; i < studvector[1].length(); i++)    //숫자 판별
             if (!isdigit(studvector[1][i]))
                 return 1;
-
-        if (studvector[1] > "2146999999")   //student overflow 방지
-            return 1;
     }
 
     if (studvector[2].length() != 4) //birthyear가 4글자가 아님
@@ -148,7 +148,7 @@ void FileController::writefile(vector<Student> studvector)
 
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
-        cout << "failed to open file" << endl; 
+        //cout << "failed to open file" << endl; 
         return;
     }
     for (int i = 0; i < studvector.size(); i++)

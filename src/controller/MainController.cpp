@@ -11,7 +11,6 @@
 class MainController {
 public:
     StudentModel studentModel;
-
     MainMenuView menuView;
     
     void run() {
