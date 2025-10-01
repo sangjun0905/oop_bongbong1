@@ -21,4 +21,5 @@ public :
   
         return input[0];
     }
+    SortingView();
 };

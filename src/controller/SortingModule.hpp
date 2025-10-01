@@ -15,14 +15,21 @@ public:
     std::vector<Student> run(char option);
 };
 
-class SortingResultView {
-public:
-    void displaySearchResults(const std::vector<Student>& results); 
-};
-
 class Display{
 public: 
     void displayMessage(const std::string& message);
+};
+
+class SortingView {
+    public : 
+    char display();
+    SortingView();
+};
+
+class SortingResultView {
+public:
+    void displaySearchResults(const std::vector<Student>& results); 
+    SortingResultView();
 };
 
 #endif
