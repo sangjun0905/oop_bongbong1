@@ -37,11 +37,14 @@ public:
                     //SortingController sortingController();
                     //SortResultView sortResultView();
                     break;
-                case '4':
-                    std::cout << "프로그램 종료\n";
+                case '4':{
+                    std::cout << "exit program\n";
+                    Student a("lee", "2025132432", "010203004032", 2200, "computer science" );
+                    studentList.addStudent(a);
                     fileController.save(studentList);
                     start = false;
                     break;
+                }
                 default:
                     std::cout << "input error\n";
             }
