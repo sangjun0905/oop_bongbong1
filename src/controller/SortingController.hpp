@@ -2,7 +2,7 @@
 #define SORTINGCONTROLLER_HPP
 
 #include "Student.hpp"
-#include "StudentModel.hpp"
+#include "StudentList.hpp"
 #include <vector> // run()의 반환형
 
 class SortingController {
@@ -18,16 +18,6 @@ public:
 class Display{
 public: 
     void displayMessage(const std::string& message);
-};
-
-class SortingView {
-public : 
-    char display();
-};
-
-class SortingResultView {
-public:
-    void displaySearchResults(const std::vector<Student>& results); 
 };
 
 #endif

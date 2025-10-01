@@ -1,12 +1,11 @@
 #ifndef SORTINGRESULTVIEW_HPP
 #define SORTINGRESULTVIEW_HPP
 
-#include "Student.hpp"
-#include "StudentModel.hpp"
+#include "../model/StudentList.hpp"
 
 class SortingResultView {
 public:
-    void displaySearchResults(const std::vector<Student>& results); 
+    void displaySearchResults(StudentList studentList); 
 };
 
 #endif

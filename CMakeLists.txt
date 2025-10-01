@@ -12,10 +12,15 @@ set(SRC_FILES
     src/controller/FileController.cpp
     src/controller/InsertionController.cpp
     src/controller/MainController.cpp
+    src/controller/SearchController.cpp
+    src/controller/SortingController.cpp
     src/model/Student.cpp
     src/model/StudentList.cpp
     src/view/InsertionView.cpp
     src/view/MainMenuView.cpp
+    src/view/SearchResultView.cpp
+    src/view/SearchView.cpp
+    src/view/SortingView.cpp
 )
 
 # 실행 파일 타겟 정의
