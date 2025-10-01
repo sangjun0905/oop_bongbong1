@@ -1,16 +1,17 @@
 #ifndef SEARCHMODULE_HPP
 #define SEARCHMODULE_HPP
 
+#include "StudentModel.hpp"
 #include "Student.hpp"
 #include <vector> // run()의 반환형
 
 class SearchController {
 private:
     Display* display;
-    Student* model;
+    StudentModel* model;
 
 public:
-    SearchController(Display* d, Student* m);
+    SearchController(Display* d, StudentModel* m);
     std::vector<Student> run(char option);
 };
 

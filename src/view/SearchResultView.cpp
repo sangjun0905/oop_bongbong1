@@ -13,12 +13,12 @@ void SearchResultView::displaySearchResults(const std::vector<Student>& results)
               << "\n";
     std::cout << "================================================================================\n";
 
-    for (const auto& student : results) {
-            std::cout << std::left << std::setw(16) << student.getName()
-                      << std::setw(12) << student.getStudentID()
-                      << std::setw(25) << student.getDepartment()
-                      << std::setw(12) << student.getBirthYear()
-                      << std::setw(15) << student.getTel()
+    for (const auto& studentmodel : results) {
+            std::cout << std::left << std::setw(16) << studentmodel.getName()
+                      << std::setw(12) << studentmodel.getStudentID()
+                      << std::setw(25) << studentmodel.getDepartment()
+                      << std::setw(12) << studentmodel.getBirthYear()
+                      << std::setw(15) << studentmodel.getTel()
                       << "\n";
         }
     
