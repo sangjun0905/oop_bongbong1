@@ -7,14 +7,12 @@ SortingController::SortingController(Display* d, StudentModel* m)
 
 std::vector<Student> SortingController::run(char option) {
     std::vector<Student> sorted_list = model->getAllStudents(); 
-    // Student애서 getAllStudents() 정의 필요
     switch (option) {
     // std::sort (인트로소트) 실행
     // 퀵정렬, 힙정렬, 삽입정렬을 종합한 방법
     case '1': // Sort by Name
         std::sort(sorted_list.begin(), sorted_list.end(), 
-        // begin과 end는 벡터의 처음과 끝을 가리키는 반복자, Student에서 정의 필요
-            [](const Student& a, const Student& b) {
+                    [](const Student& a, const Student& b) {
                 return a.getName() < b.getName();
             });
         display->displayMessage("Sorting option set to Name.");
