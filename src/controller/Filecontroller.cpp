@@ -8,7 +8,6 @@
 
 #include "FileController.hpp"
 
-
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
@@ -47,7 +46,7 @@ StudentList FileController::readFile(StudentList students)
             //cout << "wrong information" <<endl;
             continue;
         }
-        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), stoi(split[3]), split[4].c_str());
+        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), std::stoi(split[3]), split[4].c_str());
         students.addStudent(one);
     }
     readinfo.close();
@@ -144,7 +143,7 @@ void FileController::save(StudentList students)
     for (int i = 0; i < studvector.size(); i++)
     {
         writeinfo << studvector[i].getName() << delimiter;
-        writeinfo << studvector[i].getStudentID() << delimiter;
+        writeinfo << studvector[i].getStudentId() << delimiter;
         writeinfo << studvector[i].getBirthYear() << delimiter;
         writeinfo << studvector[i].getDepartment() << delimiter;
         writeinfo << studvector[i].getTel() << endl;

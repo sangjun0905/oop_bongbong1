@@ -7,9 +7,15 @@ project(StudentInfoSystem CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# src 폴더 내 모든 cpp 파일 재귀적으로 탐색
-file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
-    ${CMAKE_SOURCE_DIR}/src/*.cpp
+set(SRC_FILES
+    src/main.cpp
+    src/controller/FileController.cpp
+    src/controller/InsertionController.cpp
+    src/controller/MainController.cpp
+    src/model/Student.cpp
+    src/model/StudentList.cpp
+    src/view/InsertionView.cpp
+    src/view/MainMenuView.cpp
 )
 
 # 실행 파일 타겟 정의
