@@ -11,25 +11,24 @@
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
-};
+}
 
 StudentList FileController::readFile(StudentList students)
 {
-
     ifstream readinfo;          //읽기 모드 파일
     readinfo.open(file);        //파일 열기
     if (!readinfo.is_open())    //파일이 열리지 않았을 경우(파일이 없거나 접근이 불가능할 경우)
     {
-        //cout << "File does not exist. create a new file"<<endl; 
+        cout << "File does not exist. create a new file"<<endl; 
        //파일이 없으므로 새로 만들기
         ofstream createfile;
         createfile.open(file);
         if (!createfile.is_open())
         {
-            //cout << "failed to create(open) new file"<<endl;
+            cout << "failed to create(open) new file"<<endl;
         }
         else {
-            //cout << "succeed to create a new file" << endl;
+            cout << "succeed to create a new file" << endl;
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
@@ -43,19 +42,18 @@ StudentList FileController::readFile(StudentList students)
     {
         split = lineSplit(line);
         if (split.empty()) {     //잘못된 학생 정보일때 
-            //cout << "wrong information" <<endl;
+            cout << "wrong information" <<endl;
             continue;
         }
-        Student one(split[0].c_str(), split[1].c_str(), split[2].c_str(), std::stoi(split[3]), split[4].c_str());
+        Student one(split[0].c_str(), split[1].c_str(), split[4].c_str(), stoi(split[2]), split[3].c_str());
         students.addStudent(one);
     }
     readinfo.close();
     return students;
-};
+}
 
 vector<string> FileController::lineSplit(string line)
 {
-    Student info("", 0, "", 0, "");
     string delimiter = "::";    //구분자(임의로 정함)
 
     vector<string> studvector;
@@ -125,7 +123,7 @@ int FileController::wrongInfo(vector<string> studvector)
     }
 
     return 0;
-};
+}
 
 void FileController::save(StudentList students)
 {
@@ -137,7 +135,7 @@ void FileController::save(StudentList students)
     vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
-        //cout << "failed to open file" << endl; 
+        cout << "failed to open file" << endl; 
         return;
     }
     for (int i = 0; i < studvector.size(); i++)
@@ -152,4 +150,4 @@ void FileController::save(StudentList students)
     writeinfo.close();
 
     cout << "file write success" << endl;
-};
+}

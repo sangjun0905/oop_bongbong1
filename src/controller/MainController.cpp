@@ -21,6 +21,7 @@ public:
         InsertionController insertionController(insertionView);        
         
         FileController fileController("text.txt");
+        cout<<"test1"<<endl;
         StudentList readfileStudent = fileController.readFile(studentList);
 
         bool start = true;
@@ -37,6 +38,7 @@ public:
                     //SearchResultView searchResultView();
                     break;
                 case '3':
+                    cout<<studentList.getAllStudents()[0].getDepartment()<<endl;
                     //SortingController sortingController();
                     //SortResultView sortResultView();
                     break;
