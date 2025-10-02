@@ -11,10 +11,12 @@ set(SRC_FILES
     src/main.cpp
     src/controller/FileController.cpp
     src/controller/InsertionController.cpp
+    src/controller/SearchController.cpp
     src/controller/MainController.cpp
     src/model/Student.cpp
     src/model/StudentList.cpp
     src/view/InsertionView.cpp
+    src/view/SearchView.cpp
     src/view/MainMenuView.cpp
     src/view/SortView.cpp
     src/controller/SortController.cpp

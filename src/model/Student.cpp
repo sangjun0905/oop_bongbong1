@@ -11,8 +11,8 @@ Student::Student(const char* n, const char* id, const char* t, int b, const char
     std::strncpy(department, d, 64);
     department[64] = '\0';
 
-    std::strncpy(studnetId, id, 8);
-    studnetId[8] = '\0';   
+    std::strncpy(studnetId, id, 10);
+    studnetId[10] = '\0';   
 
     std::strncpy(admissionYear, id, 4);
     admissionYear[4] = '\0';
@@ -36,8 +36,8 @@ void Student::setName(const char* n) {
 }
 
 void Student::setStudentId(const char* id){
-    std::strncpy(studnetId, id, 8);
-    studnetId[8] = '\0';  
+    std::strncpy(studnetId, id, 10);
+    studnetId[10] = '\0';  
 }
 
 void Student::setTel(const char* t) {
