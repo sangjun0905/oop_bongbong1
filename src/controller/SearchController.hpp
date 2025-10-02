@@ -7,7 +7,7 @@ class SearchController
 {
 private:
     SearchView searchView;
-    StudentList searchStudent(StudentList& list, char option, std::string keyword);
+    StudentList* searchStudent(StudentList& list, char option, std::string keyword);
 
 public:
     SearchController(SearchView& sView);
