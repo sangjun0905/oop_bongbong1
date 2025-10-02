@@ -33,50 +33,74 @@ StudentList* SearchController::searchStudent(StudentList& list, char option, std
     StudentList* searchResult = new StudentList();
     std::string data;
 
-    switch (option)
-    {
+switch(option){
     case '1':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getName();
-            if (data.find(keyword) != std::string::npos)
+            if (data.find(keyword) != std::string::npos){
+             try{
                 searchResult->addStudent(list.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+        }
         }
         break;
     case '2':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getStudentId();
-            if (data.find(keyword) != std::string::npos)
+            if (data.find(keyword) != std::string::npos){
+            try{
                 searchResult->addStudent(list.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+        }
         }
         break;
     case '3':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getAdmissionYear();
-            if (data.find(keyword) != std::string::npos)
+            if (data.find(keyword) != std::string::npos){
+            try{
                 searchResult->addStudent(list.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+        }
         }
         break;
     case '4':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getBirthYear();
-            if (data.find(keyword) != std::string::npos)
+            if (data.find(keyword) != std::string::npos){
+             try{
                 searchResult->addStudent(list.getStudent(i));
+            }catch (const std::runtime_error& e) {
+                std::cerr << e.what() << std::endl;
+            }   
+        }
         }
         break;
     case '5':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getDepartment();
-            if (data.find(keyword) != std::string::npos)
+            if (data.find(keyword) != std::string::npos){
+            try{
                 searchResult->addStudent(list.getStudent(i));
+            }catch (const std::runtime_error& e) {
+                std::cerr << e.what() << std::endl;
+            }   
+        }
         }
         break;
     default:
         break;
-    }
+}
     return searchResult;
 }

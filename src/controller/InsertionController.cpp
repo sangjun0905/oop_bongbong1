@@ -21,8 +21,12 @@ StudentList& InsertionController::insert(StudentList& studentList)
     std::string birth = insertionView.getBirthYear();
     std::string dept = insertionView.getDepartment();
     std::string tel = insertionView.getTel();
+    try{
     studentList.addStudent(
         name, id, tel, birth, dept
     );
+    }catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+    }   
     return studentList;
 }

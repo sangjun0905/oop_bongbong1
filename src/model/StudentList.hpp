@@ -14,5 +14,5 @@ class StudentList{
         int size();
         Student getStudent(int index);
         const std::vector<Student>& getAllStudents() const;//전체 리스트 반환
-
+        bool isIdDuplicated(const Student& student);//중복 id 검사
     };

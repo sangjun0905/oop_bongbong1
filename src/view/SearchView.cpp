@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include "SearchView.hpp"
+#include <limits>
 
 using namespace std;
 
