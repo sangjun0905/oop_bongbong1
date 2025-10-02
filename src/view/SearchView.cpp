@@ -1,6 +1,9 @@
-#include "SearchView.hpp"
 #include <iostream>
 #include <string>
+#include <iomanip>
+#include "SearchView.hpp"
+
+using namespace std;
 
 void SearchView::display()
 {
@@ -18,7 +21,7 @@ char SearchView::getSearchOption()
         std::cout << "4. Search by birth year" << std::endl;
         std::cout << "5. Search by department name" << std::endl;
         std::cout << "6. List All" << std::endl;
-        std::cout << " >";
+        std::cout << "> ";
         
         // Clear the input buffer before using getline
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -31,49 +34,62 @@ char SearchView::getSearchOption()
 std::string SearchView::getSearchKeyword(char option)
 {
     std::string input;
-    switch (option)
-    {
-    case '1':
-        do {
-        std::cout << "Name keyword: ";
+    do {
+        switch (option)
+        {
+        case '1':
+            std::cout << "Name keyword: ";
+            break;
+        case '2':
+            std::cout << "Student ID keyword: ";
+            break;
+        case '3':
+            std::cout << "Admission year keyword: ";
+            break;
+        case '4':
+            std::cout << "Birth year keyword: ";
+            break;
+        case '5':
+            std::cout << "Department name keyword: ";
+            break;
+        default:
+            break;
+        }
+
+        // Clear the input buffer before using getline
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, input);
-        } while(check_keyword(option, input));
-        break;
-    case '2':
-        do {
-        std::cout << "Student ID keyword: ";
-        std::getline(std::cin, input);
-        } while(check_keyword(option, input));
-        break;
-    case '3':
-        do {
-        std::cout << "Admission year keyword: ";
-        std::getline(std::cin, input);
-        } while(check_keyword(option, input));
-        break;
-    case '4':
-        do {
-        std::cout << "Birth year keyword: ";
-        std::getline(std::cin, input);
-        } while(check_keyword(option, input));
-        break;
-    case '5':
-        do {
-        std::cout << "Department name keyword: ";
-        std::getline(std::cin, input);
-        } while(check_keyword(option, input));
-        break;
-    default:
-        break;
-    }
+    } while(check_keyword(option, input));
     return input;
 }
 
 void SearchView::printResult(StudentList list)
 {
+    if (list.size() == 0)
+    {
+        std::cout << "NO RESULTS FOUND" << "\n\n";
+        return;
+    }
+
+    cout << left << setw(15) << "Name" 
+        << setw(10) << "StudentID"
+        << setw(23) << "Department"
+        << setw(12) << "Birth Year"
+        << setw(12) << "Tel" << endl;
+    
+    for (int i = 0; i < 75; i++)
+        cout << "-";
+    
+    cout << endl;
+
     for (int i = 0; i < list.size(); i++)
     {
-        std::cout << list.getStudent(i).getName() << std::endl;    
+        Student student = (list.getStudent(i));
+        cout << left << setw(15) << student.getName() 
+            << setw(10) << student.getStudentId()
+            << setw(23) << student.getDepartment()
+            << setw(12) << student.getBirthYear()
+            << setw(12) << student.getTel() << "\n\n";    
     }
 }
 

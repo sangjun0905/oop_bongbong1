@@ -14,6 +14,13 @@ void SearchController::search(StudentList& list)
     StudentList* searchResult;
     searchView.display();
     option = searchView.getSearchOption();
+
+    if (option == '6') // List All
+    {
+        searchView.printResult(list);
+        return;
+    } 
+
     keyword = searchView.getSearchKeyword(option);
     searchResult = searchStudent(list, option, keyword);
     // sort searchResult by sorting option
