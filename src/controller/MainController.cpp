@@ -21,7 +21,7 @@ public:
       
         
         FileController fileController(filename);
-        StudentList readfileStudent = fileController.readFile(studentList);
+        studentList = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
     
         
