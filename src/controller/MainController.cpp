@@ -21,9 +21,7 @@ public:
         InsertionController insertionController(insertionView);        
         
         FileController fileController("text.txt");
-        cout<<"test1"<<endl;
-        StudentList readfileStudent = fileController.readFile(studentList);
-
+        studentList = fileController.readFile(studentList);
         bool start = true;
         while (start) {
             char userSelect = menuView.display();
@@ -37,11 +35,13 @@ public:
                     //SearchController searchController();
                     //SearchResultView searchResultView();
                     break;
-                case '3':
-                    cout<<studentList.getAllStudents()[0].getDepartment()<<endl;
+                case '3':{
+                    vector<Student> x = studentList.getAllStudents();
+                    cout<<x[0].getDepartment()<<endl;
                     //SortingController sortingController();
                     //SortResultView sortResultView();
                     break;
+                }
                 case '4':{
                     std::cout << "exit program\n";
                     fileController.save(studentList);

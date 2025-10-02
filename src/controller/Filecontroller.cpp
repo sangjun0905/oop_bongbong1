@@ -8,6 +8,7 @@
 
 #include "FileController.hpp"
 
+
 FileController::FileController(string file_name) //생성자로 파일 초기화
 {
     file = file_name;
