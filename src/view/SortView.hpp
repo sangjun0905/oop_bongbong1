@@ -1,3 +1,6 @@
+#ifndef SORTVIEW_HPP
+#define SORTVIEW_HPP
+
 #include <string>
 #include "../model/StudentList.hpp"
 
@@ -8,3 +11,5 @@ public:
 private:
     int check_input(const std::string& input);
 };
+
+#endif

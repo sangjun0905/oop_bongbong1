@@ -1,8 +1,29 @@
 #include "SortController.hpp"
 #include <algorithm>
+#include <iostream>
 
 
-SortController::SortController(SortView& sortView) : sortView(sortView) {}
+SortController::SortController(SortView& sortView, StudentList& studentList): sortView(sortView) {
+    char userSelect = sortView.display();
+
+    switch (userSelect) {
+        case '1':
+            sortByName(studentList);
+            break;
+        case '2':
+            sortByStudentId(studentList);
+            break;
+        case '3':
+            sortByBirth(studentList);
+            break;
+        case '4':
+            sortByDepartment(studentList);
+            break;
+        default:
+            std::cout << "잘못된 입력입니다." << std::endl;
+            break;
+    }
+}
 SortController::~SortController() {}
 
 StudentList& SortController::sortByName(StudentList& studentList) {
@@ -16,7 +37,7 @@ StudentList& SortController::sortByName(StudentList& studentList) {
     return sortedStudentList;
 }
 
-StudentList& SortController::sortByStudnetId(StudentList& studentList) {
+StudentList& SortController::sortByStudentId(StudentList& studentList) {
     sortedStudentList = studentList;
     auto& students = sortedStudentList.getAllStudents();
     std::sort(students.begin(), students.end(),

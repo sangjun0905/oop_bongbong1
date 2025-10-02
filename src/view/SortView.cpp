@@ -5,7 +5,7 @@ char SortView::display() {
     std::string input;
     
     do {
-        std::cout << " - Sorting Option";
+        std::cout << " - Sorting Option" << std::endl;
         std::cout << "1. Sort by Name" << std::endl;
         std::cout << "2. Sort by Student ID" << std::endl;
         std::cout << "3. Sort by Birth Year" << std::endl;

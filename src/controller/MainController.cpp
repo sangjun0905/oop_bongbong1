@@ -8,8 +8,8 @@
 // #include "SearchModule.hpp"
 #include "InsertionController.hpp"
 #include "SearchController.hpp"
-// #include "SortingModule.hpp"
 #include "FileController.hpp"
+#include "SortController.hpp"
 
 class MainController {
 private:
@@ -19,6 +19,7 @@ public:
     StudentList studentList;
     MainMenuView menuView;
     InsertionView insertionView;
+    SortView sortView;
     
     void run() {
     
@@ -30,6 +31,7 @@ public:
         studentList = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
         SearchController searchController(searchView);
+        
         
 
         bool start = true;
@@ -45,8 +47,10 @@ public:
                     searchController.search(studentList);
                     break;
                 case '3':
-                    SortView sortView;
-                    sortView.display();
+                    {
+                        SortController sortController(sortView, studentList);
+
+                    }
                     //SortController sortController(sortView.display());
                     // sortView.resultDisplay() //임시
                     break;

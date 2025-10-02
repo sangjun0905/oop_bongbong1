@@ -31,7 +31,7 @@ Student StudentList::getStudent(int index)
         return student_list.at(index);
 }
 
-const std::vector<Student>& StudentList::getAllStudents() const {
+std::vector<Student>& StudentList::getAllStudents() {
     return student_list;
 }
 
