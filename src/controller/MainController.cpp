@@ -3,8 +3,9 @@
 #include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
-// #include "SearchModule.hpp"
+#include "../view/SearchView.hpp"
 #include "InsertionController.hpp"
+#include "SearchController.hpp"
 // #include "SortingModule.hpp"
 #include "FileController.hpp"
 
@@ -18,12 +19,12 @@ public:
     
     void run() {
         InsertionView insertionView;
-      
+        SearchView searchView;
         
         FileController fileController(filename);
         studentList = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
-    
+        SearchController searchController(searchView);
         
 
         bool start = true;
@@ -36,8 +37,7 @@ public:
                     break;
                 }
                 case '2':
-                    //SearchController searchController();
-                    //SearchResultView searchResultView();
+                    searchController.search(studentList);
                     break;
                 case '3':
                     //SortingController sortingController();
