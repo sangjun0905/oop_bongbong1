@@ -11,5 +11,5 @@ public:
     void display();
     char getSearchOption();
     std::string getSearchKeyword(char option);
-    void printResult(StudentList& searchResult);
+    void printResult(StudentList searchResult);
 };

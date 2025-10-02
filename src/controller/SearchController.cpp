@@ -11,12 +11,17 @@ void SearchController::search(StudentList& list)
 {
     char option;
     std::string keyword;
+    StudentList* searchResult;
     searchView.display();
     option = searchView.getSearchOption();
     keyword = searchView.getSearchKeyword(option);
+    searchResult = searchStudent(list, option, keyword);
+    // sort searchResult by sorting option
+    searchView.printResult(*searchResult);
+    delete searchResult;
 }
 
-StudentList* SearchController::searchStudent(StudentList& list, char option, std::string keyword)
+StudentList* SearchController::searchStudent(StudentList& list, char option, std::string& keyword)
 {
     StudentList* searchResult = new StudentList();
     std::string data;

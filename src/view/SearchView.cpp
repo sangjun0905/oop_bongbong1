@@ -18,7 +18,10 @@ char SearchView::getSearchOption()
         std::cout << "4. Search by birth year" << std::endl;
         std::cout << "5. Search by department name" << std::endl;
         std::cout << "6. List All" << std::endl;
+        std::cout << " >";
         
+        // Clear the input buffer before using getline
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cin >> input;
     } while (check_option(input));
 
@@ -64,6 +67,14 @@ std::string SearchView::getSearchKeyword(char option)
         break;
     }
     return input;
+}
+
+void SearchView::printResult(StudentList list)
+{
+    for (int i = 0; i < list.size(); i++)
+    {
+        std::cout << list.getStudent(i).getName() << std::endl;    
+    }
 }
 
 char SearchView::check_option(std::string& input)
