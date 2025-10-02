@@ -78,7 +78,7 @@ char SearchView::check_option(std::string& input)
 
 char SearchView::check_keyword(char option, std::string& input)
 {
-    // return 1 if the Input is empty or exceeded maximum letters        
+    // Return 1 if the input is empty or exceeded maximum letters       
     switch (option)
     {
     case '1':

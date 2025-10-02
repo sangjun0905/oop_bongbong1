@@ -1,14 +1,17 @@
 #pragma once
 
-#include "../model/StudentList.hpp"
 #include "../view/SearchView.hpp"
+#include "../model/StudentList.hpp"
 
 class SearchController
 {
 private:
-    char check_input();
+    SearchView searchView;
+    StudentList searchStudent(StudentList list, char option, std::string keyword);
 
 public:
-    SearchController(/* args */);
+    SearchController(SearchView& sView);
+    
     ~SearchController();
+    void search(StudentList& list);
 };
