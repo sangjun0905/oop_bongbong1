@@ -20,16 +20,16 @@ StudentList FileController::readFile(StudentList students)
     readinfo.open(file);        //파일 열기
     if (!readinfo.is_open())    //파일이 열리지 않았을 경우(파일이 없거나 접근이 불가능할 경우)
     {
-        cout << "File does not exist. create a new file"<<endl; 
+        //cout << "File does not exist. create a new file"<<endl; 
        //파일이 없으므로 새로 만들기
         ofstream createfile;
         createfile.open(file);
         if (!createfile.is_open())
         {
-            cout << "failed to create(open) new file"<<endl;
+            //cout << "failed to create(open) new file"<<endl;
         }
         else {
-            cout << "succeed to create a new file" << endl;
+            //cout << "succeed to create a new file" << endl;
             createfile.close();
             //새로 생성되었으므로 읽을 정보 없음 -> 닫기
         }
@@ -43,7 +43,7 @@ StudentList FileController::readFile(StudentList students)
     {
         split = lineSplit(line);
         if (split.empty()) {     //잘못된 학생 정보일때 
-            cout << "wrong information" <<endl;
+            //cout << "wrong information" <<endl;
             continue;
         }
         Student one(split[0].c_str(), split[1].c_str(), split[4].c_str(), stoi(split[2]), split[3].c_str());
@@ -126,29 +126,29 @@ int FileController::wrongInfo(vector<string> studvector)
     return 0;
 }
 
-void FileController::save(StudentList students)
+void FileController::save(StudentList studentlist)
 {
     ofstream writeinfo;
     writeinfo.open(file);
     string delimiter = "::";    //구분자 (임의지정)
 
-
-    vector<Student> studvector = students.getAllStudents();
+    //vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
-        cout << "failed to open file" << endl; 
+        //cout << "failed to open file" << endl; 
         return;
     }
-    for (int i = 0; i < studvector.size(); i++)
+    for (int i = 0; i < studentlist.size(); i++)
     {
-        writeinfo << studvector[i].getName() << delimiter;
-        writeinfo << studvector[i].getStudentId() << delimiter;
-        writeinfo << studvector[i].getBirthYear() << delimiter;
-        writeinfo << studvector[i].getDepartment() << delimiter;
-        writeinfo << studvector[i].getTel() << endl;
+        Student student = studentlist.getStudent(i);
+        writeinfo << student.getName() << delimiter;
+        writeinfo << student.getStudentId() << delimiter;
+        writeinfo << student.getBirthYear() << delimiter;
+        writeinfo << student.getDepartment() << delimiter;
+        writeinfo << student.getTel() << endl;
     }
 
     writeinfo.close();
 
-    cout << "file write success" << endl;
+    //cout << "file write success" << endl;
 }
