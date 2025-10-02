@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "SearchController.hpp"
 #include "../model/StudentList.hpp"
@@ -15,7 +16,11 @@ void SearchController::search(StudentList& list)
     keyword = searchView.getSearchKeyword(option);
 }
 
-StudentList SearchController::searchStudent(StudentList list, char option, std::string keyword)
+StudentList SearchController::searchStudent(StudentList& list, char option, std::string keyword)
 {
-
+    std::vector<Student> students = list.getAllStudents();
+    for (int i = 0; i < students.size(); i++)
+    {
+        
+    }
 }
