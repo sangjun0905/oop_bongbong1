@@ -15,7 +15,7 @@ int StudentList::size() { return student_list.size(); }
 Student StudentList::getStudent(int index)
 {
     if (index >= student_list.size()) 
-        return;
+        throw "Index out of range";
     else 
         return student_list.at(index);
 }
