@@ -25,13 +25,10 @@ public:
     
         SearchView searchView;
         
-      
-        
         FileController fileController(filename);
         studentList = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
         SearchController searchController(searchView);
-        
         
 
         bool start = true;
@@ -49,10 +46,8 @@ public:
                 case '3':
                     {
                         SortController sortController(sortView, studentList);
-
                     }
-                    //SortController sortController(sortView.display());
-                    // sortView.resultDisplay() //임시
+                    
                     break;
                 case '4':{
                     std::cout << "exit program\n";

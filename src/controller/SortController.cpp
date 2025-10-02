@@ -31,7 +31,7 @@ StudentList& SortController::sortByName(StudentList& studentList) {
     auto& students = sortedStudentList.getAllStudents(); 
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
-                  return a.getName() < b.getName();
+                  return std::string(a.getName()) < std::string(b.getName());
               });
     sortView.displaySortResult(sortedStudentList);
     return sortedStudentList;
@@ -42,7 +42,7 @@ StudentList& SortController::sortByStudentId(StudentList& studentList) {
     auto& students = sortedStudentList.getAllStudents();
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
-                  return a.getStudentId() < b.getStudentId();
+                  return std::string(a.getStudentId()) < std::string(b.getStudentId());
               });
     sortView.displaySortResult(sortedStudentList);
     return sortedStudentList;
@@ -64,7 +64,7 @@ StudentList& SortController::sortByDepartment(StudentList& studentList) {
     auto& students = sortedStudentList.getAllStudents();
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
-                  return a.getDepartment() < b.getDepartment();
+                  return std::string(a.getDepartment()) < std::string(b.getDepartment());
               });
     sortView.displaySortResult(sortedStudentList);
     return sortedStudentList;
