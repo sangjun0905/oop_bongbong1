@@ -3,9 +3,9 @@
 #include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
+#include "../view/SortView.hpp"
 // #include "SearchModule.hpp"
 #include "InsertionController.hpp"
-// #include "SortingModule.hpp"
 #include "FileController.hpp"
 
 class MainController {
@@ -15,9 +15,10 @@ public:
     MainController(const std::string& fname) : filename(fname){}
     StudentList studentList;
     MainMenuView menuView;
+    InsertionView insertionView;
     
     void run() {
-        InsertionView insertionView;
+        
       
         
         FileController fileController(filename);
@@ -40,8 +41,10 @@ public:
                     //SearchResultView searchResultView();
                     break;
                 case '3':
-                    //SortingController sortingController();
-                    //SortResultView sortResultView();
+                    SortView sortView;
+                    sortView.display();
+                    //SortController sortController(sortView.display());
+                    // sortView.resultDisplay() //임시
                     break;
                 case '4':{
                     std::cout << "exit program\n";

@@ -1,4 +1,0 @@
-John Smith,20230001,2023,010-1111-2222,2001,Computer Science
-Alice Johnson,20220015,2022,010-2222-3333,2000,Business Administration
-Michael Brown,20240003,2024,010-3333-4444,2002,English Literature
-Emily Davis,20230045,2023,010-4444-5555,2001,Electrical Engineering

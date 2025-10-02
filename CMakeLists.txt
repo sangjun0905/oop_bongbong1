@@ -16,6 +16,8 @@ set(SRC_FILES
     src/model/StudentList.cpp
     src/view/InsertionView.cpp
     src/view/MainMenuView.cpp
+    src/view/SortView.cpp
+    src/controller/SortController.cpp
 )
 
 # 실행 파일 타겟 정의
