@@ -26,47 +26,43 @@ SortController::SortController(SortView& sortView, StudentList& studentList): so
 }
 SortController::~SortController() {}
 
-StudentList& SortController::sortByName(StudentList& studentList) {
-    sortedStudentList = studentList;  
-    auto& students = sortedStudentList.getAllStudents(); 
+StudentList& SortController::sortByName(StudentList& studentList) {  
+    auto& students = studentList.getAllStudents(); 
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
                   return std::string(a.getName()) < std::string(b.getName());
               });
-    sortView.displaySortResult(sortedStudentList);
-    return sortedStudentList;
+    sortView.displaySortResult(studentList);
+    return studentList;
 }
 
 StudentList& SortController::sortByStudentId(StudentList& studentList) {
-    sortedStudentList = studentList;
-    auto& students = sortedStudentList.getAllStudents();
+    auto& students = studentList.getAllStudents();
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
                   return std::string(a.getStudentId()) < std::string(b.getStudentId());
               });
-    sortView.displaySortResult(sortedStudentList);
-    return sortedStudentList;
+    sortView.displaySortResult(studentList);
+    return studentList;
 }
 
 StudentList& SortController::sortByBirth(StudentList& studentList) {
-    sortedStudentList = studentList;
-    auto& students = sortedStudentList.getAllStudents();
+    auto& students = studentList.getAllStudents();
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
                   return a.getBirthYear() < b.getBirthYear();
               });
-    sortView.displaySortResult(sortedStudentList);
-    return sortedStudentList;
+    sortView.displaySortResult(studentList);
+    return studentList;
 }
 
 StudentList& SortController::sortByDepartment(StudentList& studentList) {
-    sortedStudentList = studentList;
-    auto& students = sortedStudentList.getAllStudents();
+    auto& students = studentList.getAllStudents();
     std::sort(students.begin(), students.end(),
               [](const Student& a, const Student& b) {
                   return std::string(a.getDepartment()) < std::string(b.getDepartment());
               });
-    sortView.displaySortResult(sortedStudentList);
-    return sortedStudentList;
+    sortView.displaySortResult(studentList);
+    return studentList;
 }
 
