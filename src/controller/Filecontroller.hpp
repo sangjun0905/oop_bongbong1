@@ -19,7 +19,7 @@ class FileController
 
 public:
     FileController(string file_name);   //생성자(파일명 초기화) argv값 전달 받음
-    StudentList readFile(StudentList students);         //파일을 읽어서 student vector 전달
+    StudentList readFile(StudentList studentlist);         //파일을 읽어서 student vector 전달
     void save(StudentList students);   //파일 쓰기
 
 private:
