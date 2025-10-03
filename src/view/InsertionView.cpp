@@ -13,8 +13,8 @@ int InsertionView::checkName(const std::string& inputName) {
 }
 
 int InsertionView::checkStudentID(const std::string& inputStudentID) {
-    if (inputStudentID.empty() || inputStudentID.length() > 15) {
-        std::cout << "Error: Student ID must be between 1 and 15 characters." << std::endl;
+    if (inputStudentID.empty() || inputStudentID.length() > 10) {
+        std::cout << "Error: Student ID must be between 1 and 10 characters." << std::endl;
         return 1;
     }
     for (char const &c : inputStudentID) {
@@ -41,16 +41,16 @@ int InsertionView::checkBirthYear(const std::string& inputBirthYear) {
 }
 
 int InsertionView::checkDepartment(const std::string& inputDepartment) {
-    if (inputDepartment.empty() || inputDepartment.length() > 63) {
-        std::cout << "Error: Department name must be between 1 and 63 characters." << std::endl;
+    if (inputDepartment.empty() || inputDepartment.length() > 23) {
+        std::cout << "Error: Department name must be between 1 and 23 characters." << std::endl;
         return 1;
     }
     return 0;
 }
 
 int InsertionView::checkTel(const std::string& inputTel) {
-    if (inputTel.empty() || inputTel.length() > 23) {
-        std::cout << "Error: Telephone number must be between 1 and 23 characters." << std::endl;
+    if (inputTel.empty() || inputTel.length() > 12) {
+        std::cout << "Error: Telephone number must be between 1 and 12 characters." << std::endl;
         return 1;
     }
     return 0;

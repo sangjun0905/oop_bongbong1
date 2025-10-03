@@ -157,7 +157,7 @@ StudentList& FileController::sortByName(StudentList& studentList) {
     sortedStudentList = studentList;  
     auto& students = sortedStudentList.getAllStudents(); 
     sort(students.begin(), students.end(),[](const Student& a, const Student& b) {
-        return std::string(a.getName()) < std::string(b.getName());
+        return string(a.getName()) < string(b.getName());
     });
     return sortedStudentList;
 }
