@@ -5,7 +5,6 @@
 #include "../view/InsertionView.hpp"
 #include "../view/SearchView.hpp"
 #include "../view/SortView.hpp"
-// #include "SearchModule.hpp"
 #include "InsertionController.hpp"
 #include "SearchController.hpp"
 #include "FileController.hpp"
