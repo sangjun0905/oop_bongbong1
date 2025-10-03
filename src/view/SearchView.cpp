@@ -73,7 +73,7 @@ void SearchView::printResult(StudentList list)
     }
 
     cout << left << setw(15) << "Name" 
-        << setw(10) << "StudentID"
+        << setw(12) << "StudentID"
         << setw(23) << "Department"
         << setw(12) << "Birth Year"
         << setw(12) << "Tel" << endl;
@@ -87,7 +87,7 @@ void SearchView::printResult(StudentList list)
     {
         Student student = (list.getStudent(i));
         cout << left << setw(15) << student.getName() 
-            << setw(10) << student.getStudentId()
+            << setw(12) << student.getStudentId()
             << setw(23) << student.getDepartment()
             << setw(12) << student.getBirthYear()
             << setw(12) << student.getTel() << "\n\n";    
