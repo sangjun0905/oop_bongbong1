@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -127,26 +126,26 @@ int FileController::wrongInfo(vector<string> studvector)
     return 0;
 }
 
-void FileController::save(StudentList students)
+void FileController::save(StudentList studentlist)
 {
     ofstream writeinfo;
     writeinfo.open(file);
     string delimiter = "::";    //구분자 (임의지정)
 
-
-    vector<Student> studvector = students.getAllStudents();
+    //vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
         //cout << "failed to open file" << endl; 
         return;
     }
-    for (int i = 0; i < studvector.size(); i++)
+    for (int i = 0; i < studentlist.size(); i++)
     {
-        writeinfo << studvector[i].getName() << delimiter;
-        writeinfo << studvector[i].getStudentId() << delimiter;
-        writeinfo << studvector[i].getBirthYear() << delimiter;
-        writeinfo << studvector[i].getDepartment() << delimiter;
-        writeinfo << studvector[i].getTel() << endl;
+        Student student = studentlist.getStudent(i);
+        writeinfo << student.getName() << delimiter;
+        writeinfo << student.getStudentId() << delimiter;
+        writeinfo << student.getBirthYear() << delimiter;
+        writeinfo << student.getDepartment() << delimiter;
+        writeinfo << student.getTel() << endl;
     }
 
     writeinfo.close();
