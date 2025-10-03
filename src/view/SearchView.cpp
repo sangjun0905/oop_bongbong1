@@ -90,8 +90,9 @@ void SearchView::printResult(StudentList list)
             << setw(12) << student.getStudentId()
             << setw(23) << student.getDepartment()
             << setw(12) << student.getBirthYear()
-            << setw(12) << student.getTel() << "\n\n";    
+            << setw(12) << student.getTel() << "\n";    
     }
+    cout << "\n";
 }
 
 char SearchView::check_option(std::string& input)
@@ -106,7 +107,7 @@ char SearchView::check_option(std::string& input)
 
 char SearchView::check_keyword(char option, std::string& input)
 {
-    // Return 1 if the input is empty or exceeded maximum letters       
+    // Return 1 if input is empty or exceeded maximum letters       
     switch (option)
     {
     case '1':
