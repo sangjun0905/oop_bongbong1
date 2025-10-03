@@ -5,6 +5,7 @@
 #include "SearchController.hpp"
 #include "../model/StudentList.hpp"
 
+// Public methods
 SearchController::SearchController(SearchView& sView) : searchView(sView) {}
 
 void SearchController::search(StudentList& list)
@@ -28,23 +29,24 @@ void SearchController::search(StudentList& list)
     delete searchResult;
 }
 
+// Private methods
 StudentList* SearchController::searchStudent(StudentList& list, char option, std::string& keyword)
 {
     StudentList* searchResult = new StudentList();
     std::string data;
 
-switch(option){
+    switch(option){
     case '1':
         for (int i = 0; i < list.size(); i++)
         {
             data = list.getStudent(i).getName();
             if (data.find(keyword) != std::string::npos){
-             try{
+                try{
                 searchResult->addStudent(list.getStudent(i));
                 }catch (const std::runtime_error& e) {
                     std::cerr << e.what() << std::endl;
                 }   
-        }
+            }
         }
         break;
     case '2':
@@ -52,12 +54,12 @@ switch(option){
         {
             data = list.getStudent(i).getStudentId();
             if (data.find(keyword) != std::string::npos){
-            try{
+                try{
                 searchResult->addStudent(list.getStudent(i));
                 }catch (const std::runtime_error& e) {
                     std::cerr << e.what() << std::endl;
                 }   
-        }
+            }
         }
         break;
     case '3':
@@ -70,7 +72,7 @@ switch(option){
                 }catch (const std::runtime_error& e) {
                     std::cerr << e.what() << std::endl;
                 }   
-        }
+            }
         }
         break;
     case '4':
@@ -78,12 +80,12 @@ switch(option){
         {
             data = list.getStudent(i).getBirthYear();
             if (data.find(keyword) != std::string::npos){
-             try{
+                try{
                 searchResult->addStudent(list.getStudent(i));
-            }catch (const std::runtime_error& e) {
+                }catch (const std::runtime_error& e) {
                 std::cerr << e.what() << std::endl;
-            }   
-        }
+                }   
+            }
         }
         break;
     case '5':
@@ -91,16 +93,16 @@ switch(option){
         {
             data = list.getStudent(i).getDepartment();
             if (data.find(keyword) != std::string::npos){
-            try{
+                try{
                 searchResult->addStudent(list.getStudent(i));
-            }catch (const std::runtime_error& e) {
+                }catch (const std::runtime_error& e) {
                 std::cerr << e.what() << std::endl;
-            }   
-        }
+                }   
+            }
         }
         break;
     default:
         break;
-}
+    }
     return searchResult;
 }
