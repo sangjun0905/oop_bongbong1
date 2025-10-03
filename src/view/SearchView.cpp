@@ -81,7 +81,7 @@ void SearchView::printResult(StudentList list)
     for (int i = 0; i < 75; i++)
         cout << "-";
     
-    cout << endl;
+    cout << "\n";
 
     for (int i = 0; i < list.size(); i++)
     {
@@ -90,7 +90,7 @@ void SearchView::printResult(StudentList list)
             << setw(12) << student.getStudentId()
             << setw(23) << student.getDepartment()
             << setw(12) << student.getBirthYear()
-            << setw(12) << student.getTel() << "\n";    
+            << setw(12) << student.getTel() << endl;    
     }
     cout << "\n";
 }
