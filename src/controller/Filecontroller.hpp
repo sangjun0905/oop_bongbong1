@@ -7,6 +7,7 @@
 #include <vector>
 #include <cctype>
 #include <cstring>
+#include <algorithm>
 #include "../model/Student.hpp"
 #include "../model/StudentList.hpp"
 
@@ -16,6 +17,8 @@ using namespace std;
 class FileController
 {
     string file;
+    StudentList sortedStudentList;
+
 
 public:
     FileController(string file_name);   //생성자(파일명 초기화) argv값 전달 받음
@@ -25,4 +28,5 @@ public:
 private:
     vector<string> lineSplit(string line);     //파일에서 문자열을 읽어 student 형태로 만들어 반환 (파일읽기에서 사용)
     int wrongInfo(vector<string> studvector);
+    StudentList& sortByName(StudentList& studentList);
 };

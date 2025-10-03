@@ -50,7 +50,7 @@ StudentList FileController::readFile(StudentList students)
         students.addStudent(one);
     }
     readinfo.close();
-    return students;
+    return sortByName(students);
 }
 
 vector<string> FileController::lineSplit(string line)
@@ -151,4 +151,13 @@ void FileController::save(StudentList studentlist)
     writeinfo.close();
 
     //cout << "file write success" << endl;
+}
+
+StudentList& FileController::sortByName(StudentList& studentList) {
+    sortedStudentList = studentList;  
+    auto& students = sortedStudentList.getAllStudents(); 
+    sort(students.begin(), students.end(),[](const Student& a, const Student& b) {
+        return std::string(a.getName()) < std::string(b.getName());
+    });
+    return sortedStudentList;
 }
