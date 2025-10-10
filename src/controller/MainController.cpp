@@ -10,6 +10,7 @@
 #include "SearchController.hpp"
 #include "FileController.hpp"
 #include "SortController.hpp"
+#include "ChatbotController.hpp"
 
 class MainController {
 private:
@@ -55,8 +56,28 @@ public:
                     start = false;
                     break;
                 }
-                default:
+                case '5':{ //view - controller 만들어서 처리해야 함(아직 미구현)
+                    std::cout << "chatbot mode\n";
+                    ChatbotController chatbotController;
+                    std::string user_question;
+                    std::cout << "Ask a question to the chatbot (type 'exit' to quit): ";
+                    while (true) {
+                        //buffer 비우기
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::getline(std::cin, user_question);
+                        if (user_question == "exit") {
+                            break;
+                        }
+                        chatbotController.handleUserInput(user_question);
+                        std::cout << "Ask another question (type 'exit' to quit): ";
+                    }
+
+
+                }   
+
+                default:{
                     std::cout << "input error\n";
+                }
             }
         }
     }

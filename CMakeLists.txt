@@ -20,6 +20,8 @@ set(SRC_FILES
     src/view/MainMenuView.cpp
     src/view/SortView.cpp
     src/controller/SortController.cpp
+    src/llama/LlamaService.cpp
+    src/controller/ChatbotController.cpp
 )
 
 # 실행 파일 타겟 정의

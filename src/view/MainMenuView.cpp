@@ -19,7 +19,7 @@ char MainMenuView::display() {
 }
 
 int MainMenuView::check_input(const std::string& input) {
-    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '4')) {
+    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '5')) {
         return 0; // Valid input
     }
 
