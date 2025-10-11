@@ -16,8 +16,7 @@ void empty_log_callback(ggml_log_level level, const char * message, void * user_
 
 LLM::LLM(const std::string& model_path) {
 
-
-    int n_predict = MAX_GENERATE_TOKENS; //생성할 최대 토큰 수
+    //복잡한 로그가 터미널에 뜨지 않게 빈 콜백 설정
     llama_log_set(empty_log_callback, nullptr);
 
     // llama 백엔드 로드
