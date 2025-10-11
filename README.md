@@ -13,4 +13,3 @@ cmake -S . -B build -G Ninja
 cmake --build build
 cd build
 ./StudentInfoSystem.exe
-

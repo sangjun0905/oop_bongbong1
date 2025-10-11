@@ -16,7 +16,8 @@ public:
     ChatbotController() {
         // 컨트롤러가 생성될 때, LlamaService 객체도 함께 생성합니다.
         // 사용할 모델 파일 이름을 전달합니다.
-        llama_service_ = std::make_unique<LlamaService>("lfm2-2.6b-q4_k_m.gguf");
+        std::string model_path = "..\\external\\llama.cpp\\models\\LFM2-2.6B-Q4_K_M.gguf";
+        llama_service_ = std::make_unique<LlamaService>(model_path);
     }
 
     // View에서 호출할 함수

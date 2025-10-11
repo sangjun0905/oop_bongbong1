@@ -1,4 +1,6 @@
 #include <iostream>
+#include <limits>
+#include <string>
 
 #include "../model/StudentList.hpp"
 #include "../view/MainMenuView.hpp"
@@ -61,15 +63,17 @@ public:
                     ChatbotController chatbotController;
                     std::string user_question;
                     std::cout << "Ask a question to the chatbot (type 'exit' to quit): ";
+                    //입력 버퍼 비우기
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     while (true) {
-                        //buffer 비우기
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        // 사용자 입력 받기
                         std::getline(std::cin, user_question);
                         if (user_question == "exit") {
                             break;
                         }
                         chatbotController.handleUserInput(user_question);
-                        std::cout << "Ask another question (type 'exit' to quit): ";
+                        std::cout << "Ask another question (type 'exit' to quit): "<< std::flush;
+                        
                     }
 
 
