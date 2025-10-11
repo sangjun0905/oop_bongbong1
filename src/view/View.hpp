@@ -3,14 +3,14 @@
 
 class View {
 public:
-    std::string output;
+    std::string output{};
 
     View() {
         output = "";
     }
-
-    std::string display() {
+    virtual ~View() = default;
+    virtual std::string display() {
         std::cout << output << std::endl;
         return output;
     }
-}
+};

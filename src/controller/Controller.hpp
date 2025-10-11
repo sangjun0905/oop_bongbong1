@@ -1,11 +1,12 @@
 class Controller {
+public:
     StudentList& studentList;
-    View view;
+    View& view;
 
-    Controller (StudentList& stuList) : studentList(stuList) {};
+    Controller(StudentList& stuList, View& vw) : studentList(stuList), view(vw) {};
 
-    std::unique_ptr<Controller> nextController(std::unique_ptr<Controller> cur) {
+    std::unique_ptr<Controller> nextController(char sel) {
         view.display();
-        return cur;
+        return nullptr;
     }
 };
