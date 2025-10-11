@@ -21,7 +21,6 @@ set(SRC_FILES
     src/view/SortView.cpp
     src/controller/SortController.cpp
     src/llama/LLM.cpp
-    src/controller/ChatbotController.cpp
 )
 
 # 실행 파일 타겟 정의
