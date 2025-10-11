@@ -20,7 +20,7 @@ set(SRC_FILES
     src/view/MainMenuView.cpp
     src/view/SortView.cpp
     src/controller/SortController.cpp
-    src/llama/LlamaService.cpp
+    src/llama/LLM.cpp
     src/controller/ChatbotController.cpp
 )
 
@@ -33,7 +33,6 @@ add_executable(StudentInfoSystem ${SRC_FILES})
 target_include_directories(StudentInfoSystem PRIVATE
     ${CMAKE_SOURCE_DIR}/src
 )
-
 
 # (선택)  CUDA를 사용하고 싶다면 아래 주석을 해제하세요.
 # set(LLAMA_CUBLAS ON)

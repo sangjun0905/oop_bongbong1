@@ -1,15 +1,18 @@
-﻿#include "LlamaService.hpp"
+﻿#include "LLM.hpp"
 #include <stdexcept>
 #include <vector>
 #include <iostream>
 #include <string>
 #include <algorithm>
 
+#define MAX_INPUT_TOKENS 5000
+#define MAX_GENERATE_TOKENS 256
+
 void empty_log_callback(ggml_log_level level, const char * message, void * user_data) {
     // 빈 콜백
 }
 
-LlamaService::LlamaService(const std::string& model_path) {
+LLM::LLM(const std::string& model_path) {
 
     llama_log_set(empty_log_callback, nullptr);
 
@@ -20,35 +23,35 @@ LlamaService::LlamaService(const std::string& model_path) {
     llama_model_params model_params = llama_model_default_params();
     model_ = llama_model_load_from_file(model_path.c_str(), model_params);
     if (model_ == nullptr) {
-        throw std::runtime_error("LlamaService: Failed to load model from " + model_path);
+        throw std::runtime_error(" Failed to load model from " + model_path);
     }
 
     // 컨텍스트 생성
-    n_ctx_ = 2048; // 필요시 조정 가능
+    n_ctx_ = MAX_INPUT_TOKENS; // 필요시 조정
     llama_context_params ctx_params = llama_context_default_params();
     ctx_params.n_ctx = n_ctx_;
 
     ctx_ = llama_init_from_model(model_, ctx_params);
     if (ctx_ == nullptr) {
-        throw std::runtime_error("LlamaService: Failed to create context");
+        throw std::runtime_error("Failed to create context");
     }
     std::cout << "Model and context loaded successfully.\n" << std::endl;
 }
 
 // 소멸자: 리소스 정리
-LlamaService::~LlamaService() {
+LLM::~LLM() {
     if (ctx_)   llama_free(ctx_);
     if (model_) llama_model_free(model_);
     llama_backend_free();
-    std::cout << "LLama ended.\n\n" << std::flush;
+    std::cout << "LLama ended.\n\n" << std::endl;
 }
 
 // 간단한 Greedy 생성
-std::string LlamaService::ask(const std::string& prompt) {
+std::string LLM::generate(const std::string& prompt) {
     const llama_vocab * vocab = llama_model_get_vocab(model_);
 
     // 1) 토큰화 (vocab 사용)
-    std::vector<llama_token> tokens(prompt.size() + 16);
+    std::vector<llama_token> tokens(prompt.size() + 10); // 여유 공간
     int n_tokens = llama_tokenize(
         vocab,
         prompt.c_str(),
@@ -58,7 +61,7 @@ std::string LlamaService::ask(const std::string& prompt) {
         /*add_special*/ true,
         /*parse_special*/ false);
     if (n_tokens < 0) {
-        throw std::runtime_error("LlamaService: Tokenization failed.");
+        throw std::runtime_error("Tokenization failed.");
     }
     tokens.resize(n_tokens);
     if (n_tokens == 0) {
@@ -85,14 +88,14 @@ std::string LlamaService::ask(const std::string& prompt) {
         const int32_t ret = llama_decode(ctx_, batch);
         if (ret != 0) {
             llama_batch_free(batch);
-            throw std::runtime_error("LlamaService: llama_decode failed for prompt (code=" + std::to_string(ret) + ")");
+            throw std::runtime_error("llama_decode failed for prompt");
         }
     }
 
     // 4) 생성 루프 (Greedy)
     std::string result;
     int n_cur = n_tokens;
-    const int max_new_tokens = 64;
+    const int max_new_tokens = MAX_GENERATE_TOKENS; // 필요시 조정
     const int32_t n_vocab = llama_vocab_n_tokens(vocab);
 
     while (n_cur < n_ctx_ && (n_cur - n_tokens) < max_new_tokens) {
@@ -100,7 +103,7 @@ std::string LlamaService::ask(const std::string& prompt) {
         float * logits = llama_get_logits(ctx_);
         if (logits == nullptr || n_vocab <= 0) {
             llama_batch_free(batch);
-            throw std::runtime_error("LlamaService: Failed to get logits for generation");
+            throw std::runtime_error("Failed to get logits");
         }
 
         // Greedy 선택
@@ -143,7 +146,7 @@ std::string LlamaService::ask(const std::string& prompt) {
         const int32_t ret = llama_decode(ctx_, batch);
         if (ret != 0) {
             llama_batch_free(batch);
-            throw std::runtime_error("LlamaService: llama_decode failed for generation (code=" + std::to_string(ret) + ")");
+            throw std::runtime_error("llama_decode failed  for generation");
         }
     }
 
