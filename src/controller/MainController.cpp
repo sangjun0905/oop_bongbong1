@@ -1,87 +1,61 @@
+#pragma once
 #include <iostream>
-#include <limits>
+#include <memory>
 #include <string>
 
 #include "../model/StudentList.hpp"
+
 #include "../view/MainMenuView.hpp"
 #include "../view/InsertionView.hpp"
 #include "../view/SearchView.hpp"
-#include "../view/SortView.hpp"
-// #include "SearchModule.hpp"
+#include "../view/SortSelView.hpp"
+#include "../view/SortResultView.hpp"
+
+#include "Controller.hpp"
+#include "MainMenuController.hpp"
 #include "InsertionController.hpp"
 #include "SearchController.hpp"
-#include "FileController.hpp"
 #include "SortController.hpp"
-#include "ChatbotController.hpp"
+#include "FileController.hpp"
 
 class MainController {
 private:
-    std::string filename;
-public:
-    MainController(const std::string& fname) : filename(fname){}
     StudentList studentList;
-    MainMenuView menuView;
-    InsertionView insertionView;
-    SortView sortView;
-    
+    std::string filename;
+
+public:
+    MainController(const std::string& fname) : filename(fname) {}
+
     void run() {
-    
-        SearchView searchView;
-        
-        FileController fileController(filename);
-        studentList = fileController.readFile(studentList);
-        InsertionController insertionController(insertionView);        
-        SearchController searchController(searchView);
-        
+        FileController fileController(this->filename);
+        this->studentList = fileController.readFile(this->studentList);
 
-        bool start = true;
-        while (start) {
-            char userSelect = menuView.display();
 
-            switch (userSelect) {
-                case '1': {
-                    studentList = insertionController.insert(studentList);
-                    break;
-                }
-                case '2':
-                    searchController.search(studentList);
-                    break;
-                case '3':{
-                    SortController sortController(sortView, studentList);
-                    break;
-                }
-                    break;
-                case '4':{
-                    std::cout << "exit program\n";
-                    fileController.save(studentList);
-                    start = false;
-                    break;
-                }
-                case '5':{ //view - controller 만들어서 처리해야 함(아직 미구현)
-                    std::cout << "chatbot mode" << endl;
-                    std::cout << "loading model..." << endl;    
-                    ChatbotController chatbotController;
-                    std::string user_question;
-                    std::cout << "Ask a question to the chatbot (type 'exit' to quit): ";
-                    //입력 버퍼 비우기
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    while (true) {
-                        // 사용자 입력 받기
-                        std::getline(std::cin, user_question);
-                        if (user_question == "exit") {
-                            std::cout << "\n\nExiting chatbot mode.\n" << std::flush;                            
-                            break;
-                        }
-                        chatbotController.handleUserInput(user_question);
-                        std::cout << "Ask another question (type 'exit' to quit): "<< std::flush;
-                        
-                    }
-                }   
-
-                default:{
-                    std::cout << "input error\n";
-                }
+        Controller controller(studentList, MainMenuView());
+        while (true) {
+            std::string output = controller.display();
+            
+            if (Agent 모드면) {
+                prompt = output + 유저 입력
+                userSel = llm.generate(prompt);
             }
+            else {
+                std::string userSel;
+                std::cin << userSel;
+            }
+
+            if (output이 mainMenu고 userSel이 5번이면) {
+                llm 만들어요.
+                Agent 모드네요.
+            }
+            if (output이 mainMenu고 userSel이 exit이면) {
+                std::cout << "Exit program.\n";
+                fileController.save(this->studentList);
+                running = false;
+                break;
+            }
+
+            controller = controller.nextController(userSel);
         }
     }
 };
