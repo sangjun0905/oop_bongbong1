@@ -16,13 +16,13 @@ std::string SearchSelectionView::display() {
             "> ";
 
     std::cout << output;
-    return "PROMPT:SEARCH_MENU(1..6)";
+    return output;
 }
 
 std::string SearchNameView::display() {
     output = "Name Keyword: ";
     std::cout << output;
-    return "PROMPT:SEARCH_KEYWORD:NAME";
+    return output;
 };
 
 std::string SearchStudentIDView::display() {

@@ -4,7 +4,7 @@
 
 #include <string>
 
-class MainMenuView :public View{
+class MainMenuView : public View{
 public:
     std::string display() override;
 };

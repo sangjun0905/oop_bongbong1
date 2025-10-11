@@ -5,33 +5,34 @@
 
 #include "Controller.hpp"
 
-class InsertionController
-{
-private:
-    InsertionView& insertionView;
-
-public:
-    InsertionController(InsertionView& insertionView);
-    ~InsertionController();
-
-    StudentList& insert(StudentList& studentList);
-};
-
 class InsertionNameController : public Controller {
 private:
     StudentList& studentList;
     InsertionNameView& view;
-    std::string input;
 public:
     InsertionNameController(StudentList& stuList, InsertionNameView& insertNameView)
-        : Controller(stuList, insertNameView) {};
-
-    void display() {
-
-    }
+        : studentList(stuList), view(insertNameView) {};
 
     std::unique_ptr<Controller> nextController(std::string input) {
-        if (check_name) ()
-        std::u
+        studentList.addStudent(name만 있는 학생)
+
+        return std::make_unique<class InsertionStudentIdController>(studentList, InsertionStudentIdView());
+    }
+}
+
+... 
+
+class InsertionTelController : public Controller {
+private:
+    StudentList& studentList;
+    InsertionTelView& view;
+public:
+    InsertionTelController(StudentList& stuList, InsertionTelView& insertTelView)
+        : studentList(stuList), view(insertTelView) {};
+
+    std::unique_ptr<Controller> nextController(std::string input) {
+        studentList.addStudent(마지막 학생에 Tel 추가)
+
+        return std::make_unique<class MainMenuController>(studentList, MainMenuView());
     }
 }

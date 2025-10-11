@@ -4,5 +4,13 @@ public:
         return 0;
     }
     
-    void agent() {}
+    std::string generate(std::string prompt) {
+        return output;
+    }
+
+    std::string getUserInput() {
+
+    }
+
+    void create();
 };

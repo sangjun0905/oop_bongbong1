@@ -39,6 +39,6 @@ class SearchResultView : public View {
 private :
     StudentList list;
 public :
-    SearchResultView searchResultView(StudentList& list);
-    std::string display(StudentList& list);
+    SearchResultView(StudentList ls) : list(ls) {};
+    std::string display();
 };

@@ -12,6 +12,6 @@ std::string MainMenuView::display() {
             "4. Exit\n"
             "5. Agent Mode\n"
             "> ";
-    std::cout << output; 
-    return "PROMPT:MAIN_MENU(1..5)";
+    std::cout << output;
+    return output;
 }
