@@ -1,12 +1,22 @@
+#pragma once
+
+#include <memory>
+#include <string>
+
+#include "../model/StudentList.hpp"
+#include "../view/View.hpp"
+
 class Controller {
 public:
     StudentList& studentList;
     View& view;
 
-    Controller(StudentList& stuList, View& vw) : studentList(stuList), view(vw) {};
-
-    std::unique_ptr<Controller> nextController(char sel) {
+    Controller(StudentList& stuList, View& vw) : studentList(stuList), view(vw) {}
+    virtual ~Controller() = default;
+    
+    virtual void display() {
         view.display();
-        return nullptr;
     }
+
+    virtual std::unique_ptr<Controller> nextController(std::string) { return nullptr; }
 };
