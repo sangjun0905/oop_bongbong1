@@ -34,8 +34,6 @@ target_include_directories(StudentInfoSystem PRIVATE
     ${CMAKE_SOURCE_DIR}/src
 )
 
-# (선택)  CUDA를 사용하고 싶다면 아래 주석을 해제하세요.
-# set(LLAMA_CUBLAS ON)
 
 # llama.cpp를 정적 라이브러리로 빌드하도록 명시합니다.
 set(BUILD_SHARED_LIBS OFF)

@@ -13,3 +13,9 @@ cmake -S . -B build -G Ninja
 cmake --build build
 cd build
 ./StudentInfoSystem.exe
+
+//metal 기능 활성화
+cmake .. -DGGML_METAL=ON
+
+//cuda 기능 활성화
+cmake .. -DGGML_CUDA=ON
