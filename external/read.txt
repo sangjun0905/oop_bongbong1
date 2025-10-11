@@ -2,6 +2,7 @@
 
 2. git clone https://github.com/ggml-org/llama.cpp
 
-3. download model's .gguf file to models folder
+3. download model's .gguf file to external/llama.cpp/models folder
 
 4. modelpath = "..\\external\\llama.cpp\\models\\(name of gguf file)"
+                "../external/llama.cpp//models/(name of gguf file)"
