@@ -30,7 +30,7 @@ public:
         studentList = fileController.readFile(studentList);
         InsertionController insertionController(insertionView);        
         SearchController searchController(searchView);
-        AgentController agentController();
+        AgentController agentController;
         
 
         bool start = true;
