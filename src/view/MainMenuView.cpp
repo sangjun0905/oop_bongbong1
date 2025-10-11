@@ -10,6 +10,7 @@ char MainMenuView::display() {
         std::cout << "2. Search" << std::endl;
         std::cout << "3. Sorting Option" << std::endl;
         std::cout << "4. Exit" << std::endl;
+        std::cout << "5. Agent Mode" << std::endl;
         std::cout << "> ";
         
         std::cin >> input;
@@ -19,7 +20,7 @@ char MainMenuView::display() {
 }
 
 int MainMenuView::check_input(const std::string& input) {
-    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '4')) {
+    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '5')) {
         return 0; // Valid input
     }
 
