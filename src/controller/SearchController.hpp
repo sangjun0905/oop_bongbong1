@@ -1,15 +1,18 @@
-#pragma once
+#ifndef SEARCHCONTROLLER_HPP
+#define SEARCHCONTROLLER_HPP
 
+#include "Controller.hpp"
 #include "../view/SearchView.hpp"
-#include "../model/StudentList.hpp"
+#include <iostream>
+#include <string>
 
-class SearchController
-{
-private:
-    SearchView searchView;
-    StudentList* searchStudent(StudentList& list, char option, std::string& keyword);
+class SearchController : public Controller {
+    SearchView& searchView;
 
 public:
-    SearchController(SearchView& sView);
-    void search(StudentList& list);
+    SearchController(StudentList& list, View& vw, SearchView& sv);
+
+    std::unique_ptr<Controller> nextController(const std::string& input) override;
 };
+
+#endif

@@ -1,25 +1,23 @@
-#include "InsertionController.hpp"
+#pragma once
+#include "Controller.hpp"
+#include "../view/InsertionView.hpp"
+#include "InsertionNameController.hpp" // 다음 단계 컨트롤러
 
-InsertionController::InsertionController(StudentList& list)
-    : BaseController(list)
-{
-    // --- 체인 구성 ---
-    auto nameController = std::make_shared<InsertNameController>(list);
-    auto idController = std::make_shared<InsertStudentIDController>(list);
-    auto birthController = std::make_shared<InsertBirthController>(list);
-    auto finalController = std::make_shared<FinalAddController>(list);
+class InsertionController : public Controller {
+public:
+    InsertionView& insertionView;
 
-    // --- 연결 ---
-    nameController->setNext(idController);
-    idController->setNext(birthController);
-    birthController->setNext(finalController);
+    InsertionController(StudentList& stuList, InsertionView& iv)
+        : Controller(stuList, iv), insertionView(iv) {}
 
-    // 체인 시작점 지정
-    head = nameController;
-}
+    std::unique_ptr<Controller> nextController(char sel) override {
+        this->insertionView.display();
 
-void InsertionController::execute(Student& student) {
-    if (head) {
-        head->execute(student); // 첫 단계 실행
+        return std::make_unique<InsertionNameController>(
+            this->studentList,
+            this->insertionView,
+            sel
+        );
     }
-}
+};
+
