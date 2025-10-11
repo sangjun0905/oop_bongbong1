@@ -1,12 +1,9 @@
 #pragma once
 
-#include <View.hpp>
+#include "View.hpp"
 #include "../model/StudentList.hpp"
 
 #include <string>
-#include <vector>
-
-namespace view::search{
 
 class SearchSelectionView : public View { 
 public :
@@ -38,14 +35,10 @@ public :
     std::string display() override;
 };
 
-class SearchErrorView : public View { 
-public :
-    std::string display() override;
-};
-
 class SearchResultView : public View {
-public:
-    std::string display(StudentList List);
+private :
+    StudentList list;
+public :
+    SearchResultView searchResultView(StudentList& list);
+    std::string display(StudentList& list);
 };
-
-}

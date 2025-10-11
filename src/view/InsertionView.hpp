@@ -4,8 +4,6 @@
 
 #include <string>
 
-namespace view::insertion {
-
 class InsertionNameView : public View{
 public:
     std::string display() override;
@@ -29,6 +27,4 @@ public:
 class InsertionTelView : public View{
 public:
     std::string display() override;
-};
-
 };

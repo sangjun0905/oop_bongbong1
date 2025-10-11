@@ -4,8 +4,6 @@
 #include <string>
 #include <iomanip>
 
-namespace view::search {
-
 std::string SearchSelectionView::display() {
         
     output = "--- Search ---\n"
@@ -18,43 +16,50 @@ std::string SearchSelectionView::display() {
             "> ";
 
     std::cout << output;
+    return "PROMPT:SEARCH_MENU(1..6)";
 }
 
 std::string SearchNameView::display() {
     output = "Name Keyword: ";
     std::cout << output;
+    return "PROMPT:SEARCH_KEYWORD:NAME";
 };
 
 std::string SearchStudentIDView::display() {
     output = "Student ID Keyword: ";
     std::cout << output;
+    return "PROMPT:SEARCH_KEYWORD:STUDENT_ID";
 };
 
 std::string SearchAdmissionYearView::display() {
     output = "Admission Year Keyword: ";
     std::cout << output;
+    return "PROMPT:SEARCH_KEYWORD:ADMISSION_YEAR";
 };
 
 std::string SearchBirthYearView::display() {
     output = "Birth Year Keyword: ";
     std::cout << output;
+    return "PROMPT:SEARCH_KEYWORD:BIRTH_YEAR";
 };
 
 std::string SearchDepartmentView::display() {
     output = "Department Keyword: ";
     std::cout << output;
+    return "PROMPT:SEARCH_KEYWORD:DEPARTMENT";
 };
 
-std::string SearchErrorView::display() {
-    output = "NO RESULTS FOUND";
-    std::cout << output << std::endl;
+SearchResultView SearchResultView::searchResultView(StudentList& list) {
+    return searchResultView(list);
 };
 
-std::string SearchResultView::display(StudentList list) {
+std::string SearchResultView::display(StudentList& list) {
+    std::cout << "Result: " << std::endl;
+
     if (list.size() == 0)
     {
         std::cout << "NO RESULTS FOUND" << "\n\n";
-        return;
+        return "RESULT:SEARCH:EMPTY";
     }
 
     std::cout << std::left << std::setw(15) << "Name" 
@@ -78,6 +83,5 @@ std::string SearchResultView::display(StudentList list) {
             << std::setw(12) << student.getTel() << std::endl;    
     }
     std::cout << "\n";
+    return std::string("RESULT:SEARCH:COUNT=") + std::to_string(list.size());
 };
-
-}

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <string>
 
-namespace view::mainmenu {
-
 std::string MainMenuView::display() { 
     
     output = "--- Main Menu ---\n" 
@@ -15,11 +13,5 @@ std::string MainMenuView::display() {
             "5. Agent Mode\n"
             "> ";
     std::cout << output; 
+    return "PROMPT:MAIN_MENU(1..5)";
 }
-
-std::string MainMenuErrorView::display() {
-    output = "Try again!";
-    std::cout << output << std::endl;
-}
-
-} // namespace view::mainmenu

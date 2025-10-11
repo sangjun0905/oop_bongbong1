@@ -3,8 +3,6 @@
 #include <iostream>
 #include <string>
 
-namespace view::sort   {
-
 std::string SortSelectView::display() {
 
     output = " --- Sorting Option ---\n"
@@ -14,11 +12,11 @@ std::string SortSelectView::display() {
             "4. Sort by Department\n"
             "> ";
     std::cout << output; 
+    return "PROMPT:SORT_MENU(1..4)";
 };
 
 std::string SortResultView::display(){
     output = "Sorting completed";
     std::cout << output << std::endl;
+    return "RESULT:SORT:COMPLETED";
 };
-
-} 
