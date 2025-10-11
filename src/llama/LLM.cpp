@@ -6,7 +6,7 @@
 #include <algorithm>
 
 
-// This code was written with a lot of reference to llama.cpp/examples/simple.cpp
+// This code was written with a lot of reference to llama.cpp/examples/simple/simple.cpp
 
 #define MAX_GENERATE_TOKENS 256
 
@@ -39,8 +39,6 @@ LLM::LLM(const std::string& model_path) {
     llama_context_params ctx_params = llama_context_default_params();
     // n_ctx is the context size
     ctx_params.n_ctx = n_ctx_;
-    // enable performance counters
-    ctx_params.no_perf = false;
 
     ctx = llama_init_from_model(model, ctx_params);
     if (ctx == nullptr) {
