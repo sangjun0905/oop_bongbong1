@@ -10,10 +10,14 @@ public:
     SortController(StudentList& stuList, SortView& sv)
         : Controller(stuList, sv), sortView(sv) {}
 
+    void display() {
+        sortView.display();
+    }
+    
     std::unique_ptr<Controller> nextController(char sel) override {
-  
-        this->sortView.display();
-
-        return std::make_unique<SortMenuController>(this->studentList, this->sortView, sel);
+        return std::make_unique<SortMenuController>(
+            this->studentList, 
+            this->sortView, 
+            sel);
     }
 };

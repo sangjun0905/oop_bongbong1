@@ -10,9 +10,11 @@ public:
     InsertionController(StudentList& stuList, InsertionView& iv)
         : Controller(stuList, iv), insertionView(iv) {}
 
+    void display() {
+        this->insertionView.display;
+    }
+    
     std::unique_ptr<Controller> nextController(char sel) override {
-        this->insertionView.display();
-
         return std::make_unique<InsertionNameController>(
             this->studentList,
             this->insertionView,

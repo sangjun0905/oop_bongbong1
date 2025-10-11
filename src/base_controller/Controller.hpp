@@ -8,9 +8,12 @@ public:
     View& view;
 
     Controller(StudentList& stuList, View& vw) : studentList(stuList), view(vw) {};
-
-    std::unique_ptr<Controller> nextController(char sel) {
+    
+    void display() {
         view.display();
+    }
+
+    std::unique_ptr<Controller> nextController(std::string input) {
         return nullptr;
     }
 };

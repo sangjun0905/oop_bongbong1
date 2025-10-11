@@ -10,9 +10,11 @@ public:
     SearchController(StudentList& stuList, SearchView& sv)
         : Controller(stuList, sv), searchView(sv) {}
 
-    std::unique_ptr<Controller> nextController(char sel) override {
-        this->searchView.display();
+    void display() {
+        this-> searchView.display();
+    }
 
+    std::unique_ptr<Controller> nextController(char sel) override {
         return std::make_unique<SearchMenuController>(
             this->studentList,
             this->searchView,
