@@ -62,7 +62,7 @@ LLM::~LLM() {
     if (ctx)  llama_free(ctx);
     if (model) llama_model_free(model);
     llama_backend_free();
-    std::cout << "LLama ended.\n\n" << std::endl;
+    std::cout << "LLama ended." << std::endl;
 }
 
 // 프롬프트를 받아 텍스트 생성
@@ -88,7 +88,7 @@ std::string LLM::generate(const std::string& prompt) {
 
     if (llama_model_has_encoder(model)) {
         if (llama_encode(ctx, batch)) {
-            throw std::runtime_error("failed to eval\n");
+            throw std::runtime_error("encode failed\n");
         }
 
         llama_token decoder_start_token_id = llama_model_decoder_start_token(model);
@@ -107,7 +107,7 @@ std::string LLM::generate(const std::string& prompt) {
     for (int n_pos = 0; n_pos + batch.n_tokens < n_prompt + n_predict; ) {
         // evaluate the current batch with the transformer model
         if (llama_decode(ctx, batch)) {
-            throw std::runtime_error("failed to eval, return code %d\n");
+            throw std::runtime_error("decode failed for prompt\n");
         }
 
         n_pos += batch.n_tokens;
@@ -121,7 +121,7 @@ std::string LLM::generate(const std::string& prompt) {
                 break;
             }
 
-            char buf[MAX_GENERATE_TOKENS];
+            char buf[128];
             int n = llama_token_to_piece(vocab, new_token_id, buf, sizeof(buf), 0, true);
             if (n < 0) {
                 throw std::runtime_error("error: failed to convert token to piece\n");
