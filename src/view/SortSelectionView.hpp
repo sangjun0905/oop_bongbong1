@@ -9,12 +9,12 @@ namespace view::sort {
 
 class SortSelectView : public View{
 public:
-    void display() override;
+    std::string display() override;
 };
 
 class SortResultView : public View{
 public:
-    void display() override;
+    std::string display() override;
 };
 
 }

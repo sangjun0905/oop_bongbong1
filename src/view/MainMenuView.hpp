@@ -8,12 +8,12 @@ namespace view::mainmenu {
 
 class MainMenuView :public View{
 public:
-    void display() override;
+    std::string display() override;
 };
 
 class MainMenuErrorView : public View{
     public:
-    void display() override;
+    std::string display() override;
 };
 
 }

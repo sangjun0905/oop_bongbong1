@@ -12,7 +12,7 @@ public:
     
     virtual ~View() = default; 
 
-    virtual void display() { 
+    virtual std::string display() { 
         std::cout << output << std::endl;  
     }
     

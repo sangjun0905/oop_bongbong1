@@ -5,7 +5,7 @@
 
 namespace view::insertion {
 
-void InsertionNameView::display() {
+std::string InsertionNameView::display() {
     
     output = "--- Add New Student ---\n"
             "Name: ";
@@ -13,26 +13,26 @@ void InsertionNameView::display() {
 
 };
 
-void InsertionStudentIDView::display() {
+std::string InsertionStudentIDView::display() {
     
     output = "Student ID: ";
     std::cout << output; 
 
 };
 
-void InsertionBirthYearView::display() {
+std::string InsertionBirthYearView::display() {
     
     output = "Birth Year: ";
     std::cout << output;
 };
 
-void InsertionDepartmentView::display() {
+std::string InsertionDepartmentView::display() {
     
     output = "Department: ";
     std::cout << output;
 };
 
-void InsertionTelView::display() {
+std::string InsertionTelView::display() {
     
     output = "Telephone: ";
     std::cout << output;

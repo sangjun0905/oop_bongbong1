@@ -5,7 +5,7 @@
 
 namespace view::mainmenu {
 
-void MainMenuView::display() { 
+std::string MainMenuView::display() { 
     
     output = "--- Main Menu ---\n" 
             "1. Insertion\n"
@@ -17,7 +17,7 @@ void MainMenuView::display() {
     std::cout << output; 
 }
 
-void MainMenuErrorView::display() {
+std::string MainMenuErrorView::display() {
     output = "Try again!";
     std::cout << output << std::endl;
 }

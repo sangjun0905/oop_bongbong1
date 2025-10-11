@@ -5,7 +5,7 @@
 
 namespace view::sort   {
 
-void SortSelectView::display() {
+std::string SortSelectView::display() {
 
     output = " --- Sorting Option ---\n"
             "1. Sort by Name\n"
@@ -16,8 +16,8 @@ void SortSelectView::display() {
     std::cout << output; 
 };
 
-void SortResultView::display(){
-    output = "Sorted Complete";
+std::string SortResultView::display(){
+    output = "Sorting completed";
     std::cout << output << std::endl;
 };
 
