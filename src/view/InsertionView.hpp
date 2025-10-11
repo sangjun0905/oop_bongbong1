@@ -1,24 +1,34 @@
-#ifndef INSERTIONVIEW_HPP
-#define INSERTIONVIEW_HPP
+#pragma once 
 
-#include <iostream>
+#include "View.hpp"
+
 #include <string>
 
-class InsertionView {
-public:
-    void display();
-    std::string getName();
-    std::string getStudentID();
-    std::string getBirthYear();
-    std::string getDepartment();
-    std::string getTel();
+namespace view::insertion {
 
-private:
-    int checkName(const std::string& inputName);
-    int checkStudentID(const std::string& inputStudentID);
-    int checkBirthYear(const std::string& inputBirthYear);
-    int checkDepartment(const std::string& inputDepartment);
-    int checkTel(const std::string& inputTel);
+class InsertionNameView : public View{
+public:
+    void display() override;
 };
 
-#endif
+class InsertionStudentIDView : public View{
+public:
+    void display() override;
+};
+
+class InsertionBirthYearView : public View{
+public:
+    void display() override;
+};
+
+class InsertionDepartmentView : public View{
+public:
+    void display() override;
+};
+
+class InsertionTelView : public View{
+public:
+    void display() override;
+};
+
+};

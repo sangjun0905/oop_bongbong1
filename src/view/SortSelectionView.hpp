@@ -4,15 +4,16 @@
 
 #include <string>
 
-namespace view::mainmenu {
+namespace view::sort {
 
-class MainMenuView :public View{
+
+class SortSelectView : public View{
 public:
     void display() override;
 };
 
-class MainMenuErrorView : public View{
-    public:
+class SortResultView : public View{
+public:
     void display() override;
 };
 

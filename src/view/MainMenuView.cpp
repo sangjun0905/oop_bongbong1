@@ -1,28 +1,25 @@
 #include "MainMenuView.hpp"
+
 #include <iostream>
 #include <string>
 
-char MainMenuView::display() {
-    std::string input;
+namespace view::mainmenu {
+
+void MainMenuView::display() { 
     
-    do {
-        std::cout << "1. Insertion" << std::endl;
-        std::cout << "2. Search" << std::endl;
-        std::cout << "3. Sorting Option" << std::endl;
-        std::cout << "4. Exit" << std::endl;
-        std::cout << "> ";
-        
-        std::cin >> input;
-    } while (check_input(input));
-
-    return input[0];
+    output = "--- Main Menu ---\n" 
+            "1. Insertion\n"
+            "2. Search\n"
+            "3. Sorting Option\n"
+            "4. Exit\n"
+            "5. Agent Mode\n"
+            "> ";
+    std::cout << output; 
 }
 
-int MainMenuView::check_input(const std::string& input) {
-    if (input.length() == 1 && (input[0] >= '1' && input[0] <= '4')) {
-        return 0; // Valid input
-    }
-
-    std::cout << "Try again!" << std::endl;
-    return 1; // Invalid input
+void MainMenuErrorView::display() {
+    output = "Try again!";
+    std::cout << output << std::endl;
 }
+
+} // namespace view::mainmenu
