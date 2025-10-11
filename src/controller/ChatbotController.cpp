@@ -18,9 +18,9 @@ void ChatbotController::handleUserInput(const std::string& user_question) {
     prompt += "Q: " + user_question + "\n";
 
     // 3. LlamaService를 통해 LLM에게 질문하고 답변을 받습니다.
-    std::cout << "Asking LLM...";
+    std::cout << "Asking LLM..." << std::endl;
     std::string ai_response = llama_service_->ask(prompt);
-    std::cout << "LLM Response: " << ai_response << std::endl;
+    std::cout << "LLM Response: " << "\n" << ai_response << "\n\n";
 
     // 4. (생략) 받은 답변(ai_response)을 ChatbotView에 업데이트하도록 지시합니다.
     // chatbot_view->addMessage("AI", ai_response);

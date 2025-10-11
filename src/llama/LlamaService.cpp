@@ -5,7 +5,14 @@
 #include <string>
 #include <algorithm>
 
+void empty_log_callback(ggml_log_level level, const char * message, void * user_data) {
+    // 빈 콜백
+}
+
 LlamaService::LlamaService(const std::string& model_path) {
+
+    llama_log_set(empty_log_callback, nullptr);
+
     // ggml/llama 백엔드 초기화
     llama_backend_init();
 
@@ -25,7 +32,7 @@ LlamaService::LlamaService(const std::string& model_path) {
     if (ctx_ == nullptr) {
         throw std::runtime_error("LlamaService: Failed to create context");
     }
-    std::cout << "LlamaService: Model and context loaded successfully." << std::endl;
+    std::cout << "Model and context loaded successfully.\n" << std::endl;
 }
 
 // 소멸자: 리소스 정리
@@ -33,7 +40,7 @@ LlamaService::~LlamaService() {
     if (ctx_)   llama_free(ctx_);
     if (model_) llama_model_free(model_);
     llama_backend_free();
-    std::cout << "LlamaService: Model and context freed." << std::endl;
+    std::cout << "LLama ended.\n\n" << std::flush;
 }
 
 // 간단한 Greedy 생성

@@ -46,11 +46,10 @@ public:
                 case '2':
                     searchController.search(studentList);
                     break;
-                case '3':
-                    {
-                        SortController sortController(sortView, studentList);
-                    }
-                    
+                case '3':{
+                    SortController sortController(sortView, studentList);
+                    break;
+                }
                     break;
                 case '4':{
                     std::cout << "exit program\n";
@@ -59,7 +58,8 @@ public:
                     break;
                 }
                 case '5':{ //view - controller 만들어서 처리해야 함(아직 미구현)
-                    std::cout << "chatbot mode\n";
+                    std::cout << "chatbot mode" << endl;
+                    std::cout << "loading model..." << endl;    
                     ChatbotController chatbotController;
                     std::string user_question;
                     std::cout << "Ask a question to the chatbot (type 'exit' to quit): ";
@@ -69,14 +69,13 @@ public:
                         // 사용자 입력 받기
                         std::getline(std::cin, user_question);
                         if (user_question == "exit") {
+                            std::cout << "\n\nExiting chatbot mode.\n" << std::flush;                            
                             break;
                         }
                         chatbotController.handleUserInput(user_question);
                         std::cout << "Ask another question (type 'exit' to quit): "<< std::flush;
                         
                     }
-
-
                 }   
 
                 default:{
