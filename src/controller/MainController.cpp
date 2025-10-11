@@ -22,6 +22,7 @@ class MainController {
 private:
     StudentList studentList;
     std::string filename;
+    std::unique_ptr<AgentController> agentController;
 
 public:
     MainController(const std::string& fname) : filename(fname) {}
@@ -34,24 +35,25 @@ public:
         Controller controller(studentList, MainMenuView());
         while (true) {
             std::string output = controller.display();
-            
-            if (Agent 모드면) {
-                prompt = output + 유저 입력
-                userSel = llm.generate(prompt);
+            std::string userSel;
+            std::cin >> userSel;
+
+            if (agentController.getFlag()) {
+                std::string prompt = output +  "\nUser input: " + userSel + "\n";
+                userSel = agentController.generate(prompt);
             }
             else {
-                std::string userSel;
-                std::cin << userSel;
+                std::cin >> userSel;
             }
 
-            if (output이 mainMenu고 userSel이 5번이면) {
-                llm 만들어요.
-                Agent 모드네요.
+            if (output.find("Main Menu") == std::string::npos && userSel == "5") {
+                std::cout << "\n>>> Agent 모드 활성화!\n"
+                agentController = std::make_unique<AgentController>("..\\external\\llama.cpp\\models\\Expbox77\\gemma-3-12b-it-Ko-Reasoning-Q4_K_M-GGUF");
+                agentController.create();
             }
-            if (output이 mainMenu고 userSel이 exit이면) {
+            if (output.find("Main Menu") != std::string::npos && userSel == "4") {
                 std::cout << "Exit program.\n";
                 fileController.save(this->studentList);
-                running = false;
                 break;
             }
 
