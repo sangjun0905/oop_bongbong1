@@ -45,10 +45,12 @@ LLM::LLM(const std::string& model_path) {
         throw std::runtime_error(" error: failed to create the llama_context\n");
     }
 
+    // 다음 단어를 선택(샘플링)하는 규칙을 설정하는 부분
     auto sparams = llama_sampler_chain_default_params();
-    sparams.no_perf = false;
+
     smpl = llama_sampler_chain_init(sparams);
 
+     // 체인에 '가장 확률 높은 단어만 선택'하는 Greedy Search 규칙을 추가
     llama_sampler_chain_add(smpl, llama_sampler_init_greedy());
 
     std::cout << "Model and context loaded successfully.\n" << std::endl;
