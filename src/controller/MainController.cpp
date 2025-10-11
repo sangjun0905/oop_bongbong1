@@ -35,12 +35,8 @@ public:
 
         bool start = true;
         while (start) {
-            if (agentController.getFlag()) {
-                chat userSelect = agentController.getInput();
-            }  
-            else {
-                char userSelect = menuView.display();
-            }
+
+            char userSelect = menuView.display();
 
             switch (userSelect) {
                 case '1': {

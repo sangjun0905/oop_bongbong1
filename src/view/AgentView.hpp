@@ -5,8 +5,11 @@
 #include <string>
 
 class AgentView {
+
 public : 
-    std::string getdisplay();
+    
+    std::string display();
+    void printResult();
 };
 
 #endif
