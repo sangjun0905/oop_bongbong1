@@ -14,8 +14,8 @@ public:
     Controller(StudentList& stuList, View& vw) : studentList(stuList), view(vw) {}
     virtual ~Controller() = default;
     
-    virtual void display() {
-        view.display();
+    virtual std::string display() {
+        return view.display();
     }
 
     virtual std::unique_ptr<Controller> nextController(std::string) { return nullptr; }

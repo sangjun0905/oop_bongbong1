@@ -1,3 +1,15 @@
+#pragma once 
+
 #include "View.hpp"
 
-class SortSelectionView : View {};
+#include <string>
+
+class SortSelectView : public View{
+public:
+    std::string display() override;
+};
+
+class SortResultView : public View{
+public:
+    std::string display() override;
+};

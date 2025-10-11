@@ -16,8 +16,14 @@ public:
     SortByNameController(StudentList& stuList, SortResultView& sortResultView)
         : Controller(stuList, sortResultView) {};
     
-    void display() {
+    std::string display() {
         // 대충 소트하는 로직
+        auto& students = studentList.getAllStudents(); 
+        std::sort(students.begin(), students.end(),
+              [](const Student& a, const Student& b) {
+                  return std::string(a.getName()) < std::string(b.getName());
+              });
+        return view.display();
     }
     std::unique_ptr<Controller> nextController(std::string input = "") {
         std::unique_ptr<Controller> cur;
@@ -30,8 +36,14 @@ class SortByStudentIdController : Controller {
     SortByStudentIdController(StudentList& stuList, SortResultView& sortResultView)
         : Controller(stuList, sortResultView) {};
     
-    void display() {
+    std::string display() {
         // 대충 소트하는 로직
+        auto& students = studentList.getAllStudents();
+        std::sort(students.begin(), students.end(),
+              [](const Student& a, const Student& b) {
+                  return std::string(a.getStudentId()) < std::string(b.getStudentId());
+              });
+            return view.display();
     }
     std::unique_ptr<Controller> nextController(std::string input = "") {
         std::unique_ptr<Controller> cur;
@@ -44,8 +56,14 @@ class SortByBirthController : Controller {
     SortByBirthController(StudentList& stuList, SortResultView& sortResultView)
         : Controller(stuList, sortResultView) {};
     
-    void display() {
+    std::string display() {
         // 대충 소트하는 로직
+        auto& students = studentList.getAllStudents();
+        std::sort(students.begin(), students.end(),
+              [](const Student& a, const Student& b) {
+                  return a.getBirthYear() < b.getBirthYear();
+              });
+              return view.display();
     }
     std::unique_ptr<Controller> nextController(std::string input = "") {
         std::unique_ptr<Controller> cur;
@@ -58,8 +76,14 @@ class SortByDepartmentController : Controller {
     SortByDepartmentController(StudentList& stuList, SortResultView& sortResultView)
         : Controller(stuList, sortResultView) {};
     
-    void display() {
+    std::string display() {
         // 대충 소트하는 로직
+        auto& students = studentList.getAllStudents();
+        std::sort(students.begin(), students.end(),
+              [](const Student& a, const Student& b) {
+                  return std::string(a.getDepartment()) < std::string(b.getDepartment());
+              });
+        return view.display();
     }
     std::unique_ptr<Controller> nextController(std::string input = "") {
         std::unique_ptr<Controller> cur;

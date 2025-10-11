@@ -1,16 +1,19 @@
-#include <string>
+#pragma once 
+
+#include <string> 
 #include <iostream>
 
-class View {
-public:
-    std::string output{};
+class View { 
+public: 
 
-    View() {
-        output = "";
+    std::string output; 
+    
+    View() : output("") {} 
+    
+    virtual ~View() = default; 
+
+    virtual std::string display() { 
+        std::cout << output << std::endl;  
     }
-    virtual ~View() = default;
-    virtual std::string display() {
-        std::cout << output << std::endl;
-        return output;
-    }
+    
 };

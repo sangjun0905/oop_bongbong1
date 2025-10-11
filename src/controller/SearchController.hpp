@@ -1,7 +1,5 @@
-#ifndef SEARCHCONTROLLER_HPP
-#define SEARCHCONTROLLER_HPP
+#pragma once
 
-#include "Controller.hpp"
 #include "../view/SearchView.hpp"
 #include "../model/StudentList.hpp"
 #include "Controller.hpp"
@@ -41,8 +39,22 @@ class SearchNameController : public Controller {
 public:
     SearchNameController(StudentList& list, SearchNameView& sv) : studentList(list), view(sv) {}
     std::unique_ptr<Controller> nextController(std::string input) override {
+        StudentList searchedStudentList = new StudentList();
+        std::string data;
+        for (int i = 0; i < list.size(); i++)
+        {
         
-        return std::make_unique<class SearchResultView>(studentList, SearchResultView());
+        data = studentList.getStudent(i).getName();
+            if (data.find(keyword) != std::string::npos){
+                try{
+                searchedStudentList->addStudent(studentList.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }  
+            }
+        } 
+            
+        return std::make_unique<class SearchResultView>(studentList, SearchResultView(searchedStudentList));
     }
 private:
     SearchNameView& view;
@@ -51,8 +63,22 @@ class SearchStudentIdController : public Controller {
 public:
     SearchStudentIdController(StudentList& list, SearchStudentIdView& sv) : studentList(list), view(sv) {}
     std::unique_ptr<Controller> nextController(std::string input) override {
+        StudentList searchedStudentList = new StudentList();
+        std::string data;
         
-        return std::make_unique<class SearchResultView>(studentList, SearchResultView());
+        for (int i = 0; i < list.size(); i++)
+        {
+            data = studnetList.getStudent(i).getStudentId();
+            if (data.find(keyword) != std::string::npos){
+                try{
+                searchResult->addStudent(studentList.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+            }
+        }
+        
+        return std::make_unique<class SearchResultView>(studentList, SearchResultView(searchedStudentList));
     }
 private:
     SearchStudentIdView& view;
@@ -62,7 +88,22 @@ public:
     SearchAdmissionYearController(StudentList& list, SearchAdmissionYearView& sv) : studentList(list), view(sv) {}
     std::unique_ptr<Controller> nextController(std::string input) override {
         
-        return std::make_unique<class SearchResultView>(studentList, SearchResultView());
+        StudentList searchedStudentList = new StudentList();
+        std::string data;
+        
+        for (int i = 0; i < studentList.size(); i++)
+        {
+            data = list.getStudent(i).getAdmissionYear();
+            if (data.find(keyword) != std::string::npos){
+            try{
+                searchResult->addStudent(studentList.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+            }
+        }
+        
+        return std::make_unique<class SearchResultView>(studentList, SearchResultView(searchedStudentList));
     }
 private:
     SearchAdmissionYearView& view;
@@ -71,8 +112,22 @@ class SearchBirthYearController : public Controller {
 public:
     SearchBirthYearController(StudentList& list, SearchBirthYearView& sv) : studentList(list), view(sv) {}
     std::unique_ptr<Controller> nextController(std::string input) override {
+        StudentList searchedStudentList = new StudentList();
+        std::string data;
         
-        return std::make_unique<class SearchResultView>(studentList, SearchResultView());
+        for (int i = 0; i < studentList.size(); i++)
+        {
+            data = list.getStudent(i).getBirthYear();
+            if (data.find(keyword) != std::string::npos){
+            try{
+                searchResult->addStudent(studentList.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+            }
+        }
+        
+        return std::make_unique<class SearchResultView>(studentList, SearchResultView(searchedStudentList));
     }
 private:
     SearchBirthYearView& view;
@@ -81,8 +136,23 @@ class SearchDepartmentController : public Controller {
 public:
     SearchDepartmentController(StudentList& list, SearchDepartmentView& sv) : studentList(list), view(sv) {}
     std::unique_ptr<Controller> nextController(std::string input) override {
+        StudentList searchedStudentList = new StudentList();
+        std::string data;
         
-        return std::make_unique<class SearchResultView>(studentList, SearchResultView());
+        for (int i = 0; i < studentList.size(); i++)
+        {
+            data = list.getStudent(i).getDepartment();
+            if (data.find(keyword) != std::string::npos){
+            try{
+                searchResult->addStudent(studentList.getStudent(i));
+                }catch (const std::runtime_error& e) {
+                    std::cerr << e.what() << std::endl;
+                }   
+            }
+        }
+        
+        
+        return std::make_unique<class SearchResultView>(studentList, SearchResultView(searchedStudentList));
     }
 private:
     SearchDepartmentView& view;
@@ -91,7 +161,7 @@ class SearchResultController : public Controller {
 public:
     SearchResultController(StudentList& list, SearchResultView& sv) : Controller(list), view(sv) {}
     std::string display() {
-        return view.display(stuList);
+        return view.display();
     }
     std::unique_ptr<Controller> nextController(std::string) override {
         return std::make_unique<class MainMenuController>(studentList, MainMenuView());
@@ -99,5 +169,3 @@ public:
 private:
     SearchResultView& view;
 };
-
-#endif

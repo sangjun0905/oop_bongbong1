@@ -1,13 +1,10 @@
-#ifndef MAINMENUVIEW_HPP
-#define MAINMENUVIEW_HPP
+#pragma once 
+
+#include "View.hpp"
 
 #include <string>
 
-class MainMenuView {
+class MainMenuView :public View{
 public:
-    char display();
-private:
-    int check_input(const std::string& input);
+    std::string display() override;
 };
-
-#endif
