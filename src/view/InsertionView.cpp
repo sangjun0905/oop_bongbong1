@@ -4,7 +4,7 @@
 #include <limits>
 
 // Private validation methods
-int InsertionView::checkName(const std::string& inputName) {
+int UserInsertionView::checkName(const std::string& inputName) {
     if (inputName.empty() || inputName.length() > 15) {
         std::cout << "Error: Name must be between 1 and 15 characters." << std::endl;
         return 1;
@@ -58,7 +58,9 @@ int InsertionView::checkTel(const std::string& inputTel) {
 
 
 // Public methods
-void InsertionView::display() {
+void UserInsertionView::display() {
+    ~~
+
     std::cout << "--- Add New Student ---" << std::endl;
 }
 

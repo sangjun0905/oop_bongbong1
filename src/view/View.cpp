@@ -2,6 +2,7 @@
 #include <iostream>
 
 class View {
+public:
     std::string output;
 
     View() {
