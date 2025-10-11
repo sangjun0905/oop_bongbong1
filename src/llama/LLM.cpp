@@ -5,157 +5,140 @@
 #include <string>
 #include <algorithm>
 
-#define MAX_INPUT_TOKENS 5000
+
+// This code was written with a lot of reference to llama.cpp/examples/simple.cpp
+
 #define MAX_GENERATE_TOKENS 256
 
-void empty_log_callback(ggml_log_level level, const char * message, void * user_data) {
-    // 빈 콜백
+void empty_log_callback(ggml_log_level /*level*/, const char * /*message*/, void * /*user_data*/) {
+    // 아무것도 안함
 }
 
 LLM::LLM(const std::string& model_path) {
 
+
+    int n_predict = MAX_GENERATE_TOKENS; //생성할 최대 토큰 수
     llama_log_set(empty_log_callback, nullptr);
 
-    // ggml/llama 백엔드 초기화
-    llama_backend_init();
+    // llama 백엔드 로드
+    ggml_backend_load_all();
 
-    // 모델 로드
+    // 모델 로드 
+    // 파라미터 기본값 사용
     llama_model_params model_params = llama_model_default_params();
-    model_ = llama_model_load_from_file(model_path.c_str(), model_params);
-    if (model_ == nullptr) {
-        throw std::runtime_error(" Failed to load model from " + model_path);
+
+    //모델 파일 경로와 기본 파라미터로 모델 로드
+    model = llama_model_load_from_file(model_path.c_str(), model_params);
+    
+    if (model == nullptr) {
+        throw std::runtime_error("error: unable to load model\n");
     }
+    // tokenize the prompt
+
+    // find the number of tokens in the prompt
 
     // 컨텍스트 생성
-    n_ctx_ = MAX_INPUT_TOKENS; // 필요시 조정
-    llama_context_params ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = n_ctx_;
+    n_ctx_ = llama_model_n_ctx_train(model); 
 
-    ctx_ = llama_init_from_model(model_, ctx_params);
-    if (ctx_ == nullptr) {
-        throw std::runtime_error("Failed to create context");
+    llama_context_params ctx_params = llama_context_default_params();
+    // n_ctx is the context size
+    ctx_params.n_ctx = n_ctx_;
+    // enable performance counters
+    ctx_params.no_perf = false;
+
+    ctx = llama_init_from_model(model, ctx_params);
+    if (ctx == nullptr) {
+        throw std::runtime_error(" error: failed to create the llama_context\n");
     }
+
+    auto sparams = llama_sampler_chain_default_params();
+    sparams.no_perf = false;
+    smpl = llama_sampler_chain_init(sparams);
+
+    llama_sampler_chain_add(smpl, llama_sampler_init_greedy());
+
     std::cout << "Model and context loaded successfully.\n" << std::endl;
 }
 
 // 소멸자: 리소스 정리
 LLM::~LLM() {
-    if (ctx_)   llama_free(ctx_);
-    if (model_) llama_model_free(model_);
+    if (smpl)   llama_sampler_free(smpl);
+    if (ctx)  llama_free(ctx);
+    if (model) llama_model_free(model);
     llama_backend_free();
     std::cout << "LLama ended.\n\n" << std::endl;
 }
 
 // 간단한 Greedy 생성
 std::string LLM::generate(const std::string& prompt) {
-    const llama_vocab * vocab = llama_model_get_vocab(model_);
+
+    const llama_vocab * vocab = llama_model_get_vocab(model);
+
+    int n_predict = MAX_GENERATE_TOKENS; //생성할 최대 토큰 수
+    const int n_prompt = -llama_tokenize(vocab, prompt.c_str(), prompt.size(), NULL, 0, true, true);
 
     // 1) 토큰화 (vocab 사용)
-    std::vector<llama_token> tokens(prompt.size() + 10); // 여유 공간
-    int n_tokens = llama_tokenize(
-        vocab,
-        prompt.c_str(),
-        static_cast<int32_t>(prompt.size()),
-        tokens.data(),
-        static_cast<int32_t>(tokens.size()),
-        /*add_special*/ true,
-        /*parse_special*/ false);
-    if (n_tokens < 0) {
-        throw std::runtime_error("Tokenization failed.");
-    }
-    tokens.resize(n_tokens);
-    if (n_tokens == 0) {
-        // 빈 프롬프트 등으로 토큰이 0개라면 디코드를 수행할 수 없습니다.
-        return std::string();
+    std::vector<llama_token> prompt_tokens(n_prompt);
+
+    if (llama_tokenize(vocab, prompt.c_str(), prompt.size(), prompt_tokens.data(), prompt_tokens.size(), true, true) < 0) {
+        throw std::runtime_error("error: failed to tokenize the prompt\n");
     }
 
-    // 2) 메모리(KV 캐시) 초기화
-    llama_memory_clear(llama_get_memory(ctx_), /*data*/ true);
+    //2) 메모리(KV 캐시) 초기화 (추가)
+    llama_memory_clear(llama_get_memory(ctx), true);
 
-    // 3) 프롬프트 처리 배치 구성 및 디코드
-    llama_batch batch = llama_batch_init(n_tokens, /*embd*/ 0, /*n_seq_max*/ 1);
-    for (int i = 0; i < n_tokens; ++i) {
-        batch.token[i]     = tokens[i];
-        batch.pos[i]       = i;
-        batch.n_seq_id[i]  = 1;
-        batch.seq_id[i][0] = 0;
-        batch.logits[i]    = (i == n_tokens - 1) ? 1 : 0; // 마지막만 로짓 출력
-    }
+    // 3) 프롬프트 처리 배치 구성 및 디코드     
+    llama_batch batch = llama_batch_get_one(prompt_tokens.data(), prompt_tokens.size());
 
-    batch.n_tokens = n_tokens;
-
-    {
-        const int32_t ret = llama_decode(ctx_, batch);
-        if (ret != 0) {
-            llama_batch_free(batch);
-            throw std::runtime_error("llama_decode failed for prompt");
+    if (llama_model_has_encoder(model)) {
+        if (llama_encode(ctx, batch)) {
+            throw std::runtime_error("failed to eval\n");
         }
+
+        llama_token decoder_start_token_id = llama_model_decoder_start_token(model);
+        if (decoder_start_token_id == LLAMA_TOKEN_NULL) {
+            decoder_start_token_id = llama_vocab_bos(vocab);
+        }
+
+        batch = llama_batch_get_one(&decoder_start_token_id, 1);
     }
 
     // 4) 생성 루프 (Greedy)
-    std::string result;
-    int n_cur = n_tokens;
-    const int max_new_tokens = MAX_GENERATE_TOKENS; // 필요시 조정
-    const int32_t n_vocab = llama_vocab_n_tokens(vocab);
+    std::string result = "";
+    int n_decode = 0;
+    llama_token new_token_id;
 
-    while (n_cur < n_ctx_ && (n_cur - n_tokens) < max_new_tokens) {
-        // 마지막 디코드의 로짓 가져오기 (연속 배열, 행 0이 최근 출력)
-        float * logits = llama_get_logits(ctx_);
-        if (logits == nullptr || n_vocab <= 0) {
-            llama_batch_free(batch);
-            throw std::runtime_error("Failed to get logits");
+    for (int n_pos = 0; n_pos + batch.n_tokens < n_prompt + n_predict; ) {
+        // evaluate the current batch with the transformer model
+        if (llama_decode(ctx, batch)) {
+            throw std::runtime_error("failed to eval, return code %d\n");
         }
 
-        // Greedy 선택
-        int32_t new_token_id = static_cast<int32_t>(
-            std::max_element(logits, logits + n_vocab) - logits);
+        n_pos += batch.n_tokens;
 
-        // EOS면 종료
-        if (new_token_id == llama_vocab_eos(vocab)) {
-            break;
-        }
+        // sample the next token
+        {
+            new_token_id = llama_sampler_sample(smpl, ctx, -1);
 
-        // 토큰 -> 텍스트 조각 변환
-        char piece[64];
-        int n_chars = llama_token_to_piece(
-            vocab,
-            new_token_id,
-            piece,
-            static_cast<int32_t>(sizeof(piece)),
-            /*lstrip*/ 0,
-            /*special*/ false);
-        if (n_chars > 0) {
-            result.append(piece, n_chars);
-        }
-        /*
-         // 개행이 나오면 한 줄 답변으로 종료
-        if (result.find('\n') != std::string::npos) {
-            break;
-        }*/
+            // is it an end of generation?
+            if (llama_vocab_is_eog(vocab, new_token_id)) {
+                break;
+            }
 
-        // 다음 토큰 1개만 디코드 요청 (로짓 출력)
-        batch.n_tokens      = 1;
-        batch.token[0]      = new_token_id;
-        batch.pos[0]        = n_cur;
-        batch.n_seq_id[0]   = 1;
-        batch.seq_id[0][0]  = 0;
-        batch.logits[0]     = 1;
+            char buf[MAX_GENERATE_TOKENS];
+            int n = llama_token_to_piece(vocab, new_token_id, buf, sizeof(buf), 0, true);
+            if (n < 0) {
+                throw std::runtime_error("error: failed to convert token to piece\n");
+            }
+            std::string s(buf, n);
+            result += s;
 
-        ++n_cur;
+            // prepare the next batch with the sampled token
+            batch = llama_batch_get_one(&new_token_id, 1);
 
-        const int32_t ret = llama_decode(ctx_, batch);
-        if (ret != 0) {
-            llama_batch_free(batch);
-            throw std::runtime_error("llama_decode failed  for generation");
+            n_decode += 1;
         }
     }
 
-    llama_batch_free(batch);
-    /*
-    // 첫 줄만 반환해 간결하게
-    if (auto pos = result.find('\n'); pos != std::string::npos) {
-        result.erase(pos);
-    }
-    */
     return result;
 }
