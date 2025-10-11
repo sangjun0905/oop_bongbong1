@@ -10,8 +10,8 @@
 
 #define MAX_GENERATE_TOKENS 256
 
-void empty_log_callback(ggml_log_level /*level*/, const char * /*message*/, void * /*user_data*/) {
-    // 아무것도 안함
+void empty_log_callback(ggml_log_level level, const char * message, void * user_data) {
+    // 빈 콜백
 }
 
 LLM::LLM(const std::string& model_path) {
@@ -33,9 +33,6 @@ LLM::LLM(const std::string& model_path) {
     if (model == nullptr) {
         throw std::runtime_error("error: unable to load model\n");
     }
-    // tokenize the prompt
-
-    // find the number of tokens in the prompt
 
     // 컨텍스트 생성
     n_ctx_ = llama_model_n_ctx_train(model); 
@@ -69,7 +66,7 @@ LLM::~LLM() {
     std::cout << "LLama ended.\n\n" << std::endl;
 }
 
-// 간단한 Greedy 생성
+// 프롬프트를 받아 텍스트 생성
 std::string LLM::generate(const std::string& prompt) {
 
     const llama_vocab * vocab = llama_model_get_vocab(model);
@@ -84,7 +81,7 @@ std::string LLM::generate(const std::string& prompt) {
         throw std::runtime_error("error: failed to tokenize the prompt\n");
     }
 
-    //2) 메모리(KV 캐시) 초기화 (추가)
+    //2) 메모리(KV 캐시) 초기화
     llama_memory_clear(llama_get_memory(ctx), true);
 
     // 3) 프롬프트 처리 배치 구성 및 디코드     
@@ -103,7 +100,7 @@ std::string LLM::generate(const std::string& prompt) {
         batch = llama_batch_get_one(&decoder_start_token_id, 1);
     }
 
-    // 4) 생성 루프 (Greedy)
+    // 4) 생성 루프 
     std::string result = "";
     int n_decode = 0;
     llama_token new_token_id;
