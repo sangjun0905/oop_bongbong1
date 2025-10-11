@@ -28,38 +28,34 @@ std::string SearchNameView::display() {
 std::string SearchStudentIDView::display() {
     output = "Student ID Keyword: ";
     std::cout << output;
-    return "PROMPT:SEARCH_KEYWORD:STUDENT_ID";
+    return output;
 };
 
 std::string SearchAdmissionYearView::display() {
     output = "Admission Year Keyword: ";
     std::cout << output;
-    return "PROMPT:SEARCH_KEYWORD:ADMISSION_YEAR";
+    return output;
 };
 
 std::string SearchBirthYearView::display() {
     output = "Birth Year Keyword: ";
     std::cout << output;
-    return "PROMPT:SEARCH_KEYWORD:BIRTH_YEAR";
+    return output;
 };
 
 std::string SearchDepartmentView::display() {
     output = "Department Keyword: ";
     std::cout << output;
-    return "PROMPT:SEARCH_KEYWORD:DEPARTMENT";
+    return output;
 };
 
-SearchResultView SearchResultView::searchResultView(StudentList& list) {
-    return searchResultView(list);
-};
-
-std::string SearchResultView::display(StudentList& list) {
+std::string SearchResultView::display() {
     std::cout << "Result: " << std::endl;
 
     if (list.size() == 0)
     {
         std::cout << "NO RESULTS FOUND" << "\n\n";
-        return "RESULT:SEARCH:EMPTY";
+        return output;
     }
 
     std::cout << std::left << std::setw(15) << "Name" 
@@ -83,5 +79,5 @@ std::string SearchResultView::display(StudentList& list) {
             << std::setw(12) << student.getTel() << std::endl;    
     }
     std::cout << "\n";
-    return std::string("RESULT:SEARCH:COUNT=") + std::to_string(list.size());
+    return output;
 };

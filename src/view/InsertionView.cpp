@@ -8,7 +8,7 @@ std::string InsertionNameView::display() {
     output = "--- Add New Student ---\n"
             "Name: ";
     std::cout << output;
-    return "PROMPT:INSERT_NAME"; 
+    return output; 
 
 };
 
@@ -16,7 +16,7 @@ std::string InsertionStudentIDView::display() {
     
     output = "Student ID: ";
     std::cout << output; 
-    return "PROMPT:INSERT_STUDENT_ID(10_DIGITS)";
+    return output;
 
 };
 
@@ -24,19 +24,19 @@ std::string InsertionBirthYearView::display() {
     
     output = "Birth Year: ";
     std::cout << output;
-    return "PROMPT:INSERT_BIRTH_YEAR(YYYY)";
+    return output;
 };
 
 std::string InsertionDepartmentView::display() {
     
     output = "Department: ";
     std::cout << output;
-    return "PROMPT:INSERT_DEPARTMENT";
+    return output;
 };
 
 std::string InsertionTelView::display() {
     
     output = "Telephone: ";
     std::cout << output;
-    return "PROMPT:INSERT_TEL";
+    return output;
 };

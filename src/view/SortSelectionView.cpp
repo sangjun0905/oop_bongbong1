@@ -12,11 +12,11 @@ std::string SortSelectView::display() {
             "4. Sort by Department\n"
             "> ";
     std::cout << output; 
-    return "PROMPT:SORT_MENU(1..4)";
+    return output;
 };
 
 std::string SortResultView::display(){
     output = "Sorting completed";
     std::cout << output << std::endl;
-    return "RESULT:SORT:COMPLETED";
+    return output;
 };
