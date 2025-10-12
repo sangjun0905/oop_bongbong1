@@ -27,9 +27,10 @@ public:
         this->studentList = fileController.readFile(this->studentList);
 
 
-        Controller controller(studentList, MainMenuView());
+        std::unique_ptr<Controller> controller = std::make_unique<MainMenuController>(studentList, MainMenuView());
+        
         while (true) {
-            std::string output = controller.display();
+            std::string output = controller->display();
             std::string userSel;
 
             if (agentController && agentController->getFlag()) {
@@ -54,7 +55,7 @@ public:
                 break;
             }
 
-            controller = controller.nextController(userSel);
+            controller = controller->nextController(userSel);
         }
     }
 };
