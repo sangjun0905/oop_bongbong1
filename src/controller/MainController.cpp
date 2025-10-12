@@ -23,9 +23,12 @@ void MainController::run() {
         std::string userSel;
         if(llmController.getFlag())
         {
-            std::string prompt;
-            prompt += output + llmController.getUserInput();
-            userSel = llmController.generate(prompt);
+            userSel = llmController.generate(output);
+            if(userSel.find("exit")!=std::string::npos || llmController.getFlag()>10)
+            {
+                llmController.zeroFlag();
+                continue;
+            }
         }
         else{
             std::getline(std::cin, userSel);
