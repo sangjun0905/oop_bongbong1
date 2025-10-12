@@ -14,7 +14,6 @@ set(SRC_FILES
     src/controller/FileController.cpp
     src/model/Student.cpp
     src/model/StudentList.cpp
-    src/view/AgentView.cpp
     src/llama/LLM.cpp
 )
 

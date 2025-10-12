@@ -9,14 +9,14 @@
 
 class AgentController {
 private:
-    std::string model_path;
+    const std::string& model_path;
     std::unique_ptr<LLM> model; 
     int flag = 0;
     AgentView agentView;
 public:
     //before create method is executed, store the model path 
-    AgentController(std::string& path) {
-        this->model_path = path;
+    AgentController(const std::string& path) : model_path(path) {
+        flag = 0;
     };
 
     //after constructor is executed, create LLM instance
