@@ -2,10 +2,10 @@
 
 #include <memory>
 #include <string>
-
 #include "../model/StudentList.hpp"
 
 class Controller {
+    
 public:
     StudentList& studentList;
 

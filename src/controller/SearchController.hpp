@@ -58,6 +58,7 @@ public:
         return std::make_unique<MainMenuController>(studentList);
     }
 
+
 private:
     SearchResultView resultView_;
 };
