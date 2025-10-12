@@ -6,17 +6,12 @@
 #include "../model/StudentList.hpp"
 
 #include "../view/MainMenuView.hpp"
-#include "../view/InsertionView.hpp"
-#include "../view/SearchView.hpp"
-#include "../view/SortSelView.hpp"
-#include "../view/SortResultView.hpp"
+
 
 #include "Controller.hpp"
 #include "MainMenuController.hpp"
-#include "InsertionController.hpp"
-#include "SearchController.hpp"
-#include "SortController.hpp"
 #include "FileController.hpp"
+#include "AgentController.hpp"
 
 class MainController {
 private:
@@ -37,9 +32,9 @@ public:
             std::string output = controller.display();
             std::string userSel;
 
-            if (agentController.getFlag()) {
+            if (agentController && agentController->getFlag()) {
                 std::string prompt = output +  "\nUser input: " + userSel + "\n";
-                userSel = agentController.generate(prompt);
+                userSel = agentController->generate(prompt);
             }
             else if (output.find("Result") == std::string::npos){
                 // no input on Result View
@@ -49,9 +44,9 @@ public:
             }
 
             if (output.find("Main Menu") == std::string::npos && userSel == "5") {
-                std::cout << "\n>>> Agent 모드 활성화!\n"
+                std::cout << "\n>>> Agent mode on!\n";
                 agentController = std::make_unique<AgentController>("..\\external\\llama.cpp\\models\\Expbox77\\gemma-3-12b-it-Ko-Reasoning-Q4_K_M-GGUF");
-                agentController.create();
+                agentController->create();
             }
             if (output.find("Main Menu") != std::string::npos && userSel == "4") {
                 std::cout << "Exit program.\n";

@@ -14,7 +14,7 @@ public:
         this->model_path = path;
     };   
 
-    int getFlat() {
+    int getFlag() {
         return flag;
     };
 
