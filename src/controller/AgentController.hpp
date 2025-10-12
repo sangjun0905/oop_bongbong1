@@ -3,12 +3,14 @@
 #include <string>
 #include <iostream>
 #include "../llama/LLM.hpp"
+#include "../view/AgentView.hpp"
 
 class AgentController {
 private:
     std::string model_path;
     std::unique_ptr<LLM> model; 
     int flag = 0;
+    AgentView agentView;
 public:
     //before create method is executed, store the model path 
     AgentController(std::string& path) {
@@ -40,7 +42,7 @@ public:
 
     std::string getUserInput() {
         std::string input;
-        std::cout << "user: ";
+        input = agentView.display();
         return input;
     }
 

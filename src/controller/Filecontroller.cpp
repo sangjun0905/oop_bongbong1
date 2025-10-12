@@ -27,6 +27,8 @@ StudentList FileController::readFile(StudentList students)
         if (!createfile.is_open())
         {
             //cout << "failed to create(open) new file"<<endl;
+            fileView.setError("failed to create(open) new file");
+            fileView.display();
         }
         else {
             //cout << "succeed to create a new file" << endl;
@@ -44,6 +46,8 @@ StudentList FileController::readFile(StudentList students)
         split = lineSplit(line);
         if (split.empty()) {     //잘못된 학생 정보일때 
             //cout << "wrong information" <<endl;
+            fileView.setError("wrong information");
+            fileView.display();
             continue;
         }
         Student one(split[0].c_str(), split[1].c_str(), split[4].c_str(), stoi(split[2]), split[3].c_str());
@@ -135,7 +139,8 @@ void FileController::save(StudentList studentlist)
     //vector<Student> studvector = students.getAllStudents();
     if (!writeinfo.is_open())//파일 접근이 안될때
     {
-        //cout << "failed to open file" << endl; 
+        fileView.setError("failed to open file");
+        fileView.display();
         return;
     }
     for (int i = 0; i < studentlist.size(); i++)
