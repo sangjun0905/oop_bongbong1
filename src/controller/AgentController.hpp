@@ -1,15 +1,18 @@
 #pragma once
+#include <stdexcept>
 #include <iostream>
 #include <memory>
-#include <stdexcept>
 #include <string>
+#include <iostream>
 #include "../llama/LLM.hpp"
+#include "../view/AgentView.hpp"
 
 class AgentController {
 private:
     std::string model_path;
     std::unique_ptr<LLM> model; 
     int flag = 0;
+    AgentView agentView;
 public:
     //before create method is executed, store the model path 
     AgentController(std::string& path) {
@@ -31,7 +34,7 @@ public:
         return model->generate(prompt);
     };
 
-    int getFlat() {
+    int getFlag() {
         return flag;
     };
 
@@ -42,9 +45,8 @@ public:
     
 
     std::string getUserInput() {
-        std::cout << "user: " << std::flush;
         std::string input;
-        std::getline(std::cin, input);
+        input = agentView.display();
         return input;
     }
 

@@ -9,7 +9,7 @@ class AgentView {
 public : 
     
     std::string display();
-    void printResult();
+    void printResult(std::string result);
 };
 
 #endif
