@@ -105,6 +105,6 @@ public :
                 << std::setw(12) << student.getTel() << std::endl;    
         }
         std::cout << "\n";
-        return output + " Main";    
+        return "Search Result :\n" + output + " Main";    
     };
 };

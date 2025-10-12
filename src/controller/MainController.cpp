@@ -36,11 +36,13 @@ public:
         while (true) {
             std::string output = controller.display();
             std::string userSel;
-            std::cin >> userSel;
 
             if (agentController.getFlag()) {
                 std::string prompt = output +  "\nUser input: " + userSel + "\n";
                 userSel = agentController.generate(prompt);
+            }
+            else if (output.find("Result") == std::string::npos){
+                // no input on Result View
             }
             else {
                 std::cin >> userSel;
