@@ -29,7 +29,7 @@ void MainController::run() {
             else userSel.erase(pos + 1);
 
             std::cout << userSel << std::endl;
-            if(userSel.find("exit")!=std::string::npos || llmController.getFlag()>6)
+            if(userSel.find("exit")!=std::string::npos || llmController.getFlag()>8)
             {
                 llmController.zeroFlag();
                 continue;
