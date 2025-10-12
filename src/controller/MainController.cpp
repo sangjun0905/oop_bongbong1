@@ -24,7 +24,12 @@ void MainController::run() {
         if(llmController.getFlag())
         {
             userSel = llmController.generate(output);
-            if(userSel.find("exit")!=std::string::npos || llmController.getFlag()>10)
+            auto pos = userSel.find_last_not_of("\r\n");
+            if (pos == std::string::npos) userSel.clear();   // 전부 개행이면 빈 문자열
+            else userSel.erase(pos + 1);
+
+            std::cout << userSel << std::endl;
+            if(userSel.find("exit")!=std::string::npos || llmController.getFlag()>6)
             {
                 llmController.zeroFlag();
                 continue;
@@ -43,8 +48,12 @@ void MainController::run() {
         
         if(userSel == "5" && (output.find("Main Menu") != std::string::npos))
         {
-            std::cout<<"\n>>> Agent mode on!"<<endl;
-            llmController.create();
+            std::cout << "\n>>> Agent mode on!" << std::endl;
+            if (llmController.create()) {
+                llmController.setUserInput();
+            } else {
+                std::cout << ">>> Agent mode unavailable. Returning to manual input." << std::endl;
+            }
         }
 
         current = std::move(next);

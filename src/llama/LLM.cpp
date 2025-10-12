@@ -26,6 +26,8 @@ LLM::LLM(const std::string& model_path) {
     // 파라미터 기본값 사용
     llama_model_params model_params = llama_model_default_params();
 
+    model_params.use_mmap = true;
+
     //모델 파일 경로와 기본 파라미터로 모델 로드
     model = llama_model_load_from_file(model_path.c_str(), model_params);
     
@@ -34,10 +36,12 @@ LLM::LLM(const std::string& model_path) {
     }
 
     // 컨텍스트 생성
-    n_ctx_ = llama_model_n_ctx_train(model); 
+    n_ctx_ = 12288; 
 
     llama_context_params ctx_params = llama_context_default_params();
     // n_ctx is the context size
+
+    model_params.use_mmap = true;
     ctx_params.n_ctx = n_ctx_;
 
     ctx = llama_init_from_model(model, ctx_params);
