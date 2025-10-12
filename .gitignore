@@ -21,4 +21,9 @@ cmake_install.cmake
 Thumbs.db
 *.swp
 
+*.exe
+
 c_cpp_properties.json
+
+
+/terminal/
