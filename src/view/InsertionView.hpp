@@ -11,7 +11,7 @@ public:
                 "Name: ";
         std::cout << output;
         return output; 
-    };
+    }
 };
 
 class InsertionStudentIdView : public View{
@@ -20,7 +20,7 @@ public:
         output = "Student ID: ";
         std::cout << output; 
         return output;
-    };
+    }
 };
 
 class InsertionBirthYearView : public View{
@@ -29,7 +29,7 @@ public:
         output = "Birth Year: ";
         std::cout << output;
         return output;    
-    };
+    }
 };
 
 class InsertionDepartmentView : public View{
@@ -38,7 +38,7 @@ public:
         output = "Department: ";
         std::cout << output;
         return output;
-    };
+    }
 };
 
 class InsertionTelView : public View{
@@ -47,5 +47,5 @@ public:
         output = "Telephone: ";
         std::cout << output;
         return output + " Main";
-    };
+    }
 };

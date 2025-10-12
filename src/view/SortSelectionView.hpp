@@ -15,7 +15,7 @@ public:
         "> ";
     std::cout << output; 
     return output;
-    };
+    }
 };
 
 class SortResultView : public View{
@@ -24,5 +24,5 @@ public:
         output = "Sorting completed";
         std::cout << output << std::endl;
         return output + " Main";
-    };
+    }
 };

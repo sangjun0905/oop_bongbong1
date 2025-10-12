@@ -9,5 +9,5 @@ public:
         std::string output = "Invaild Input";
         std::cout << output << std::endl;
         return output;
-    };
+    }
 };

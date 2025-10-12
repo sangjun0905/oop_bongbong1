@@ -16,5 +16,5 @@ public:
                 "> ";
         std::cout << output;
         return output;    
-    };
+    }
 };

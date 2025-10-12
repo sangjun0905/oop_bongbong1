@@ -8,10 +8,7 @@
 
 class SearchSelectionView : public View { 
 public :
-    std::string display() override;
-
-    std::string SearchSelectionView::display() {
-        
+    std::string display() override {
     output = "--- Search ---\n"
             "1. Search by Name\n"
             "2. Search by Student ID\n"
@@ -23,7 +20,7 @@ public :
 
     std::cout << output;
     return output;
-}
+    }
 };
 
 class SearchNameView : public View { 
@@ -32,7 +29,7 @@ public :
         output = "Name Keyword: ";
         std::cout << output;
         return output;    
-    };
+    }
 };
 
 class SearchStudentIDView : public View { 
@@ -41,7 +38,7 @@ public :
         output = "Student ID Keyword: ";
         std::cout << output;
         return output;
-    };
+    }
 
 };
 
@@ -60,7 +57,7 @@ public :
         output = "Birth Year Keyword: ";
         std::cout << output;
         return output;
-    };
+    }
 };
 
 class SearchDepartmentView : public View { 
@@ -69,7 +66,7 @@ public :
         output = "Department Keyword: ";
         std::cout << output;
         return output;
-    };
+    }
 };
 
 class SearchResultView : public View {
@@ -80,8 +77,9 @@ public :
     std::string display() {
         if (list.size() == 0)
         {
-            std::cout << "NO RESULTS FOUND" << "\n\n";
-            return output;
+            output = "NO RESULTS FOUND";
+            std::cout << output << "\n\n";
+            return output + " Main";
         }
 
         std::cout << std::left << std::setw(15) << "Name" 
@@ -105,6 +103,9 @@ public :
                 << std::setw(12) << student.getTel() << std::endl;    
         }
         std::cout << "\n";
+
+        output = "Search completed";
+        std::cout << output << "\n\n";
         return output + " Main";    
-    };
+    }
 };
