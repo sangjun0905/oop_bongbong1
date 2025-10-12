@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "../model/Student.hpp"
 #include "../model/StudentList.hpp"
+#include "../view/FileView.hpp"
 
 
 using namespace std;
@@ -18,6 +19,7 @@ class FileController
 {
     string file;
     StudentList sortedStudentList;
+    FileView fileView;
 
 
 public:
