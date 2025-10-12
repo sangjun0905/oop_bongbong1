@@ -78,8 +78,6 @@ private :
 public :
     SearchResultView(StudentList ls) : list(ls) {};
     std::string display() {
-        std::cout << "Result: " << std::endl;
-
         if (list.size() == 0)
         {
             std::cout << "NO RESULTS FOUND" << "\n\n";
@@ -107,6 +105,6 @@ public :
                 << std::setw(12) << student.getTel() << std::endl;    
         }
         std::cout << "\n";
-        return output;    
+        return output + " Main";    
     };
 };

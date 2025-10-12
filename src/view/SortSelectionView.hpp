@@ -23,6 +23,6 @@ public:
     std::string display() override {
         output = "Sorting completed";
         std::cout << output << std::endl;
-        return output;
+        return output + " Main";
     };
 };

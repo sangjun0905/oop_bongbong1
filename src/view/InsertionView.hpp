@@ -14,7 +14,7 @@ public:
     };
 };
 
-class InsertionStudentIDView : public View{
+class InsertionStudentIdView : public View{
 public:
     std::string display() override {
         output = "Student ID: ";
@@ -46,6 +46,6 @@ public:
     std::string display() override {
         output = "Telephone: ";
         std::cout << output;
-        return output;
+        return output + " Main";
     };
 };
