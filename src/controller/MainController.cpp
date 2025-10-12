@@ -13,7 +13,7 @@ MainController::MainController(const std::string& fname) : filename(fname) {}
 void MainController::run() {
     FileController fileController(this->filename);
     this->studentList = fileController.readFile(this->studentList); 
-    const std::string filepath = "..\\external\\llama.cpp\\models\\gemma-3-12b-it-ko-reasoning-q4_k_m.gguf";
+    const std::string filepath = "../external/llama.cpp/models/gemma-3-12b-it-ko-reasoning-q4_k_m.gguf";
     AgentController llmController(filepath);
 
     std::unique_ptr<Controller> current = std::make_unique<MainMenuController>(studentList);
