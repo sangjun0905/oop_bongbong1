@@ -64,6 +64,19 @@ public:
 예시 시나리오(반드시 따를 것):
 
 [SCREEN]
+Name           StudentID   Department             Birth Year  Tel
+---------------------------------------------------------------------------
+Alice          1000000001  Computer Science       1995        9999
+<end_of_turn>
+[/SCREEN]
+<start_of_turn>user
+한 줄로 **값만** 출력하라.
+사용자 요청: 1000 학번 학생들 찾아줘
+<end_of_turn>
+<start_of_turn>model
+exit
+
+[SCREEN]
 NO RESULTS FOUND
 <end_of_turn>
 [/SCREEN]
@@ -80,7 +93,7 @@ Sorting completed
 [/SCREEN]
 <start_of_turn>user
 한 줄로 **값만** 출력하라.
-사용자 요청: 8888학번 학생들 찾아줘
+사용자 요청: 학번 순으로 정렬해줘
 <end_of_turn>
 <start_of_turn>model
 exit )";
