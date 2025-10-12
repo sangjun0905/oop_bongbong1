@@ -1,17 +1,23 @@
+#pragma once
+
+#include <memory>
+#include <string>
+
 #include "Controller.hpp"
+#include "../view/MainMenuView.hpp"
+#include "../view/SearchSelectionView.hpp"
+
+class SortSelectionController; // forward declare to avoid include cycle
 
 class MainMenuController : public Controller { 
-private:
-    MainMenuView& view;
-
 public:
-    MainMenuController(StudentList& list, MainMenuView& vw) : studentList(list), view(vw) {};
+    explicit MainMenuController(StudentList& list) : Controller(list) {}
 
-    std::unique_ptr<Controller> nextController(std::string input) override {
-        if (input == "1") return std::make_unique<class InsertionNameController>(studentList, InsertionNameView());
-        if (input == "2") return std::make_unique<class SearchSelectionController>(studentList, SearchSelectionView());
-        if (input == "3") return std::make_unique<class SortSelectionController>(studentList, SortSelecitonView());
-        
-        return std::make_unique<class this>(studentList, MainMenuView());
-    }
-}
+    std::string display() override { return view_.display(); }
+
+    std::unique_ptr<Controller> nextController(std::string input) override;
+
+private:
+    MainMenuView view_{};
+    SearchSelectionView searchSelView_{}; // placeholder for future search chain
+};

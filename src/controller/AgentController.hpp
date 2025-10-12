@@ -1,7 +1,8 @@
 #pragma once
-#include <memory>
-#include <string>
 #include <iostream>
+#include <memory>
+#include <stdexcept>
+#include <string>
 #include "../llama/LLM.hpp"
 
 class AgentController {
@@ -23,9 +24,11 @@ public:
     };   
 
     //after create method is executed, use generate method
-    std::string generate(std::string prompt) {
-        std::string output = model->generate(prompt);
-        return output;
+    std::string generate(const std::string& prompt) {
+        if (!model) {
+            throw std::logic_error("Agent model is not initialized. Call create() first.");
+        }
+        return model->generate(prompt);
     };
 
     int getFlat() {
@@ -39,8 +42,9 @@ public:
     
 
     std::string getUserInput() {
+        std::cout << "user: " << std::flush;
         std::string input;
-        std::cout << "user: ";
+        std::getline(std::cin, input);
         return input;
     }
 

@@ -1,6 +1,6 @@
 #include "AgentView.hpp"
 
-std::string display() {
+std::string AgentView::display() {
 
     std::string input;
     std::getline(std::cin, input);

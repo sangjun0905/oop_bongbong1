@@ -5,25 +5,23 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <utility>
 
-class SearchSelectionView : public View { 
-public :
-    std::string display() override;
+class SearchSelectionView : public View {
+public:
+    std::string display() override {
+        output = "--- Search ---\n"
+                 "1. Search by Name\n"
+                 "2. Search by Student ID\n"
+                 "3. Search by Admission Year\n"
+                 "4. Search by Birth Year\n"
+                 "5. Search by Department\n"
+                 "6. List All\n"
+                 "> ";
 
-    std::string SearchSelectionView::display() {
-        
-    output = "--- Search ---\n"
-            "1. Search by Name\n"
-            "2. Search by Student ID\n"
-            "3. Search by Admission Year\n"
-            "4. Search by Birth Year\n"
-            "5. Search by Department\n"
-            "6. List All\n"
-            "> ";
-
-    std::cout << output;
-    return output;
-}
+        std::cout << output;
+        return output;
+    }
 };
 
 class SearchNameView : public View { 
@@ -76,8 +74,8 @@ class SearchResultView : public View {
 private :
     StudentList list;
 public :
-    SearchResultView(StudentList ls) : list(ls) {};
-    std::string display() {
+    explicit SearchResultView(StudentList ls) : list(std::move(ls)) {}
+    std::string display() override {
         if (list.size() == 0)
         {
             std::cout << "NO RESULTS FOUND" << "\n\n";
@@ -105,6 +103,7 @@ public :
                 << std::setw(12) << student.getTel() << std::endl;    
         }
         std::cout << "\n";
-        return output + " Main";    
-    };
+        output = "Search completed";
+        return output;
+    }
 };

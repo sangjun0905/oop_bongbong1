@@ -9,17 +9,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC_FILES
     src/main.cpp
-    src/controller/FileController.cpp
-    src/controller/InsertionController.cpp
-    src/controller/SearchController.cpp
     src/controller/MainController.cpp
+    src/controller/MainMenuController.cpp
+    src/controller/FileController.cpp
     src/model/Student.cpp
     src/model/StudentList.cpp
-    src/view/InsertionView.cpp
-    src/view/SearchView.cpp
-    src/view/MainMenuView.cpp
-    src/view/SortView.cpp
-    src/controller/SortController.cpp
+    src/view/AgentView.cpp
     src/llama/LLM.cpp
 )
 

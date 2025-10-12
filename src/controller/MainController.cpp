@@ -1,61 +1,31 @@
-#pragma once
+#include "MainController.hpp"
+
 #include <iostream>
 #include <memory>
 #include <string>
 
-#include "../model/StudentList.hpp"
-
-#include "../view/MainMenuView.hpp"
-#include "../view/InsertionView.hpp"
-#include "../view/SearchView.hpp"
-#include "../view/SortSelView.hpp"
-#include "../view/SortResultView.hpp"
-
-#include "Controller.hpp"
-#include "MainMenuController.hpp"
-#include "InsertionController.hpp"
-#include "SearchController.hpp"
-#include "SortController.hpp"
 #include "FileController.hpp"
+#include "MainMenuController.hpp"
 
-class MainController {
-private:
-    StudentList studentList;
-    std::string filename;
+MainController::MainController(const std::string& fname) : filename(fname) {}
 
-public:
-    MainController(const std::string& fname) : filename(fname) {}
+void MainController::run() {
+    FileController fileController(this->filename);
+    this->studentList = fileController.readFile(this->studentList);
 
-    void run() {
-        FileController fileController(this->filename);
-        this->studentList = fileController.readFile(this->studentList);
+    std::unique_ptr<Controller> current = std::make_unique<MainMenuController>(studentList);
+    while (current) {
+        current->display();
 
+        std::string userSel;
+        std::getline(std::cin, userSel);
 
-        Controller controller(studentList, MainMenuView());
-        while (true) {
-            std::string output = controller.display();
-            
-            if (Agent 모드면) {
-                prompt = output + 유저 입력
-                userSel = llm.generate(prompt);
-            }
-            else {
-                std::string userSel;
-                std::cin << userSel;
-            }
-
-            if (output이 mainMenu고 userSel이 5번이면) {
-                llm 만들어요.
-                Agent 모드네요.
-            }
-            if (output이 mainMenu고 userSel이 exit이면) {
-                std::cout << "Exit program.\n";
-                fileController.save(this->studentList);
-                running = false;
-                break;
-            }
-
-            controller = controller.nextController(userSel);
+        auto next = current->nextController(userSel);
+        if (!next) {
+            std::cout << "exit program\n";
+            fileController.save(this->studentList);
+            break;
         }
+        current = std::move(next);
     }
-};
+}

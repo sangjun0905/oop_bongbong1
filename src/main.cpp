@@ -1,5 +1,5 @@
 #include <iostream>
-#include "controller/MainController.cpp"
+#include "controller/MainController.hpp"
 
 int main() {
     MainController mainController("../text.txt");

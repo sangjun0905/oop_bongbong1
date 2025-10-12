@@ -1,122 +1,108 @@
-#include <memory>
+#pragma once
 
-#include "../view/SortSelView.hpp"
-#include "../view/SortResultView.hpp"
+#include <memory>
+#include <algorithm>
+#include <string>
+
+#include "../view/SortSelectionView.hpp" // contains SortSelectView and SortResultView
 #include "../view/MainMenuView.hpp"
 
 #include "../model/StudentList.hpp"
 
 #include "Controller.hpp"
+#include "MainMenuController.hpp"
 
-class SortByNameController : Controller {
-private:
-    StudentList& studentList;
-    SortResultView& view;
+class SortByNameController : public Controller {
 public:
-    SortByNameController(StudentList& stuList, SortResultView& sortResultView)
-        : Controller(stuList, sortResultView) {};
-    
-    std::string display() {
-        // 대충 소트하는 로직
-        auto& students = studentList.getAllStudents(); 
-        std::sort(students.begin(), students.end(),
-              [](const Student& a, const Student& b) {
-                  return std::string(a.getName()) < std::string(b.getName());
-              });
-        return view.display();
-    }
-    std::unique_ptr<Controller> nextController(std::string input = "") {
-        std::unique_ptr<Controller> cur;
-        cur = std::make_unique<MainMenuController>(stuList, MainMenuView());
-        return cur;
-    }
-};
+    explicit SortByNameController(StudentList& list) : Controller(list) {}
 
-class SortByStudentIdController : Controller {
-    SortByStudentIdController(StudentList& stuList, SortResultView& sortResultView)
-        : Controller(stuList, sortResultView) {};
-    
-    std::string display() {
-        // 대충 소트하는 로직
+    std::string display() override {
         auto& students = studentList.getAllStudents();
         std::sort(students.begin(), students.end(),
-              [](const Student& a, const Student& b) {
-                  return std::string(a.getStudentId()) < std::string(b.getStudentId());
-              });
-            return view.display();
+                  [](const Student& a, const Student& b) {
+                      return std::string(a.getName()) < std::string(b.getName());
+                  });
+        return resultView_.display();
     }
-    std::unique_ptr<Controller> nextController(std::string input = "") {
-        std::unique_ptr<Controller> cur;
-        cur = std::make_unique<MainMenuController>(stuList, MainMenuView());
-        return cur;
+    std::unique_ptr<Controller> nextController(std::string /*input*/ = "") override {
+        // After showing sorted result, go back to main menu
+        return std::make_unique<MainMenuController>(studentList);
     }
+private:
+    SortResultView resultView_{};
 };
 
-class SortByBirthController : Controller {
-    SortByBirthController(StudentList& stuList, SortResultView& sortResultView)
-        : Controller(stuList, sortResultView) {};
-    
-    std::string display() {
-        // 대충 소트하는 로직
+class SortByStudentIdController : public Controller {
+public:
+    explicit SortByStudentIdController(StudentList& list) : Controller(list) {}
+
+    std::string display() override {
         auto& students = studentList.getAllStudents();
         std::sort(students.begin(), students.end(),
-              [](const Student& a, const Student& b) {
-                  return a.getBirthYear() < b.getBirthYear();
-              });
-              return view.display();
+                  [](const Student& a, const Student& b) {
+                      return std::string(a.getStudentId()) < std::string(b.getStudentId());
+                  });
+        return resultView_.display();
     }
-    std::unique_ptr<Controller> nextController(std::string input = "") {
-        std::unique_ptr<Controller> cur;
-        cur = std::make_unique<MainMenuController>(stuList, MainMenuView());
-        return cur;
+    std::unique_ptr<Controller> nextController(std::string /*input*/ = "") override {
+        return std::make_unique<MainMenuController>(studentList);
     }
+private:
+    SortResultView resultView_{};
 };
 
-class SortByDepartmentController : Controller {
-    SortByDepartmentController(StudentList& stuList, SortResultView& sortResultView)
-        : Controller(stuList, sortResultView) {};
-    
-    std::string display() {
-        // 대충 소트하는 로직
+class SortByBirthController : public Controller {
+public:
+    explicit SortByBirthController(StudentList& list) : Controller(list) {}
+
+    std::string display() override {
         auto& students = studentList.getAllStudents();
         std::sort(students.begin(), students.end(),
-              [](const Student& a, const Student& b) {
-                  return std::string(a.getDepartment()) < std::string(b.getDepartment());
-              });
-        return view.display();
+                  [](const Student& a, const Student& b) {
+                      return a.getBirthYear() < b.getBirthYear();
+                  });
+        return resultView_.display();
     }
-    std::unique_ptr<Controller> nextController(std::string input = "") {
-        std::unique_ptr<Controller> cur;
-        cur = std::make_unique<MainMenuController>(stuList, MainMenuView());
-        return cur;
+    std::unique_ptr<Controller> nextController(std::string /*input*/ = "") override {
+        return std::make_unique<MainMenuController>(studentList);
     }
+private:
+    SortResultView resultView_{};
+};
+
+class SortByDepartmentController : public Controller {
+public:
+    explicit SortByDepartmentController(StudentList& list) : Controller(list) {}
+
+    std::string display() override {
+        auto& students = studentList.getAllStudents();
+        std::sort(students.begin(), students.end(),
+                  [](const Student& a, const Student& b) {
+                      return std::string(a.getDepartment()) < std::string(b.getDepartment());
+                  });
+        return resultView_.display();
+    }
+    std::unique_ptr<Controller> nextController(std::string /*input*/ = "") override {
+        return std::make_unique<MainMenuController>(studentList);
+    }
+private:
+    SortResultView resultView_{};
 };
 
 class SortSelectionController : public Controller {
-private:
-    StudentList& studentList;
-    SortSelectionView& view;
 public:
-    SortSelectionController(StudentList& stuList, SortSelectionView& sortSelView)
-        : Controller(stuList, sortSelView) {};
-    
-    std::unique_ptr<Controller> nextController(std::string input) {
-        std::unique_ptr<Controller> cur;
-        if (input == "1") {
-            cur = std::make_unique<SortByNameController>(stuList, SortResultView());    
-        }
-        else if (input == "2") {
-            cur = std::make_unique<SortByStudentIdController>(stuList, SortResultView());    
-        }
-        else if (input == "3") {
-            cur = std::make_unique<SortByBirthController>(stuList, SortResultView());
-        }
-        else if (input == "4") {
-            cur = std::make_unique<SortByDepartmentController>(stuList, SortResultView());    
-        }
-        else {
-            cur = std::make_unique<this>(stuList, SortErrorView());
-        }
-        return cur;
-    };
+    explicit SortSelectionController(StudentList& list) : Controller(list) {}
+
+    std::string display() override { return selectionView_.display(); }
+
+    std::unique_ptr<Controller> nextController(std::string input) override {
+        if (input == "1") return std::make_unique<SortByNameController>(studentList);
+        if (input == "2") return std::make_unique<SortByStudentIdController>(studentList);
+        if (input == "3") return std::make_unique<SortByBirthController>(studentList);
+        if (input == "4") return std::make_unique<SortByDepartmentController>(studentList);
+        // invalid -> remain in selection
+        return std::make_unique<SortSelectionController>(studentList);
+    }
+private:
+    SortSelectView selectionView_{};
 };

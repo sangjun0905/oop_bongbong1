@@ -8,19 +8,27 @@
 #include "Controller.hpp"
 #include "../model/StudentList.hpp"
 #include "../view/InsertionView.hpp"
+#include "MainMenuController.hpp"
 
 // Step 1: Name
 class InsertionStudentIDController; // fwd
 
 class InsertionNameController : public Controller {
 public:
-    explicit InsertionNameController(StudentList& list, InsertionNameView& view)
-        : stdentList(list),  {}
+    // Construct with default internal view
+    explicit InsertionNameController(StudentList& list)
+        : Controller(list) {}
+
+    // Allow construction with a provided view instance (e.g., InsertionNameView())
+    InsertionNameController(StudentList& list, InsertionNameView vw)
+        : Controller(list), nameView_(std::move(vw)) {}
+
+    std::string display() override { return nameView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string input) override;
 
 private:
-    InsertionNameView view;
+    InsertionNameView nameView_{};
 };
 
 // Step 2: Student ID
@@ -31,13 +39,13 @@ public:
     InsertionStudentIDController(StudentList& list, std::string name)
         : Controller(list), name_(std::move(name)) {}
 
-    void display() override { idView_.display(); }
+    std::string display() override { return idView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string input) override;
 
 private:
     std::string name_;
-    InsertionStudentIDView idView_{};
+    InsertionStudentIdView idView_{};
 };
 
 // Step 3: Birth Year
@@ -48,7 +56,7 @@ public:
     InsertionBirthYearController(StudentList& list, std::string name, std::string studentId)
         : Controller(list), name_(std::move(name)), id_(std::move(studentId)) {}
 
-    void display() override { birthView_.display(); }
+    std::string display() override { return birthView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string input) override;
 
@@ -66,7 +74,7 @@ public:
     InsertionDepartmentController(StudentList& list, std::string name, std::string studentId, std::string birth)
         : Controller(list), name_(std::move(name)), id_(std::move(studentId)), birth_(std::move(birth)) {}
 
-    void display() override { deptView_.display(); }
+    std::string display() override { return deptView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string input) override;
 
@@ -83,7 +91,7 @@ public:
     InsertionTelController(StudentList& list, std::string name, std::string studentId, std::string birth, std::string dept)
         : Controller(list), name_(std::move(name)), id_(std::move(studentId)), birth_(std::move(birth)), dept_(std::move(dept)) {}
 
-    void display() override { telView_.display(); }
+    std::string display() override { return telView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string input) override;
 
@@ -103,7 +111,10 @@ inline std::unique_ptr<Controller> InsertionNameController::nextController(std::
 }
 
 inline std::unique_ptr<Controller> InsertionStudentIDController::nextController(std::string input) {
-    // input is Student ID
+    if (input.empty()) {
+        std::cerr << "Student ID cannot be empty" << std::endl;
+        return std::make_unique<InsertionStudentIDController>(studentList, name_);
+    }
     return std::make_unique<InsertionBirthYearController>(studentList, std::move(name_), std::move(input));
 }
 
@@ -123,9 +134,8 @@ inline std::unique_ptr<Controller> InsertionTelController::nextController(std::s
         studentList.addStudent(name_, id_, input, birth_, dept_);
     } catch (const std::runtime_error& e) {
         // Duplicate ID or other rule; surface error and stay on this step
-        // Returning nullptr keeps current controller; caller may re-display and retry
         std::cerr << e.what() << std::endl;
-        return nullptr;
+        return std::make_unique<InsertionTelController>(studentList, name_, id_, birth_, dept_);
     }
-    return nullptr; // insertion complete; caller can navigate back to menu
+    return std::make_unique<MainMenuController>(studentList);
 }
