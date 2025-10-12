@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <iostream>
+#include <utility>
 #include "../llama/LLM.hpp"
 #include "../view/AgentView.hpp"
 
@@ -15,9 +15,7 @@ private:
     AgentView agentView;
 public:
     //before create method is executed, store the model path 
-    AgentController(std::string& path) {
-        this->model_path = path;
-    };
+    AgentController(std::string path) : model_path(std::move(path)) {};
 
     //after constructor is executed, create LLM instance
     void create()
