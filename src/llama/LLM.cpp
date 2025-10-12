@@ -53,7 +53,7 @@ LLM::LLM(const std::string& model_path) {
      // 체인에 '가장 확률 높은 단어만 선택'하는 Greedy Search 규칙을 추가
     llama_sampler_chain_add(smpl, llama_sampler_init_greedy());
 
-    std::cout << "Model and context loaded successfully.\n" << std::endl;
+    std::cout << "Model loaded successfully." << std::endl;
 }
 
 // 소멸자: 리소스 정리
