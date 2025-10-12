@@ -55,8 +55,10 @@ public:
     std::string display() override { return resultView_.display(); }
 
     std::unique_ptr<Controller> nextController(std::string /*input*/) override {
-        return std::make_unique<SearchSelectionController>(studentList);
+        
+        return std::make_unique<MainMenuController>(studentList);
     }
+
 
 private:
     SearchResultView resultView_;

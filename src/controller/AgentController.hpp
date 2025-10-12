@@ -7,7 +7,6 @@
 #include <sstream>
 #include <fstream>
 #include "../llama/LLM.hpp"
-#include "../view/AgentView.hpp"
 
 class AgentController {
 private:
@@ -16,7 +15,6 @@ private:
     std::string appDescription;
     std::unique_ptr<LLM> model; 
     int flag;
-    AgentView agentView;
 public:
     //before create method is executed, store the model path 
     AgentController(std::string path) : model_path(std::move(path)), flag(0) {}
@@ -55,7 +53,7 @@ public:
 - 검색 키워드: Name `^[A-Za-z]{1,15}$` / StudentID `^\d{1,10}$` / Admission `^\d{4}$` / Birth `^\d{4}$` / Department `^[A-Za-z]{1,23}$`
 오류/재입력 규칙:
 - `Try again!` 또는 `Error:` 직후에는 **같은 단계**를 위 정규식에 맞춰 **다시 1줄**만 출력.
-- `Error : Already inserted`가 보이면 해당 삽입은 **종료**. 메인 메뉴로 돌아온 뒤에만 값을 입력.
+- `Error : Already inserted`가 보이면 해당 삽입은 **종료**. 메인 메뉴로 돌아온 뒤에만 값을 입력.1ㄷ
 금지 목록:
 - 백틱, 따옴표(' "), 레이블(Name:, Answer: 등), 불필요한 공백, 2개 이상 줄바꿈, 이모지, 마크다운.)";
 
