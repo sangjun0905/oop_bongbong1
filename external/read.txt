@@ -1,8 +1,13 @@
-1. move to external dir(cd external)
+1. move to external dir
+(cd external)
 
-2. git clone https://github.com/ggml-org/llama.cpp
+2. download llama.cpp to external folder
+instruction: git clone https://github.com/ggml-org/llama.cpp
 
 3. download model's .gguf file to external/llama.cpp/models folder
 
-4. modelpath = "..\\external\\llama.cpp\\models\\(name of gguf file)"
-                "../external/llama.cpp//models/(name of gguf file)"
+4. set modelpath in your program 
+
+    "..\\external\\llama.cpp\\models\\(name of gguf file)"
+                
+    "../external/llama.cpp//models/(name of gguf file)"
