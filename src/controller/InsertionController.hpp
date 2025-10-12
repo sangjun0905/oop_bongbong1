@@ -107,35 +107,73 @@ private:
 
 inline std::unique_ptr<Controller> InsertionNameController::nextController(std::string input) {
     // input is Name
+    if (input.empty()) {
+        std::cerr << "Student Name cannot be empty" << std::endl;
+        return std::make_unique<InsertionNameController>(studentList);
+    }
+    if (input.length() > 15) {
+        std::cout << "Error: Name must be between 1 and 15 characters." << std::endl;
+        return std::make_unique<InsertionNameController>(studentList);
+    }
     return std::make_unique<InsertionStudentIDController>(studentList, std::move(input));
 }
 
 inline std::unique_ptr<Controller> InsertionStudentIDController::nextController(std::string input) {
     if (input.empty()) {
         std::cerr << "Student ID cannot be empty" << std::endl;
-        return std::make_unique<InsertionStudentIDController>(studentList, name_);
+        return std::make_unique<InsertionStudentIDController>(studentList, std::move(input));
     }
+    if (input.length() != 10) {
+        std::cout << "Error: Student ID must be 10 characters." << std::endl;
+        return std::make_unique<InsertionStudentIDController>(studentList, std::move(input));
+    }
+    for (char const &c : input) {
+        if (std::isdigit(c) == 0) {
+            std::cout << "Error: Student ID must only contain digits." << std::endl;
+            return std::make_unique<InsertionStudentIDController>(studentList, std::move(input));
+        }
+    }
+    
     return std::make_unique<InsertionBirthYearController>(studentList, std::move(name_), std::move(input));
 }
 
 inline std::unique_ptr<Controller> InsertionBirthYearController::nextController(std::string input) {
     // input is Birth Year (string, e.g., "2001")
+    if (input.length() != 4) {
+        std::cout << "Error: Birth year must be 4 digits." << std::endl;
+        return std::make_unique<InsertionBirthYearController>(studentList, std::move(name_), std::move(input));
+    }
+    for (char const &c : input) {
+        if (std::isdigit(c) == 0) {
+            std::cout << "Error: Birth year must only contain digits." << std::endl;
+            return std::make_unique<InsertionBirthYearController>(studentList, std::move(name_), std::move(input));
+        }
+    }
     return std::make_unique<InsertionDepartmentController>(studentList, std::move(name_), std::move(id_), std::move(input));
 }
 
 inline std::unique_ptr<Controller> InsertionDepartmentController::nextController(std::string input) {
     // input is Department
+    if (input.empty() || input.length() > 23) {
+        std::cout << "Error: Department name must be between 1 and 23 characters." << std::endl;
+        return std::make_unique<InsertionDepartmentController>(studentList, std::move(name_), std::move(id_), std::move(input));
+
+    }
     return std::make_unique<InsertionTelController>(studentList, std::move(name_), std::move(id_), std::move(birth_), std::move(input));
 }
 
 inline std::unique_ptr<Controller> InsertionTelController::nextController(std::string input) {
     // input is Tel; finalize insertion
+    if (input.empty() || input.length() > 12) {
+        std::cout << "Error: Telephone number must be between 1 and 12 characters." << std::endl;
+        return std::make_unique<InsertionTelController>(studentList, std::move(name_), std::move(id_), std::move(birth_), std::move(input));
+    }
     try {
         studentList.addStudent(name_, id_, input, birth_, dept_);
     } catch (const std::runtime_error& e) {
         // Duplicate ID or other rule; surface error and stay on this step
         std::cerr << e.what() << std::endl;
-        return std::make_unique<InsertionTelController>(studentList, name_, id_, birth_, dept_);
+        return std::make_unique<InsertionNameController>(studentList);
     }
     return std::make_unique<MainMenuController>(studentList);
 }
