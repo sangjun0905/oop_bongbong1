@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class SortSelectView : public View{
+class SortSelectionView : public View{
 public:
     std::string display() override {
     output = " --- Sorting Option ---\n"
